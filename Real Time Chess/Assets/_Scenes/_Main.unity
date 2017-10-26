@@ -137,17 +137,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pieces:
   - {fileID: 1247013989669632, guid: 4f8d4c0e126de0d408c7c8ebbf406125, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1607802204361016, guid: 07f75d58ed3b52348af8bb692f211050, type: 2}
+  - {fileID: 1807907801454376, guid: 69d89f17d34575742a2586d8a62df15c, type: 2}
+  - {fileID: 1029153640552472, guid: 012a5ea3c3aea2144bb85e832e2926f6, type: 2}
+  - {fileID: 1956734341715308, guid: d3355e1e9fc986c4ea63828d0dd8288a, type: 2}
+  - {fileID: 1641864258537116, guid: 628a4c630fe167d4899deb7fe01cf276, type: 2}
+  - {fileID: 1548261642699486, guid: 0492d1730cb2b2542acfd8867d46c76b, type: 2}
+  - {fileID: 1826773569338502, guid: ca7060e4fc2e5f145bc47003d8f029f2, type: 2}
+  - {fileID: 1104188116254998, guid: 4b6161d55c6c3044da07c69c8a9a0209, type: 2}
+  - {fileID: 1084797252384218, guid: 6bd90558452bca14192b96086ee73166, type: 2}
+  - {fileID: 1306694065567690, guid: e77814ce7e0b268409b7bb42faab0551, type: 2}
+  - {fileID: 1426884270523002, guid: 393a208153d85df4dbd4a3692d944f7c, type: 2}
+  activePieces: []
 --- !u!4 &63900009
 Transform:
   m_ObjectHideFlags: 0
