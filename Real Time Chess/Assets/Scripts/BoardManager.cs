@@ -18,13 +18,6 @@ public class BoardManager : MonoBehaviour
     private int selectionX = -1;
     private int selectionY = -1;
 
-    //private void Awake()
-    //{
-    //    GameObject boardObject = new GameObject("board");
-    //    boardObject.transform.parent = transform;
-    //    board = boardObject.AddComponent<Board>();
-    //}
-
     // Use this for initialization
     void Start ()
     {
@@ -114,7 +107,6 @@ public class BoardManager : MonoBehaviour
         {
             spawnPiece(5, getTileCenter(i, 1));
         }
-        
 
         // Spawn Black pieces
         spawnPiece(6, getTileCenter(3, 7)); // King
