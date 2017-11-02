@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
+    // Array representing the board and locations of the pieces
+    public ChessPiece[,] chessBoard { set; get; }
+
+    // Variable to hold the currently selected piece
+    private ChessPiece selectedPiece;
+
     // Width of each tile and offset to center of tile
     private const float tileWidth = 1.0f;
     private const float tileOffset = 0.5f;
@@ -29,7 +35,42 @@ public class BoardManager : MonoBehaviour
     {
         updateSelection();
         drawChessBoard();
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (selectionX >= 0 && selectionY >= 0)
+            {
+                if (selectedPiece == null)
+                {
+                    selectPiece(selectionX, selectionY);
+                } else {
+                    movePiece(selectionX, selectionY);
+                }
+            }
+        }
 	}
+
+    private void selectPiece(int x, int y)
+    {
+        if (chessBoard[x, y] == null)
+        {
+            return;
+        }
+
+        selectedPiece = chessBoard[x, y];
+    }
+
+    private void movePiece(int x, int y)
+    {
+        if (selectedPiece.isMovePossible(x, y))
+        {
+            chessBoard[selectedPiece.currentX, selectedPiece.currentY] = null;
+            selectedPiece.transform.position = getTileCenter(x, y);
+            chessBoard[x, y] = selectedPiece;
+        }
+
+        selectedPiece = null;
+    }
 
     /// <summary>
     /// Updates the currently selected tile
@@ -79,9 +120,11 @@ public class BoardManager : MonoBehaviour
     /// <summary>
     /// Spawn a chess piece
     /// </summary>
-    private void spawnPiece (int index, Vector2 position)
+    private void spawnPiece (int index, int x, int y)
     {
-        GameObject chessPiece = Instantiate(pieces[index], position, Quaternion.identity) as GameObject;
+        GameObject chessPiece = Instantiate(pieces[index], getTileCenter(x, y), Quaternion.identity) as GameObject;
+        chessBoard[x, y] = chessPiece.GetComponent<ChessPiece>();
+        chessBoard[x, y].setPosition(x, y);
         activePieces.Add(chessPiece);
     }
 
@@ -91,37 +134,38 @@ public class BoardManager : MonoBehaviour
     private void spawnAllPieces()
     {
         activePieces = new List<GameObject>();
+        chessBoard = new ChessPiece[8, 8];
 
         // Spawn White pieces
-        spawnPiece(0, getTileCenter(4, 0)); // King
-        spawnPiece(1, getTileCenter(3, 0)); // Queen
-        spawnPiece(2, getTileCenter(0, 0)); // Rook 1
-        spawnPiece(2, getTileCenter(7, 0)); // Rook 2
-        spawnPiece(3, getTileCenter(1, 0)); // Knight 1
-        spawnPiece(3, getTileCenter(6, 0)); // Knight 2
-        spawnPiece(4, getTileCenter(2, 0)); // Bishop 1
-        spawnPiece(4, getTileCenter(5, 0)); // Bishop 2
+        spawnPiece(0, 4, 0); // King
+        spawnPiece(1, 3, 0); // Queen
+        spawnPiece(2, 0, 0); // Rook 1
+        spawnPiece(2, 7, 0); // Rook 2
+        spawnPiece(3, 1, 0); // Knight 1
+        spawnPiece(3, 6, 0); // Knight 2
+        spawnPiece(4, 2, 0); // Bishop 1
+        spawnPiece(4, 5, 0); // Bishop 2
 
         // Pawns
         for (int i = 0; i < 8; i++)
         {
-            spawnPiece(5, getTileCenter(i, 1));
+            spawnPiece(5, i, 1);
         }
 
         // Spawn Black pieces
-        spawnPiece(6, getTileCenter(3, 7)); // King
-        spawnPiece(7, getTileCenter(4, 7)); // Queen
-        spawnPiece(8, getTileCenter(0, 7)); // Rook 1
-        spawnPiece(8, getTileCenter(7, 7)); // Rook 2
-        spawnPiece(9, getTileCenter(1, 7)); // Knight 1
-        spawnPiece(9, getTileCenter(6, 7)); // Knight 2
-        spawnPiece(10, getTileCenter(2, 7)); // Bishop 1
-        spawnPiece(10, getTileCenter(5, 7)); // Bishop 2
+        spawnPiece(6, 3, 7); // King
+        spawnPiece(7, 4, 7); // Queen
+        spawnPiece(8, 0, 7); // Rook 1
+        spawnPiece(8, 7, 7); // Rook 2
+        spawnPiece(9, 1, 7); // Knight 1
+        spawnPiece(9, 6, 7); // Knight 2
+        spawnPiece(10, 2, 7); // Bishop 1
+        spawnPiece(10, 5, 7); // Bishop 2
 
         // Pawns
         for (int i = 0; i < 8; i++)
         {
-            spawnPiece(11, getTileCenter(i, 6));
+            spawnPiece(11, i, 6);
         }
     }
 
