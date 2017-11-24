@@ -14,7 +14,7 @@ public abstract class ChessPiece : MonoBehaviour
         currentY = y;
     }
 
-    public virtual bool isMovePossible(int x, int y)
+    public virtual bool isMovePossible(int x, int y, ChessPiece target)
     {
         return true;
     }

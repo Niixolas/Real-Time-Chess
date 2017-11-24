@@ -62,7 +62,7 @@ public class BoardManager : MonoBehaviour
 
     private void movePiece(int x, int y)
     {
-        if (selectedPiece.isMovePossible(x, y))
+        if (selectedPiece.isMovePossible(x, y, chessBoard[x,y]))
         {
             chessBoard[selectedPiece.currentX, selectedPiece.currentY] = null;
             selectedPiece.transform.position = getTileCenter(x, y);
