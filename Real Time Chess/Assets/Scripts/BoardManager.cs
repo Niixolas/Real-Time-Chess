@@ -20,6 +20,9 @@ public class BoardManager : MonoBehaviour
     // List containing currently active pieces
     public List<GameObject> activePieces;
 
+    // Selector Box
+    public GameObject blueSelector;
+
     // Currently selected tile. No selection provides -1.
     private int selectionX = -1;
     private int selectionY = -1;
@@ -88,6 +91,7 @@ public class BoardManager : MonoBehaviour
         {
             selectionX = (int)(hit.point.x);
             selectionY = (int)(hit.point.y);
+            blueSelector.transform.position = getTileCenter(selectionX, selectionY);
         }
         else
         {
