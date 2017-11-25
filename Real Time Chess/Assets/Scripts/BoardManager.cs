@@ -66,6 +66,7 @@ public class BoardManager : MonoBehaviour
         {
             chessBoard[selectedPiece.currentX, selectedPiece.currentY] = null;
             selectedPiece.transform.position = getTileCenter(x, y);
+            selectedPiece.setPosition(x, y);
             chessBoard[x, y] = selectedPiece;
         }
 
@@ -100,6 +101,8 @@ public class BoardManager : MonoBehaviour
     /// </summary>
     private void drawChessBoard ()
     {
+
+        // For debugging - Mark on screen the chessboard grid
         for (int i = 0; i <= 8; i++)
         {
             Vector2 lineWidth = Vector2.right * 8;
@@ -110,6 +113,20 @@ public class BoardManager : MonoBehaviour
             Debug.DrawLine(startV, startV + lineHeight, Color.blue);
         }
 
+        // For debugging - Mark on screen anything in the chessboard array that is not null
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                if (chessBoard[i, j] != null)
+                {
+                    Debug.DrawLine(Vector2.right * i + Vector2.up * j, Vector2.right * (i + 1) + Vector2.up * (j + 1), Color.green);
+                    Debug.DrawLine(Vector2.right * i + Vector2.up * (j + 1), Vector2.right * (i + 1) + Vector2.up * j, Color.green);
+                }
+            }
+        }
+
+        // For debugging - Mark on screen the location of the mouse cursor
         if (selectionX >= 0 && selectionY >= 0)
         {
             Debug.DrawLine(Vector2.right * selectionX + Vector2.up * selectionY, Vector2.right * (selectionX + 1) + Vector2.up * (selectionY + 1), Color.red);
