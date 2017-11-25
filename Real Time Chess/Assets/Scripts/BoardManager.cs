@@ -32,17 +32,22 @@ public class BoardManager : MonoBehaviour
     {
         spawnAllPieces();
     }
-	
-	/// Update is called once per frame
-	void Update ()
+
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
+    void Update ()
     {
         updateSelection();
         drawChessBoard();
 
         if (Input.GetMouseButtonDown(0))
         {
+            // Detect if a mouse click is on a valid square
             if (selectionX >= 0 && selectionY >= 0)
             {
+                // If a piece is not selected, try to select a piece
+                // Else try to move the selected piece
                 if (selectedPiece == null)
                 {
                     selectPiece(selectionX, selectionY);
@@ -53,6 +58,9 @@ public class BoardManager : MonoBehaviour
         }
 	}
 
+    /// <summary>
+    /// Selects a chess piece if a piece exists in the selected square
+    /// </summary>
     private void selectPiece(int x, int y)
     {
         if (chessBoard[x, y] == null)
@@ -63,16 +71,27 @@ public class BoardManager : MonoBehaviour
         selectedPiece = chessBoard[x, y];
     }
 
+    /// <summary>
+    /// Moves a chess piece if the movement is valid
+    /// </summary>
     private void movePiece(int x, int y)
     {
         if (selectedPiece.isMovePossible(x, y, chessBoard[x,y]))
         {
+            // Remove the piece from its original location in the array
             chessBoard[selectedPiece.currentX, selectedPiece.currentY] = null;
+
+            // Move the visible piece on the board
             selectedPiece.transform.position = getTileCenter(x, y);
+
+            // Update the piece's position in the class
             selectedPiece.setPosition(x, y);
+
+            // Place the piece in the array at its new location
             chessBoard[x, y] = selectedPiece;
         }
 
+        // Have nothing selected
         selectedPiece = null;
     }
 
@@ -86,11 +105,14 @@ public class BoardManager : MonoBehaviour
             return;
         }
 
+        // Set the current selection based on the mouse position
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 25.0f, LayerMask.GetMask("Board")))
         {
             selectionX = (int)(hit.point.x);
             selectionY = (int)(hit.point.y);
+
+            // Move the blue selection box to the currently selected tile
             blueSelector.transform.position = getTileCenter(selectionX, selectionY);
         }
         else
@@ -101,7 +123,7 @@ public class BoardManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Draws the chessboard
+    /// Draws the (debug line) chessboard
     /// </summary>
     private void drawChessBoard ()
     {
@@ -191,7 +213,7 @@ public class BoardManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Get the coordinates for the center of a tile
+    /// Get the screen coordinates for the center of a tile
     /// </summary>
     private Vector2 getTileCenter(int x, int y)
     {
