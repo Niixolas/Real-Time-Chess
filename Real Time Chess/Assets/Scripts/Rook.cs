@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Rook : ChessPiece
 {
+
+
     public override bool isMovePossible(int x, int y, ChessPiece target)
     {
         if (target == null)
@@ -17,4 +19,7 @@ public class Rook : ChessPiece
         }
         return false;
     }
+
+
+
 }

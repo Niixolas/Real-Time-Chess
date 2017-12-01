@@ -56,7 +56,9 @@ public class BoardManager : MonoBehaviour
                 }
             }
         }
+
 	}
+
 
     /// <summary>
     /// Selects a chess piece if a piece exists in the selected square
@@ -69,6 +71,7 @@ public class BoardManager : MonoBehaviour
         }
 
         selectedPiece = chessBoard[x, y];
+        selectedPiece.showTarget(chessBoard);
     }
 
     /// <summary>
@@ -215,7 +218,7 @@ public class BoardManager : MonoBehaviour
     /// <summary>
     /// Get the screen coordinates for the center of a tile
     /// </summary>
-    private Vector2 getTileCenter(int x, int y)
+    public Vector2 getTileCenter(int x, int y)
     {
         return new Vector2(tileWidth * x + tileOffset, tileWidth * y + tileOffset);
     }

@@ -18,4 +18,19 @@ public class Knight : ChessPiece
         return false;
     }
 
+    public override void showTarget(ChessPiece[,] chessBoard)
+    {
+        for (int y = currentY; y <= 7; y++)
+        {
+            if (chessBoard[currentX, y] != null)
+            {
+                if (chessBoard[currentX, y].isWhite != this.isWhite)
+                {
+                    GameObject newselect = Instantiate(lightSelect, GetComponent<BoardManager>().getTileCenter(currentX, y), this.transform.rotation) as GameObject;
+                    break;
+                }
+            }
+        }
+    }
+
 }
