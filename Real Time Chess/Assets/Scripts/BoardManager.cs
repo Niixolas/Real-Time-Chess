@@ -20,6 +20,9 @@ public class BoardManager : MonoBehaviour
     // List containing currently active pieces
     public List<GameObject> activePieces;
 
+    // Selector Box
+    public GameObject blueSelector;
+
     // Currently selected tile. No selection provides -1.
     private int selectionX = -1;
     private int selectionY = -1;
@@ -29,17 +32,22 @@ public class BoardManager : MonoBehaviour
     {
         spawnAllPieces();
     }
-	
-	/// Update is called once per frame
-	void Update ()
+
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
+    void Update ()
     {
         updateSelection();
         drawChessBoard();
 
         if (Input.GetMouseButtonDown(0))
         {
+            // Detect if a mouse click is on a valid square
             if (selectionX >= 0 && selectionY >= 0)
             {
+                // If a piece is not selected, try to select a piece
+                // Else try to move the selected piece
                 if (selectedPiece == null)
                 {
                     selectPiece(selectionX, selectionY);
@@ -48,8 +56,13 @@ public class BoardManager : MonoBehaviour
                 }
             }
         }
+
 	}
 
+
+    /// <summary>
+    /// Selects a chess piece if a piece exists in the selected square
+    /// </summary>
     private void selectPiece(int x, int y)
     {
         if (chessBoard[x, y] == null)
@@ -58,17 +71,30 @@ public class BoardManager : MonoBehaviour
         }
 
         selectedPiece = chessBoard[x, y];
+        selectedPiece.showTarget(chessBoard);
     }
 
+    /// <summary>
+    /// Moves a chess piece if the movement is valid
+    /// </summary>
     private void movePiece(int x, int y)
     {
-        if (selectedPiece.isMovePossible(x, y))
+        if (selectedPiece.isMovePossible(x, y, chessBoard[x,y]))
         {
+            // Remove the piece from its original location in the array
             chessBoard[selectedPiece.currentX, selectedPiece.currentY] = null;
+
+            // Move the visible piece on the board
             selectedPiece.transform.position = getTileCenter(x, y);
+
+            // Update the piece's position in the class
+            selectedPiece.setPosition(x, y);
+
+            // Place the piece in the array at its new location
             chessBoard[x, y] = selectedPiece;
         }
 
+        // Have nothing selected
         selectedPiece = null;
     }
 
@@ -82,11 +108,15 @@ public class BoardManager : MonoBehaviour
             return;
         }
 
+        // Set the current selection based on the mouse position
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 25.0f, LayerMask.GetMask("Board")))
         {
             selectionX = (int)(hit.point.x);
             selectionY = (int)(hit.point.y);
+
+            // Move the blue selection box to the currently selected tile
+            blueSelector.transform.position = getTileCenter(selectionX, selectionY);
         }
         else
         {
@@ -96,10 +126,12 @@ public class BoardManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Draws the chessboard
+    /// Draws the (debug line) chessboard
     /// </summary>
     private void drawChessBoard ()
     {
+
+        // For debugging - Mark on screen the chessboard grid
         for (int i = 0; i <= 8; i++)
         {
             Vector2 lineWidth = Vector2.right * 8;
@@ -110,6 +142,20 @@ public class BoardManager : MonoBehaviour
             Debug.DrawLine(startV, startV + lineHeight, Color.blue);
         }
 
+        // For debugging - Mark on screen anything in the chessboard array that is not null
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                if (chessBoard[i, j] != null)
+                {
+                    Debug.DrawLine(Vector2.right * i + Vector2.up * j, Vector2.right * (i + 1) + Vector2.up * (j + 1), Color.green);
+                    Debug.DrawLine(Vector2.right * i + Vector2.up * (j + 1), Vector2.right * (i + 1) + Vector2.up * j, Color.green);
+                }
+            }
+        }
+
+        // For debugging - Mark on screen the location of the mouse cursor
         if (selectionX >= 0 && selectionY >= 0)
         {
             Debug.DrawLine(Vector2.right * selectionX + Vector2.up * selectionY, Vector2.right * (selectionX + 1) + Vector2.up * (selectionY + 1), Color.red);
@@ -170,9 +216,9 @@ public class BoardManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Get the coordinates for the center of a tile
+    /// Get the screen coordinates for the center of a tile
     /// </summary>
-    private Vector2 getTileCenter(int x, int y)
+    public Vector2 getTileCenter(int x, int y)
     {
         return new Vector2(tileWidth * x + tileOffset, tileWidth * y + tileOffset);
     }
