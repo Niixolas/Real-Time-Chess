@@ -9,13 +9,26 @@ public class Knight : ChessPiece
         if (target == null)
         {
             // Knight movement
-            if ( ( (Mathf.Abs(this.currentX - x) == 2) && (Mathf.Abs(this.currentY - y) == 1) ) || ( (Mathf.Abs(this.currentX - x) == 1) && (Mathf.Abs(this.currentY - y) == 2) ) )
+            if ( ( (Mathf.Abs(currentX - x) == 2) && (Mathf.Abs(currentY - y) == 1) ) || ( (Mathf.Abs(currentX - x) == 1) && (Mathf.Abs(currentY - y) == 2) ) )
             {
                 return true;
             }
 
         }
         return false;
+    }
+
+    public override void showTarget(ChessPiece[,] chessBoard, int targetDirX, int targetDirY)
+    {
+        if (targetDirX == 0 && targetDirY == 1)
+        {
+            Instantiate(lightSelect, Utilities.getTileCenter(currentX + 1, currentY + 2), Quaternion.identity);
+        }
+
+        if (targetDirX == 0 && targetDirY == 0)
+        {
+            Destroy(GameObject.FindGameObjectWithTag("targetSelector"));
+        }
     }
 
 }

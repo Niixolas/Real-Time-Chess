@@ -8,6 +8,12 @@ public abstract class ChessPiece : MonoBehaviour
     public int currentY { set; get; }
     public bool isWhite;
 
+    public Transform lightSelect;
+
+    public void Start()
+    {
+    }
+
     public void setPosition(int x, int y)
     {
         currentX = x;
@@ -18,4 +24,10 @@ public abstract class ChessPiece : MonoBehaviour
     {
         return true;
     }
+
+    public virtual void showTarget(ChessPiece[,] chessBoard, int targetDirX, int targetDirY)
+    {
+
+    }
+
 }

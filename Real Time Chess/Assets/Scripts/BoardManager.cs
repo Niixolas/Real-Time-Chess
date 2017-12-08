@@ -10,10 +10,6 @@ public class BoardManager : MonoBehaviour
     // Variable to hold the currently selected piece
     private ChessPiece selectedPiece;
 
-    // Width of each tile and offset to center of tile
-    private const float tileWidth = 1.0f;
-    private const float tileOffset = 0.5f;
-
     // List containing all the chess pieces
     public List<GameObject> pieces;
 
@@ -26,6 +22,9 @@ public class BoardManager : MonoBehaviour
     // Currently selected tile. No selection provides -1.
     private int selectionX = -1;
     private int selectionY = -1;
+
+    private int targetDirX = 0;
+    private int targetDirY = 1;
 
     // Use this for initialization
     void Start ()
@@ -68,7 +67,12 @@ public class BoardManager : MonoBehaviour
             return;
         }
 
+        targetDirX = 0;
+        targetDirY = 1;
+
+
         selectedPiece = chessBoard[x, y];
+        selectedPiece.showTarget(chessBoard, targetDirX, targetDirY);
     }
 
     /// <summary>
@@ -82,7 +86,7 @@ public class BoardManager : MonoBehaviour
             chessBoard[selectedPiece.currentX, selectedPiece.currentY] = null;
 
             // Move the visible piece on the board
-            selectedPiece.transform.position = getTileCenter(x, y);
+            selectedPiece.transform.position = Utilities.getTileCenter(x, y);
 
             // Update the piece's position in the class
             selectedPiece.setPosition(x, y);
@@ -90,6 +94,10 @@ public class BoardManager : MonoBehaviour
             // Place the piece in the array at its new location
             chessBoard[x, y] = selectedPiece;
         }
+
+        targetDirX = 0;
+        targetDirY = 0;
+        selectedPiece.showTarget(chessBoard, targetDirX, targetDirY);
 
         // Have nothing selected
         selectedPiece = null;
@@ -105,15 +113,16 @@ public class BoardManager : MonoBehaviour
             return;
         }
 
+
         // Set the current selection based on the mouse position
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 25.0f, LayerMask.GetMask("Board")))
+        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, LayerMask.GetMask("Board"));
+        if (hit.collider != null)
         {
             selectionX = (int)(hit.point.x);
             selectionY = (int)(hit.point.y);
 
             // Move the blue selection box to the currently selected tile
-            blueSelector.transform.position = getTileCenter(selectionX, selectionY);
+            blueSelector.transform.position = Utilities.getTileCenter(selectionX, selectionY);
         }
         else
         {
@@ -165,7 +174,7 @@ public class BoardManager : MonoBehaviour
     /// </summary>
     private void spawnPiece (int index, int x, int y)
     {
-        GameObject chessPiece = Instantiate(pieces[index], getTileCenter(x, y), Quaternion.identity) as GameObject;
+        GameObject chessPiece = Instantiate(pieces[index], Utilities.getTileCenter(x, y), Quaternion.identity) as GameObject;
         chessBoard[x, y] = chessPiece.GetComponent<ChessPiece>();
         chessBoard[x, y].setPosition(x, y);
         activePieces.Add(chessPiece);
@@ -212,11 +221,5 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Get the screen coordinates for the center of a tile
-    /// </summary>
-    private Vector2 getTileCenter(int x, int y)
-    {
-        return new Vector2(tileWidth * x + tileOffset, tileWidth * y + tileOffset);
-    }
+
 }

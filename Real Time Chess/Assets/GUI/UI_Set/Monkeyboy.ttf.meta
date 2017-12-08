@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: f13caa24444cc5942a5a7d992f6b38b4
+timeCreated: 1512664795
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Monkeyboy
+  fontNames:
+  - Monkeyboy
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
