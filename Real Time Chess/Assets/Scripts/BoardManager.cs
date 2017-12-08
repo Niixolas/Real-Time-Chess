@@ -67,8 +67,8 @@ public class BoardManager : MonoBehaviour
             return;
         }
 
-        targetDirX = 0;
-        targetDirY = 1;
+        targetDirX = -1;
+        targetDirY = -1;
 
 
         selectedPiece = chessBoard[x, y];
