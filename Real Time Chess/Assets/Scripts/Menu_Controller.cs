@@ -18,17 +18,17 @@ public class Menu_Controller : MonoBehaviour
 		Application.Quit ();
 	}
 
-	public void Puase(Transform canvas)
+	public void Pause(Transform canvas)
 	{
-		if (Input.GetKeyDown (KeyCode.Escape)) 
-		{
+		//if (Input.GetKeyDown (KeyCode.Escape)) 
+		//{
 			if (canvas.GetComponentInChildren<Image>().gameObject.activeInHierarchy == false) {
 				canvas.GetComponentInChildren<Image>().gameObject.SetActive (true);
 				Debug.Log ("pause");
 			} else {
 				canvas.GetComponentInChildren<Image>().gameObject.SetActive (false);
 			}
-		}
+		//}
 	}
 
 

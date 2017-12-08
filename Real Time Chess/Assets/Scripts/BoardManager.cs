@@ -113,10 +113,10 @@ public class BoardManager : MonoBehaviour
             return;
         }
 
-       
+
         // Set the current selection based on the mouse position
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 25.0f, LayerMask.GetMask("Board")))
+        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, LayerMask.GetMask("Board"));
+        if (hit.collider != null)
         {
             selectionX = (int)(hit.point.x);
             selectionY = (int)(hit.point.y);
