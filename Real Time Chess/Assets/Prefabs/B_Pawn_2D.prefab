@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4008675921461148}
   - component: {fileID: 212015297531041870}
   - component: {fileID: 114665214715371952}
+  - component: {fileID: 65575938589334966}
   m_Layer: 0
   m_Name: B_Pawn_2D
   m_TagString: Untagged
@@ -41,6 +42,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65575938589334966
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1426884270523002}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.239999, y: 10.239999, z: 0.19999999}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114665214715371952
 MonoBehaviour:
   m_ObjectHideFlags: 1

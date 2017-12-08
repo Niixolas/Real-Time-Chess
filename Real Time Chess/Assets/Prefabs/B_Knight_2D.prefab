@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4183001565345480}
   - component: {fileID: 212322942603464082}
   - component: {fileID: 114167900254399656}
+  - component: {fileID: 65433302315672600}
   m_Layer: 0
   m_Name: B_Knight_2D
   m_TagString: Untagged
@@ -41,6 +42,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65433302315672600
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1084797252384218}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.24, y: 10.24, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114167900254399656
 MonoBehaviour:
   m_ObjectHideFlags: 1
