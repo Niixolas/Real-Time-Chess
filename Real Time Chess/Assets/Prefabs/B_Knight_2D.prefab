@@ -53,6 +53,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWhite: 0
+  lightSelect: {fileID: 4290633819327492, guid: 0753db176cfb2584590128841d21d34c,
+    type: 2}
 --- !u!212 &212322942603464082
 SpriteRenderer:
   m_ObjectHideFlags: 1
