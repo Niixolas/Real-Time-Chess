@@ -20,15 +20,24 @@ public class Knight : ChessPiece
 
     public override void showTarget(ChessPiece[,] chessBoard, int targetDirX, int targetDirY)
     {
-        if (targetDirX == 0 && targetDirY == 1)
-        {
-            Instantiate(lightSelect, Utilities.getTileCenter(currentX + 1, currentY + 2), Quaternion.identity);
-        }
-
         if (targetDirX == 0 && targetDirY == 0)
         {
             Destroy(GameObject.FindGameObjectWithTag("targetSelector"));
         }
+
+
+        if (targetDirX == 0 && targetDirY == 1)
+        {
+            Instantiate(lightSelect, Utilities.getTileCenter(currentX + 1, currentY + 2), Quaternion.identity);
+        } else if (targetDirX == 1 && targetDirY == 1)
+        {
+
+        } else if (targetDirX == 1 && targetDirY == 0)
+        {
+
+        }
+
+
     }
 
 

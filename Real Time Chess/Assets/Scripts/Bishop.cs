@@ -20,19 +20,21 @@ public class Bishop : ChessPiece
 
     public override void showTarget(ChessPiece[,] chessBoard, int targetDirX, int targetDirY)
     {
-        if (targetDirX == 1 && targetDirY == 1)
+        if (targetDirX != 0 && targetDirY != 0)
         {
-            for (int i = currentX + 1, j = currentY + 1; i < 8; i++, j++)
+            for (int i = currentX + targetDirX, j = currentY + targetDirY; i < 8; i += targetDirX, j += targetDirY)
             {
+                if (i < 0 || i > 7 || j < 0 || j > 8)
+                {
+                    break;
+                }
+
                 if (chessBoard[i, j] != null)
                 {
                     Instantiate(lightSelect, Utilities.getTileCenter(i, j), Quaternion.identity);
                     break;
                 }
-                if (!(j < 8))
-                {
-                    break;
-                }
+
             }
         }
 
