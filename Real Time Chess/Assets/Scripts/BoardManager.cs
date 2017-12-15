@@ -67,7 +67,7 @@ public class BoardManager : MonoBehaviour
             return;
         }
 
-        targetDirX = 0;
+        targetDirX = -1;
         targetDirY = 1;
 
 
