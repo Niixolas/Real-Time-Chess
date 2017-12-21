@@ -40,7 +40,7 @@ public class BoardManager : MonoBehaviour
         updateSelection();
         drawChessBoard();
 
-        if (Input.GetButtonDown("Submit"))
+        if (Input.GetButtonDown("Select"))
         {
             // Detect if a mouse click is on a valid square
             if (selectionX >= 0 && selectionY >= 0)
