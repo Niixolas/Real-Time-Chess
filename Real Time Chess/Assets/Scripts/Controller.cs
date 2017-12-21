@@ -2,16 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Controller : MonoBehaviour {
+static public class Controller
+{
+    public static Vector2 getMovement()
+    {
+        int xDir = 0;
+        int yDir = 0;
+        float test = Input.GetAxis("LeftStick_Horizontal");
+        if (Input.GetAxis("LeftStick_Horizontal") != 0)
+        {
+            xDir = Input.GetAxis("LeftStick_Horizontal") > 0 ? 1 : -1;
+        }
+        if (Input.GetAxis("LeftStick_Vertical") != 0)
+        {
+            yDir = Input.GetAxis("LeftStick_Vertical") > 0 ? 1 : -1;
+        }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        return new Vector2(xDir, yDir);
+    }
 
+    /*
         // Select button (A) on controller.
         bool Select_down = Input.GetButtonDown("Select");
         bool Select_up = Input.GetButtonUp("Select");
@@ -33,7 +43,5 @@ public class Controller : MonoBehaviour {
         // Joystick to aim.
         float RightStick_V = Input.GetAxis("RightStick_Vertical");
         float RightStick_H = Input.GetAxis("RightStick_Horizontal"); 
-
-
-    }
+        */
 }
