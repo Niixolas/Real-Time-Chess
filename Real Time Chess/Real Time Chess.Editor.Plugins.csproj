@@ -120,13 +120,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Real Time Chess.csproj">
-      <Project>{FABBC599-4246-2354-DCB9-E842318E1620}</Project>
-      <Name>Real Time Chess</Name>
-    </ProjectReference>
     <ProjectReference Include="Real Time Chess.Plugins.csproj">
       <Project>{4B4B9B05-89A2-FAD1-E150-78DB926C0EA0}</Project>
       <Name>Real Time Chess.Plugins</Name>
+    </ProjectReference>
+    <ProjectReference Include="Real Time Chess.csproj">
+      <Project>{FABBC599-4246-2354-DCB9-E842318E1620}</Project>
+      <Name>Real Time Chess</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

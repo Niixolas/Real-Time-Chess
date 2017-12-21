@@ -8,6 +8,11 @@ public abstract class ChessPiece : MonoBehaviour
     public int currentY { set; get; }
     public bool isWhite;
 
+    HealthBar healthBar;
+    GameObject shot;
+    private float nextFire = 0.0F;
+    public float fireRate = 0.5F;
+
     public Transform lightSelect;
 
     public void Start()
@@ -27,6 +32,28 @@ public abstract class ChessPiece : MonoBehaviour
 
     public virtual void showTarget(ChessPiece[,] chessBoard, int targetDirX, int targetDirY)
     {
+
+    }
+
+    public void setHealthBar(HealthBar aHealthBar)
+    {
+        healthBar = aHealthBar;
+    }
+
+    public void setShot(GameObject aShot)
+    {
+        shot = aShot;
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > nextFire)
+        {
+            nextFire = Time.time + fireRate;
+            Instantiate(shot, this.transform.position, this.transform.rotation);
+            //GameObject bullet = Instantiate(shot, this.transform.position, this.transform.rotation) as GameObject;
+            //shot.transform.SetParent(transform, false);
+        }
 
     }
 

@@ -88,6 +88,8 @@
     <Compile Include="Assets\Scripts\BoardManager.cs" />
     <Compile Include="Assets\Scripts\ChessPiece.cs" />
     <Compile Include="Assets\Scripts\Controller.cs" />
+    <Compile Include="Assets\Scripts\FireBullet.cs" />
+    <Compile Include="Assets\Scripts\HealthBar.cs" />
     <Compile Include="Assets\Scripts\King.cs" />
     <Compile Include="Assets\Scripts\Knight.cs" />
     <Compile Include="Assets\Scripts\Menu_Controller.cs" />
