@@ -10,6 +10,11 @@ public class BoardManager : MonoBehaviour
     // Variable to hold the currently selected piece
     private ChessPiece selectedPiece;
 
+    //variable to hold the healthbar of a particluar peice
+    public HealthBar healthBar;
+
+    public GameObject shot;
+
     // List containing all the chess pieces
     public List<GameObject> pieces;
 
@@ -54,6 +59,12 @@ public class BoardManager : MonoBehaviour
                     movePiece(selectionX, selectionY);
                 }
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && selectedPiece != null)
+        {
+            HealthBar hb = selectedPiece.GetComponentInChildren<HealthBar>();
+            hb.DealDamage(1);
         }
     }
 
@@ -172,11 +183,21 @@ public class BoardManager : MonoBehaviour
     /// <summary>
     /// Spawn a chess piece
     /// </summary>
-    private void spawnPiece (int index, int x, int y)
+    private void spawnPiece (int index, int x, int y, int maxHealthValue)
     {
         GameObject chessPiece = Instantiate(pieces[index], Utilities.getTileCenter(x, y), Quaternion.identity) as GameObject;
-        chessBoard[x, y] = chessPiece.GetComponent<ChessPiece>();
+        ChessPiece aPiece = chessPiece.GetComponent<ChessPiece>();
+        
+        chessBoard[x, y] = aPiece;
         chessBoard[x, y].setPosition(x, y);
+
+        HealthBar hb = Instantiate(healthBar , aPiece.transform);
+        hb.MaxHealth = maxHealthValue;
+        hb.transform.SetParent(aPiece.transform, false);
+        hb.CurrentHealth = maxHealthValue;
+        aPiece.setHealthBar(hb);
+        aPiece.setShot(shot);
+
         activePieces.Add(chessPiece);
     }
 
@@ -189,35 +210,35 @@ public class BoardManager : MonoBehaviour
         chessBoard = new ChessPiece[8, 8];
 
         // Spawn White pieces
-        spawnPiece(0, 4, 0); // King
-        spawnPiece(1, 3, 0); // Queen
-        spawnPiece(2, 0, 0); // Rook 1
-        spawnPiece(2, 7, 0); // Rook 2
-        spawnPiece(3, 1, 0); // Knight 1
-        spawnPiece(3, 6, 0); // Knight 2
-        spawnPiece(4, 2, 0); // Bishop 1
-        spawnPiece(4, 5, 0); // Bishop 2
+        spawnPiece(0, 4, 0, 200); // King
+        spawnPiece(1, 3, 0, 200); // Queen
+        spawnPiece(2, 0, 0, 100); // Rook 1
+        spawnPiece(2, 7, 0, 100); // Rook 2
+        spawnPiece(3, 1, 0, 100); // Knight 1
+        spawnPiece(3, 6, 0, 100); // Knight 2
+        spawnPiece(4, 2, 0, 100); // Bishop 1
+        spawnPiece(4, 5, 0, 100); // Bishop 2
 
         // Pawns
         for (int i = 0; i < 8; i++)
         {
-            spawnPiece(5, i, 1);
+            spawnPiece(5, i, 1, 20);
         }
 
         // Spawn Black pieces
-        spawnPiece(6, 3, 7); // King
-        spawnPiece(7, 4, 7); // Queen
-        spawnPiece(8, 0, 7); // Rook 1
-        spawnPiece(8, 7, 7); // Rook 2
-        spawnPiece(9, 1, 7); // Knight 1
-        spawnPiece(9, 6, 7); // Knight 2
-        spawnPiece(10, 2, 7); // Bishop 1
-        spawnPiece(10, 5, 7); // Bishop 2
+        spawnPiece(6, 3, 7, 200); // King
+        spawnPiece(7, 4, 7, 200); // Queen
+        spawnPiece(8, 0, 7, 100); // Rook 1
+        spawnPiece(8, 7, 7, 100); // Rook 2
+        spawnPiece(9, 1, 7, 100); // Knight 1
+        spawnPiece(9, 6, 7, 100); // Knight 2
+        spawnPiece(10, 2, 7, 100); // Bishop 1
+        spawnPiece(10, 5, 7, 100); // Bishop 2
 
         // Pawns
         for (int i = 0; i < 8; i++)
         {
-            spawnPiece(11, i, 6);
+            spawnPiece(11, i, 6, 20);
         }
     }
 
