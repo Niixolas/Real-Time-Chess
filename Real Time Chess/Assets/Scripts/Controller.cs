@@ -13,14 +13,14 @@ public class Controller : MonoBehaviour {
 	void Update () {
 
         // Select button (A) on controller.
-        bool Select_down = Input.GetButtonDown("Select");
-        bool Select_up = Input.GetButtonUp("Select");
-        bool Select_held = Input.GetButton("Select");
+        bool Select_down = Input.GetButtonDown("Submit");
+        bool Select_up = Input.GetButtonUp("Submit");
+        bool Select_held = Input.GetButton("Submit");
 
         // Deselect button (B) on controller. 
-        bool Deselect_down = Input.GetButtonDown("Deselect"); 
-        bool Deselect_up = Input.GetButtonUp("Deselect");
-        bool Deselect_held = Input.GetButton("Deselect");
+        bool Deselect_down = Input.GetButtonDown("Cancel"); 
+        bool Deselect_up = Input.GetButtonUp("Cancel");
+        bool Deselect_held = Input.GetButton("Cancel");
         
         
         // Trigger to Fire.

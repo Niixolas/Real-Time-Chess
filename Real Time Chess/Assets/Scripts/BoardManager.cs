@@ -55,7 +55,7 @@ public class BoardManager : MonoBehaviour
                 }
             }
         }
-	}
+    }
 
     /// <summary>
     /// Selects a chess piece if a piece exists in the selected square
