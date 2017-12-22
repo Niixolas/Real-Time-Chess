@@ -7,7 +7,7 @@ public class HealthBar : MonoBehaviour {
 
     public float CurrentHealth { get; set; }
     public float maxHealth;
-    public Image healthbar;
+    Image healthbar;
     GameObject newGO;
     Text myText;
     Font ArialFont;
@@ -34,6 +34,9 @@ public class HealthBar : MonoBehaviour {
         MaxHealth = maxHealth;
         //resets health to full on game load
         CurrentHealth = MaxHealth;
+
+        // Get the instance of the health bar
+        healthbar = GetComponentInChildren<Image>();
 
         healthbar.fillAmount = CalculateHealth();
 

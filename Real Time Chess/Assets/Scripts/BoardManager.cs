@@ -23,7 +23,6 @@ public class BoardManager : MonoBehaviour
 
     // Selector Box
     public GameObject blueSelector;
-    public GameObject lightSelector;
 
     // Currently selected tile. No selection provides -1.
     private int selectionX = -1;
@@ -32,16 +31,10 @@ public class BoardManager : MonoBehaviour
     private int targetDirX = 0;
     private int targetDirY = 1;
 
-    private int selectorX = 4;
-    private int selectorY = 3;
-
     // Use this for initialization
     void Start ()
     {
         spawnAllPieces();
-
-        lightSelector.transform.position = Utilities.getTileCenter(4, 3);
-
     }
 
     /// <summary>
@@ -53,39 +46,6 @@ public class BoardManager : MonoBehaviour
         drawChessBoard();
 
         //if (Controller.getSelect())
-        //{
-        //
-        //       }
-
-        Vector2 movement = Controller.getMovement();
-        Vector2 targetPos = Utilities.getTileCenter(selectorX + (int)movement.x, selectorY + (int)movement.y);
-        if (!(targetPos.x > 7 || targetPos.x < 0 || targetPos.y > 7 || targetPos.y < 0))
-        {
-            float newX = lightSelector.transform.position.x + movement.x * 5.0f * Time.deltaTime;
-            float newY = lightSelector.transform.position.y + movement.y * 5.0f * Time.deltaTime;
-            lightSelector.transform.position = new Vector2(newX, newY);
-        }
-        /*
-        if (!(movement.x == 0 && movement.y == 0))
-        {
-            if (selectorX + movement.x > 7 || selectorX + movement.x < 0)
-            {
-                movement.x = 0;
-            }
-            if (selectorY + movement.y > 7 || selectorY + movement.y < 0)
-            {
-                movement.y = 0;
-            }
-            selectorX += (int)movement.x;
-            selectorY += (int)movement.y;
-            lightSelector.transform.position = Utilities.getTileCenter(selectorX, selectorY);
-
-        }
-        */
-
-
-
-
         //Vector2 aim = Controller.getAim();
 
         if (Input.GetButtonDown("Select"))
@@ -166,7 +126,6 @@ public class BoardManager : MonoBehaviour
         {
             return;
         }
-
 
         // Set the current selection based on the mouse position
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, LayerMask.GetMask("Board"));

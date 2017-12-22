@@ -15,4 +15,10 @@ public static class Utilities
     {
         return new Vector2(tileWidth * x + tileOffset, tileWidth * y + tileOffset);
     }
+
+    public static Vector2 getBoardCoordinates(float x, float y)
+    {
+        return new Vector2((int)(x / tileWidth), (int)(y / tileWidth));
+    }
+        
 }

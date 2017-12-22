@@ -8,7 +8,6 @@ static public class Controller
     {
         int xDir = 0;
         int yDir = 0;
-        float test = Input.GetAxis("LeftStick_Horizontal");
         if (Input.GetAxis("LeftStick_Horizontal") != 0)
         {
             xDir = Input.GetAxis("LeftStick_Horizontal") > 0 ? 1 : -1;

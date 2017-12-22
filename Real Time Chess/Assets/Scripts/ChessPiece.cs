@@ -35,10 +35,12 @@ public abstract class ChessPiece : MonoBehaviour
 
     }
 
+    ///*
     public void setHealthBar(HealthBar aHealthBar)
     {
         healthBar = aHealthBar;
     }
+    //*/
 
     public void setShot(GameObject aShot)
     {
