@@ -20,6 +20,43 @@ static public class Controller
         return new Vector2(xDir, yDir);
     }
 
+    public static Vector2 getAim()
+    {
+        int xDir = 0;
+        int yDir = 0;
+        if (Input.GetAxis("RightStick_Horizontal") != 0)
+        {
+            xDir = Input.GetAxis("RightStick_Horizontal") > 0 ? 1 : -1;
+        }
+        if (Input.GetAxis("RightStick_Vertical") != 0)
+        {
+            yDir = Input.GetAxis("RightStick_Vertical") > 0 ? 1 : -1;
+        }
+
+        return new Vector2(xDir, yDir);
+    }
+
+    public static bool getPressed()
+    {
+        
+        bool Pressed = Input.GetButtonDown("Select");
+
+        return Pressed;
+    }
+
+    public static float getFire()
+    {
+        float firing = 0;
+        if(Input.GetAxis("Shoot") > 128)
+        {
+            firing = Input.GetAxis("Shoot");
+        }
+
+        return firing;
+       
+        
+    }
+
     /*
         // Select button (A) on controller.
         bool Select_down = Input.GetButtonDown("Select");
