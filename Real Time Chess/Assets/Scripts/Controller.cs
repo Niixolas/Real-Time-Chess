@@ -4,17 +4,25 @@ using UnityEngine;
 
 static public class Controller
 {
-    public static Vector2 getMovement()
+    public static Vector2 getMovement(int joyNumber)
     {
         int xDir = 0;
         int yDir = 0;
-        if (Input.GetAxis("LeftStick_Horizontal") != 0)
+        string leftHorizontal = "LeftStick_Horizontal";
+        string leftVertical = "LeftStick_Vertical";
+        if (joyNumber == 2)
         {
-            xDir = Input.GetAxis("LeftStick_Horizontal") > 0 ? 1 : -1;
+            leftHorizontal = "P2_LeftStick_Horizontal";
+            leftVertical = "P2_LeftStick_Vertical";
         }
-        if (Input.GetAxis("LeftStick_Vertical") != 0)
+
+        if (Input.GetAxis(leftHorizontal) != 0)
         {
-            yDir = Input.GetAxis("LeftStick_Vertical") > 0 ? 1 : -1;
+            xDir = Input.GetAxis(leftHorizontal) > 0 ? 1 : -1;
+        }
+        if (Input.GetAxis(leftVertical) != 0)
+        {
+            yDir = Input.GetAxis(leftVertical) > 0 ? 1 : -1;
         }
 
         return new Vector2(xDir, yDir);

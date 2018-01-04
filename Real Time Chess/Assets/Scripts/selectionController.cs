@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class whiteSelectionController : MonoBehaviour
+public class selectionController : MonoBehaviour
 {
     public float speed = 2.5f;
+    public int startX = 4;
+    public int startY = 3;
+
+    [Range(1, 2)]
+    public int playerNumber = 1;
 
     [HideInInspector]
     public bool isMoving;
@@ -16,7 +21,7 @@ public class whiteSelectionController : MonoBehaviour
 	void Start ()
     {
         isMoving = false;
-        transform.position = Utilities.getTileCenter(4, 3);
+        transform.position = Utilities.getTileCenter(startX, startY);
         targetSquare = new Vector2(0, 0);
         targetPosition = Utilities.getTileCenter((int)targetSquare.x, (int)targetSquare.y);
     }
@@ -52,7 +57,7 @@ public class whiteSelectionController : MonoBehaviour
         }
         else
         {
-            Vector2 movement = Controller.getMovement();
+            Vector2 movement = Controller.getMovement(playerNumber);
             targetSquare = Utilities.getBoardCoordinates(transform.position.x, transform.position.y);
             if (movement.x != 0 || movement.y != 0)
             {
