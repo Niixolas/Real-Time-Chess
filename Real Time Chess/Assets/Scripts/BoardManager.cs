@@ -45,8 +45,17 @@ public class BoardManager : MonoBehaviour
         updateSelection();
         drawChessBoard();
 
-        //if (Controller.getSelect())
-        //Vector2 aim = Controller.getAim();
+        if (Controller.getPressed())
+        {
+            if (selectedPiece == null)
+            {
+                selectPiece(Controller.selectionX, Controller.selectionY);
+            }
+            else
+            {
+                movePiece(Controller.selectionX, Controller.selectionY);
+            }
+        }
 
         if (Input.GetButtonDown("Select"))
         {
@@ -86,7 +95,8 @@ public class BoardManager : MonoBehaviour
 
 
         selectedPiece = chessBoard[x, y];
-        selectedPiece.showTarget(chessBoard, targetDirX, targetDirY);
+        Instantiate(blueSelector, selectedPiece.transform);
+        //selectedPiece.showTarget(chessBoard, targetDirX, targetDirY);
     }
 
     /// <summary>
@@ -114,6 +124,7 @@ public class BoardManager : MonoBehaviour
         selectedPiece.showTarget(chessBoard, targetDirX, targetDirY);
 
         // Have nothing selected
+        Destroy(GameObject.FindGameObjectWithTag("selector"));
         selectedPiece = null;
     }
 

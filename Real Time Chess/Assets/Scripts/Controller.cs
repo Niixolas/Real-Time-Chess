@@ -4,6 +4,9 @@ using UnityEngine;
 
 static public class Controller
 {
+    public static int selectionX = -1;
+    public static int selectionY = -1;
+
     public static Vector2 getMovement(int joyNumber)
     {
         int xDir = 0;
@@ -47,7 +50,7 @@ static public class Controller
     public static bool getPressed()
     {
         
-        bool Pressed = Input.GetButtonDown("Select");
+        bool Pressed = Input.GetButtonDown("Submit");
 
         return Pressed;
     }

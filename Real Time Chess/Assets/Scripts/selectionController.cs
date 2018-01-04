@@ -29,6 +29,10 @@ public class selectionController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        Controller.selectionX = (int)Utilities.getBoardCoordinates(transform.position.x, transform.position.y).x;
+        Controller.selectionY = (int)Utilities.getBoardCoordinates(transform.position.x, transform.position.y).y;
+
+
         if (isMoving)
         {
             if (Mathf.Abs(targetPosition.x - transform.position.x) < 0.2 && Mathf.Abs(targetPosition.y - transform.position.y) < 0.2)
