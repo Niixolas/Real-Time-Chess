@@ -47,15 +47,17 @@ public abstract class ChessPiece : MonoBehaviour
         shot = aShot;
     }
 
-    void Update()
+    public void fire()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > nextFire)
+        if (Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
             Instantiate(shot, this.transform.position, this.transform.rotation);
-            //GameObject bullet = Instantiate(shot, this.transform.position, this.transform.rotation) as GameObject;
-            //shot.transform.SetParent(transform, false);
         }
+    }
+
+    void Update()
+    {
 
     }
 

@@ -8,7 +8,8 @@ public class BoardManager : MonoBehaviour
     public ChessPiece[,] chessBoard { set; get; }
 
     // Variable to hold the currently selected piece
-    private ChessPiece selectedPiece;
+    private ChessPiece greenSelectedPiece;
+    private ChessPiece redSelectedPiece;
 
     //variable to hold the healthbar of a particluar peice
     public HealthBar healthBar;
@@ -22,7 +23,8 @@ public class BoardManager : MonoBehaviour
     public List<GameObject> activePieces;
 
     // Selector Box
-    public GameObject blueSelector;
+    public GameObject greenSelector;
+    public GameObject redSelector;
 
     // Currently selected tile. No selection provides -1.
     private int selectionX = -1;
@@ -45,45 +47,45 @@ public class BoardManager : MonoBehaviour
         updateSelection();
         drawChessBoard();
 
-        if (Controller.getPressed())
+        if (Controller.getPressed(1))
         {
-            if (selectedPiece == null)
+            if (greenSelectedPiece == null)
             {
-                selectPiece(Controller.selectionX, Controller.selectionY);
+                selectPiece(Controller.selectionX, Controller.selectionY, 1);
             }
             else
             {
-                movePiece(Controller.selectionX, Controller.selectionY);
+                Destroy(GameObject.FindGameObjectWithTag("greenSelector"));
+                greenSelectedPiece = null;
             }
         }
 
-        if (Input.GetButtonDown("Select"))
+        if (Controller.getPressed(2))
         {
-            // Detect if a mouse click is on a valid square
-            if (selectionX >= 0 && selectionY >= 0)
+            if (redSelectedPiece == null)
             {
-                // If a piece is not selected, try to select a piece
-                // Else try to move the selected piece
-                if (selectedPiece == null)
-                {
-                    selectPiece(selectionX, selectionY);
-                } else {
-                    movePiece(selectionX, selectionY);
-                }
+                selectPiece(Controller.selectionX, Controller.selectionY, 2);
+            }
+            else
+            {
+                Destroy(GameObject.FindGameObjectWithTag("redSelector"));
+                redSelectedPiece = null;
             }
         }
-
+        
+        /*
         if (Input.GetKeyDown(KeyCode.Space) && selectedPiece != null)
         {
-            HealthBar hb = selectedPiece.GetComponentInChildren<HealthBar>();
+            HealthBar hb = selectedPiece.GetComponentInChildren<HealthBar>() as HealthBar;
             hb.DealDamage(1);
         }
+        */
     }
 
     /// <summary>
     /// Selects a chess piece if a piece exists in the selected square
     /// </summary>
-    private void selectPiece(int x, int y)
+    private void selectPiece(int x, int y, int player)
     {
         if (chessBoard[x, y] == null)
         {
@@ -93,15 +95,23 @@ public class BoardManager : MonoBehaviour
         targetDirX = -1;
         targetDirY = 1;
 
-
-        selectedPiece = chessBoard[x, y];
-        Instantiate(blueSelector, selectedPiece.transform);
-        //selectedPiece.showTarget(chessBoard, targetDirX, targetDirY);
+        if (player == 1 && chessBoard[x, y].isWhite)
+        {
+            greenSelectedPiece = chessBoard[x, y];
+            Instantiate(greenSelector, greenSelectedPiece.transform);
+        }
+        if (player == 2 && !chessBoard[x, y].isWhite)
+        {
+            redSelectedPiece = chessBoard[x, y];
+            Instantiate(redSelector, redSelectedPiece.transform);
+        }
+        
     }
 
     /// <summary>
     /// Moves a chess piece if the movement is valid
     /// </summary>
+    /*
     private void movePiece(int x, int y)
     {
         if (selectedPiece.isMovePossible(x, y, chessBoard[x,y]))
@@ -127,6 +137,8 @@ public class BoardManager : MonoBehaviour
         Destroy(GameObject.FindGameObjectWithTag("selector"));
         selectedPiece = null;
     }
+    */
+    
 
     /// <summary>
     /// Updates the currently selected tile
@@ -146,7 +158,7 @@ public class BoardManager : MonoBehaviour
             selectionY = (int)(hit.point.y);
 
             // Move the blue selection box to the currently selected tile
-            blueSelector.transform.position = Utilities.getTileCenter(selectionX, selectionY);
+            //blueSelector.transform.position = Utilities.getTileCenter(selectionX, selectionY);
         }
         else
         {
@@ -239,8 +251,8 @@ public class BoardManager : MonoBehaviour
         }
 
         // Spawn Black pieces
-        spawnPiece(6, 3, 7, 200); // King
-        spawnPiece(7, 4, 7, 200); // Queen
+        spawnPiece(6, 4, 7, 200); // King
+        spawnPiece(7, 3, 7, 200); // Queen
         spawnPiece(8, 0, 7, 100); // Rook 1
         spawnPiece(8, 7, 7, 100); // Rook 2
         spawnPiece(9, 1, 7, 100); // Knight 1

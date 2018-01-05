@@ -47,10 +47,26 @@ static public class Controller
         return new Vector2(xDir, yDir);
     }
 
-    public static bool getPressed()
+    public static bool getPressed(int joyNumber)
     {
-        
-        bool Pressed = Input.GetButtonDown("Submit");
+
+        bool Pressed = false;
+        if (joyNumber == 1)
+        {
+            Pressed = Input.GetButtonDown("Submit");
+        }
+        if (joyNumber == 2)
+        {
+            Pressed = Input.GetButtonDown("P2_Submit");
+        }        
+
+        return Pressed;
+    }
+
+    public static bool getCancel()
+    {
+
+        bool Pressed = Input.GetButtonDown("Cancel");
 
         return Pressed;
     }
