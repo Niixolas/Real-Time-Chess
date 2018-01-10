@@ -71,12 +71,12 @@ static public class Controller
         return Pressed;
     }
 
-    public static float getFire()
+    public static bool getFire()
     {
-        float firing = 0;
-        if(Input.GetAxis("Shoot") > 128)
+        bool firing = false;
+        if(Input.GetAxis("Shoot") > 0.5)
         {
-            firing = Input.GetAxis("Shoot");
+            firing = true;
         }
 
         return firing;

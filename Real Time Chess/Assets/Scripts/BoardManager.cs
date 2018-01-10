@@ -72,6 +72,14 @@ public class BoardManager : MonoBehaviour
                 redSelectedPiece = null;
             }
         }
+
+        if (Controller.getFire())
+        {
+            if (greenSelectedPiece != null)
+            {
+                greenSelectedPiece.fire();
+            }
+        }
         
         /*
         if (Input.GetKeyDown(KeyCode.Space) && selectedPiece != null)

@@ -52,6 +52,7 @@ public abstract class ChessPiece : MonoBehaviour
         if (Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
+            //transform shotTransform = new transform;
             Instantiate(shot, this.transform.position, this.transform.rotation);
         }
     }
