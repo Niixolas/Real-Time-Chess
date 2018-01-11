@@ -19,21 +19,12 @@ public class Pawn : ChessPiece
         return false;
     }
 
-    public override void showTarget(ChessPiece[,] chessBoard, int targetDirX, int targetDirY)
+    public override bool isAimPossible(int x, int y)
     {
-        // Destroy the target selector if not targeting anything
-        if (targetDirX == 0 && targetDirY == 0)
+        if (isWhite && x != 0 && y > 0)
         {
-            Destroy(GameObject.FindGameObjectWithTag("targetSelector"));
+            return true;
         }
-        else
-        {
-            // Determine the first piece in the direction targeting and create the target selector
-            if (targetDirX != 0)
-            {
-                Instantiate(lightSelect, Utilities.getTileCenter(currentX + targetDirX, currentY + 1), Quaternion.identity);
-            }
-        }
+        return false;
     }
-
 }

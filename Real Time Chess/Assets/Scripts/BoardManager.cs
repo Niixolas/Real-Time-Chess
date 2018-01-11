@@ -22,16 +22,16 @@ public class BoardManager : MonoBehaviour
     // List containing currently active pieces
     public List<GameObject> activePieces;
 
-    // Selector Box
+    // Selector Box (particles)
     public GameObject greenSelector;
     public GameObject redSelector;
+
+    // Selection box
+    public GameObject whiteSelectionBox;
 
     // Currently selected tile. No selection provides -1.
     private int selectionX = -1;
     private int selectionY = -1;
-
-    private int targetDirX = 0;
-    private int targetDirY = 1;
 
     // Use this for initialization
     void Start ()
@@ -44,18 +44,25 @@ public class BoardManager : MonoBehaviour
     /// </summary>
     void Update ()
     {
-        updateSelection();
         drawChessBoard();
+        checkInputs();
+    }
 
+    // Check controller inputs
+    private void checkInputs()
+    {
         if (Controller.getPressed(1))
         {
             if (greenSelectedPiece == null)
             {
                 selectPiece(Controller.selectionX, Controller.selectionY, 1);
+                whiteSelectionBox.GetComponent<SpriteRenderer>().enabled = false;
             }
             else
             {
                 Destroy(GameObject.FindGameObjectWithTag("greenSelector"));
+                whiteSelectionBox.GetComponent<SpriteRenderer>().enabled = true;
+                whiteSelectionBox.transform.position = Utilities.getTileCenter(greenSelectedPiece.currentX, greenSelectedPiece.currentY);
                 greenSelectedPiece = null;
             }
         }
@@ -73,21 +80,42 @@ public class BoardManager : MonoBehaviour
             }
         }
 
-        if (Controller.getFire())
+        if (Controller.getFire(1))
+        {
+            if (Controller.getAim(1) != Vector2.zero)
+            {
+                if (greenSelectedPiece != null)
+                {
+                    greenSelectedPiece.fire();
+                }
+            }
+        }
+
+        if (Controller.getFire(2))
+        {
+            if (redSelectedPiece != null)
+            {
+                redSelectedPiece.fire();
+            }
+        }
+
+        if (Controller.getMovement(1) != Vector2.zero)
         {
             if (greenSelectedPiece != null)
             {
-                greenSelectedPiece.fire();
+                int targetX = greenSelectedPiece.currentX + (int)Controller.getMovement(1).x;
+                int targetY = greenSelectedPiece.currentY + (int)Controller.getMovement(1).y;
+                if (greenSelectedPiece.isMovePossible(targetX, targetY, chessBoard[targetX, targetY]))
+                {
+                    Debug.Log("YES!");
+                }
+                else
+                {
+                    Debug.Log("NO!");
+                }
             }
         }
-        
-        /*
-        if (Input.GetKeyDown(KeyCode.Space) && selectedPiece != null)
-        {
-            HealthBar hb = selectedPiece.GetComponentInChildren<HealthBar>() as HealthBar;
-            hb.DealDamage(1);
-        }
-        */
+
     }
 
     /// <summary>
@@ -100,9 +128,6 @@ public class BoardManager : MonoBehaviour
             return;
         }
 
-        targetDirX = -1;
-        targetDirY = 1;
-
         if (player == 1 && chessBoard[x, y].isWhite)
         {
             greenSelectedPiece = chessBoard[x, y];
@@ -112,67 +137,7 @@ public class BoardManager : MonoBehaviour
         {
             redSelectedPiece = chessBoard[x, y];
             Instantiate(redSelector, redSelectedPiece.transform);
-        }
-        
-    }
-
-    /// <summary>
-    /// Moves a chess piece if the movement is valid
-    /// </summary>
-    /*
-    private void movePiece(int x, int y)
-    {
-        if (selectedPiece.isMovePossible(x, y, chessBoard[x,y]))
-        {
-            // Remove the piece from its original location in the array
-            chessBoard[selectedPiece.currentX, selectedPiece.currentY] = null;
-
-            // Move the visible piece on the board
-            selectedPiece.transform.position = Utilities.getTileCenter(x, y);
-
-            // Update the piece's position in the class
-            selectedPiece.setPosition(x, y);
-
-            // Place the piece in the array at its new location
-            chessBoard[x, y] = selectedPiece;
-        }
-
-        targetDirX = 0;
-        targetDirY = 0;
-        selectedPiece.showTarget(chessBoard, targetDirX, targetDirY);
-
-        // Have nothing selected
-        Destroy(GameObject.FindGameObjectWithTag("selector"));
-        selectedPiece = null;
-    }
-    */
-    
-
-    /// <summary>
-    /// Updates the currently selected tile
-    /// </summary>
-    void updateSelection()
-    {
-        if (!Camera.main)
-        {
-            return;
-        }
-
-        // Set the current selection based on the mouse position
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, LayerMask.GetMask("Board"));
-        if (hit.collider != null)
-        {
-            selectionX = (int)(hit.point.x);
-            selectionY = (int)(hit.point.y);
-
-            // Move the blue selection box to the currently selected tile
-            //blueSelector.transform.position = Utilities.getTileCenter(selectionX, selectionY);
-        }
-        else
-        {
-            selectionX = -1;
-            selectionY = -1;
-        }
+        }        
     }
 
     /// <summary>

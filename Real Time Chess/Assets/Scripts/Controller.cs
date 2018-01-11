@@ -31,19 +31,21 @@ static public class Controller
         return new Vector2(xDir, yDir);
     }
 
-    public static Vector2 getAim()
+    public static Vector2 getAim(int joyNumber)
     {
         int xDir = 0;
         int yDir = 0;
-        if (Input.GetAxis("RightStick_Horizontal") != 0)
+        if (joyNumber == 1)
         {
-            xDir = Input.GetAxis("RightStick_Horizontal") > 0 ? 1 : -1;
+            if (Input.GetAxis("RightStick_Horizontal") != 0)
+            {
+                xDir = Input.GetAxis("RightStick_Horizontal") > 0 ? 1 : -1;
+            }
+            if (Input.GetAxis("RightStick_Vertical") != 0)
+            {
+                yDir = Input.GetAxis("RightStick_Vertical") > 0 ? 1 : -1;
+            }
         }
-        if (Input.GetAxis("RightStick_Vertical") != 0)
-        {
-            yDir = Input.GetAxis("RightStick_Vertical") > 0 ? 1 : -1;
-        }
-
         return new Vector2(xDir, yDir);
     }
 
@@ -71,17 +73,25 @@ static public class Controller
         return Pressed;
     }
 
-    public static bool getFire()
+    public static bool getFire(int joyNumber)
     {
         bool firing = false;
-        if(Input.GetAxis("Shoot") > 0.5)
+        if (joyNumber == 1)
         {
-            firing = true;
+            if (Input.GetAxis("Shoot") > 0.5)
+            {
+                firing = true;
+            }
+        }
+        if (joyNumber == 2)
+        {
+            if (Input.GetAxis("P2_Shoot") > 0.5)
+            {
+                firing = true;
+            }
         }
 
-        return firing;
-       
-        
+        return firing;        
     }
 
     /*

@@ -8,7 +8,7 @@ public class FireBullet : MonoBehaviour {
 
 	void Start()
     {
-        Rigidbody rb = GetComponent<Rigidbody>();
-        rb.velocity = transform.up * speed;
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.velocity = Controller.getAim(1) * speed;
     }
 }

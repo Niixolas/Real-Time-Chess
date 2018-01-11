@@ -159,7 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 114740338181772184, guid: df02eb3c087079d4e97f3b13182bcc76,
     type: 2}
-  shot: {fileID: 1218750307021808, guid: c7212f0ff2781d8479bbb9ba450d790f, type: 2}
+  shot: {fileID: 1828008381664386, guid: 414cf5f248f7fa844ae3c9d0aa90bce6, type: 2}
   pieces:
   - {fileID: 1247013989669632, guid: 4f8d4c0e126de0d408c7c8ebbf406125, type: 2}
   - {fileID: 1607802204361016, guid: 07f75d58ed3b52348af8bb692f211050, type: 2}
@@ -178,6 +178,7 @@ MonoBehaviour:
     type: 2}
   redSelector: {fileID: 1528365407127862, guid: b954c161ebaf178428aabee4b16aa5f9,
     type: 2}
+  whiteSelectionBox: {fileID: 2266652}
 --- !u!4 &63900009
 Transform:
   m_ObjectHideFlags: 0
@@ -2429,6 +2430,11 @@ Prefab:
     - target: {fileID: 1948638589546200, guid: 0753db176cfb2584590128841d21d34c, type: 2}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 212427482094563178, guid: 0753db176cfb2584590128841d21d34c,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 95402081892442650, guid: 0753db176cfb2584590128841d21d34c, type: 2}
