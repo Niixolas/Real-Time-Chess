@@ -13,4 +13,8 @@ public class Queen : ChessPiece
         return false;
     }
 
+    public override bool isAimPossible(int x, int y)
+    {
+        return true;
+    }
 }

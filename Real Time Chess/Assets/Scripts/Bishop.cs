@@ -17,6 +17,15 @@ public class Bishop : ChessPiece
         }
         return false;
     }
+
+    public override bool isAimPossible(int x, int y)
+    {
+        if (x != 0 && y != 0)
+        {
+            return true;
+        }
+        return false;
+    }
 }
 
 

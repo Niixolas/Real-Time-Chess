@@ -5,7 +5,7 @@ using UnityEngine;
 public class BoardManager : MonoBehaviour
 {
     // Array representing the board and locations of the pieces
-    public ChessPiece[,] chessBoard { set; get; }
+    //public ChessPiece[,] chessBoard { set; get; }
 
     // Variable to hold the currently selected piece
     private ChessPiece greenSelectedPiece;
@@ -55,8 +55,11 @@ public class BoardManager : MonoBehaviour
         {
             if (greenSelectedPiece == null)
             {
-                selectPiece(Controller.selectionX, Controller.selectionY, 1);
-                whiteSelectionBox.GetComponent<SpriteRenderer>().enabled = false;
+                if (Utilities.chessBoard[Controller.selectionX, Controller.selectionY] != null)
+                {
+                    selectPiece(Controller.selectionX, Controller.selectionY, 1);
+                    whiteSelectionBox.GetComponent<SpriteRenderer>().enabled = false;
+                }
             }
             else
             {
@@ -71,7 +74,10 @@ public class BoardManager : MonoBehaviour
         {
             if (redSelectedPiece == null)
             {
-                selectPiece(Controller.selectionX, Controller.selectionY, 2);
+                if (Utilities.chessBoard[Controller.selectionX, Controller.selectionY] != null)
+                {
+                    selectPiece(Controller.selectionX, Controller.selectionY, 2);
+                }
             }
             else
             {
@@ -105,13 +111,12 @@ public class BoardManager : MonoBehaviour
             {
                 int targetX = greenSelectedPiece.currentX + (int)Controller.getMovement(1).x;
                 int targetY = greenSelectedPiece.currentY + (int)Controller.getMovement(1).y;
-                if (greenSelectedPiece.isMovePossible(targetX, targetY, chessBoard[targetX, targetY]))
+                if (targetX > 0 && targetX <= 7 && targetY > 0 && targetY <= 7)
                 {
-                    Debug.Log("YES!");
-                }
-                else
-                {
-                    Debug.Log("NO!");
+                    if (greenSelectedPiece.isMovePossible(targetX, targetY, Utilities.chessBoard[targetX, targetY]))
+                    {
+                        greenSelectedPiece.movePiece();
+                    }
                 }
             }
         }
@@ -123,19 +128,19 @@ public class BoardManager : MonoBehaviour
     /// </summary>
     private void selectPiece(int x, int y, int player)
     {
-        if (chessBoard[x, y] == null)
+        if (Utilities.chessBoard[x, y] == null)
         {
             return;
         }
 
-        if (player == 1 && chessBoard[x, y].isWhite)
+        if (player == 1 && Utilities.chessBoard[x, y].isWhite)
         {
-            greenSelectedPiece = chessBoard[x, y];
+            greenSelectedPiece = Utilities.chessBoard[x, y];
             Instantiate(greenSelector, greenSelectedPiece.transform);
         }
-        if (player == 2 && !chessBoard[x, y].isWhite)
+        if (player == 2 && !Utilities.chessBoard[x, y].isWhite)
         {
-            redSelectedPiece = chessBoard[x, y];
+            redSelectedPiece = Utilities.chessBoard[x, y];
             Instantiate(redSelector, redSelectedPiece.transform);
         }        
     }
@@ -162,7 +167,7 @@ public class BoardManager : MonoBehaviour
         {
             for (int j = 0; j < 8; j++)
             {
-                if (chessBoard[i, j] != null)
+                if (Utilities.chessBoard[i, j] != null)
                 {
                     Debug.DrawLine(Vector2.right * i + Vector2.up * j, Vector2.right * (i + 1) + Vector2.up * (j + 1), Color.green);
                     Debug.DrawLine(Vector2.right * i + Vector2.up * (j + 1), Vector2.right * (i + 1) + Vector2.up * j, Color.green);
@@ -185,9 +190,9 @@ public class BoardManager : MonoBehaviour
     {
         GameObject chessPiece = Instantiate(pieces[index], Utilities.getTileCenter(x, y), Quaternion.identity) as GameObject;
         ChessPiece aPiece = chessPiece.GetComponent<ChessPiece>();
-        
-        chessBoard[x, y] = aPiece;
-        chessBoard[x, y].setPosition(x, y);
+
+        Utilities.chessBoard[x, y] = aPiece;
+        Utilities.chessBoard[x, y].setPosition(x, y);
 
         HealthBar hb = Instantiate(healthBar , aPiece.transform);
         hb.MaxHealth = maxHealthValue;
@@ -205,7 +210,7 @@ public class BoardManager : MonoBehaviour
     private void spawnAllPieces()
     {
         activePieces = new List<GameObject>();
-        chessBoard = new ChessPiece[8, 8];
+        Utilities.chessBoard = new ChessPiece[8, 8];
 
         // Spawn White pieces
         spawnPiece(0, 4, 0, 200); // King

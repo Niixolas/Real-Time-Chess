@@ -65,10 +65,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b7f760fcb98c614b9a3a35a44be9e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 3
   isWhite: 1
+  isMoving: 0
+  shot: {fileID: 0}
   fireRate: 0.2
-  lightSelect: {fileID: 4290633819327492, guid: 0753db176cfb2584590128841d21d34c,
-    type: 2}
+  selfDamagePerShot: 1
 --- !u!212 &212497291010366034
 SpriteRenderer:
   m_ObjectHideFlags: 1

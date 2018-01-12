@@ -66,9 +66,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWhite: 0
-  fireRate: 0.5
-  lightSelect: {fileID: 4290633819327492, guid: 0753db176cfb2584590128841d21d34c,
-    type: 2}
+  shot: {fileID: 0}
+  fireRate: 0.1
+  selfDamagePerShot: 1
 --- !u!212 &212809915746678642
 SpriteRenderer:
   m_ObjectHideFlags: 1

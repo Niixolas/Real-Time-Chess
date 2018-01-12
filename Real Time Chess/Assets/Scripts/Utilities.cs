@@ -4,6 +4,9 @@ using UnityEngine;
 
 public static class Utilities
 {
+    // Array representing the board and locations of the pieces
+    public static ChessPiece[,] chessBoard { set; get; }
+
     // Width of each tile and offset to center of tile
     private const float tileWidth = 1.0f;
     private const float tileOffset = 0.5f;
