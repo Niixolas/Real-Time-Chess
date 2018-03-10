@@ -10,7 +10,11 @@ public class Pawn : ChessPiece
         {
             if (x == this.currentX)
             {
-                if (y > this.currentY)
+                if (isWhite && y > this.currentY)
+                {
+                    return true;
+                }
+                if (!isWhite && y < this.currentY)
                 {
                     return true;
                 }
@@ -22,6 +26,10 @@ public class Pawn : ChessPiece
     public override bool isAimPossible(int x, int y)
     {
         if (isWhite && x != 0 && y > 0)
+        {
+            return true;
+        }
+        if (!isWhite && x != 0 && y < 0)
         {
             return true;
         }

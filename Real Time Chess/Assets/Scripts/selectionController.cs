@@ -31,10 +31,16 @@ public class selectionController : MonoBehaviour
     {
         if (GetComponent<SpriteRenderer>().enabled == true)
         {
-
-            Controller.selectionX = (int)Utilities.getBoardCoordinates(transform.position.x, transform.position.y).x;
-            Controller.selectionY = (int)Utilities.getBoardCoordinates(transform.position.x, transform.position.y).y;
-
+            if (playerNumber == 1)
+            {
+                Controller.greenSelectionX = (int)Utilities.getBoardCoordinates(transform.position.x, transform.position.y).x;
+                Controller.greenSelectionY = (int)Utilities.getBoardCoordinates(transform.position.x, transform.position.y).y;
+            }
+            if (playerNumber == 2)
+            {
+                Controller.redSelectionX = (int)Utilities.getBoardCoordinates(transform.position.x, transform.position.y).x;
+                Controller.redSelectionY = (int)Utilities.getBoardCoordinates(transform.position.x, transform.position.y).y;
+            }
 
             if (isMoving)
             {

@@ -4,8 +4,10 @@ using UnityEngine;
 
 static public class Controller
 {
-    public static int selectionX = -1;
-    public static int selectionY = -1;
+    public static int greenSelectionX = -1;
+    public static int greenSelectionY = -1;
+    public static int redSelectionX = -1;
+    public static int redSelectionY = -1;
 
     public static Vector2 getMovement(int joyNumber)
     {
@@ -46,6 +48,19 @@ static public class Controller
                 yDir = Input.GetAxis("RightStick_Vertical") > 0 ? 1 : -1;
             }
         }
+
+        if (joyNumber == 2)
+        {
+            if (Input.GetAxis("P2_RightStick_Horizontal") != 0)
+            {
+                xDir = Input.GetAxis("P2_RightStick_Horizontal") > 0 ? 1 : -1;
+            }
+            if (Input.GetAxis("P2_RightStick_Vertical") != 0)
+            {
+                yDir = Input.GetAxis("P2_RightStick_Vertical") > 0 ? 1 : -1;
+            }
+        }
+
         return new Vector2(xDir, yDir);
     }
 
@@ -61,14 +76,6 @@ static public class Controller
         {
             Pressed = Input.GetButtonDown("P2_Submit");
         }        
-
-        return Pressed;
-    }
-
-    public static bool getCancel()
-    {
-
-        bool Pressed = Input.GetButtonDown("Cancel");
 
         return Pressed;
     }
@@ -94,27 +101,4 @@ static public class Controller
         return firing;        
     }
 
-    /*
-        // Select button (A) on controller.
-        bool Select_down = Input.GetButtonDown("Select");
-        bool Select_up = Input.GetButtonUp("Select");
-        bool Select_held = Input.GetButton("Select");
-
-        // Deselect button (B) on controller. 
-        bool Deselect_down = Input.GetButtonDown("Deselect"); 
-        bool Deselect_up = Input.GetButtonUp("Deselect");
-        bool Deselect_held = Input.GetButton("Deselect");
-        
-        
-        // Trigger to Fire.
-        float Right_Trigger = Input.GetAxis("Shoot");
-
-        // Joystick to move.
-        float LeftStick_H = Input.GetAxisRaw("LeftStick_Horizontal");
-        float LeftStick_V = Input.GetAxisRaw("LeftStick_Vertical");
-
-        // Joystick to aim.
-        float RightStick_V = Input.GetAxis("RightStick_Vertical");
-        float RightStick_H = Input.GetAxis("RightStick_Horizontal"); 
-        */
 }

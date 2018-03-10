@@ -39,6 +39,7 @@ public abstract class ChessPiece : MonoBehaviour
             {
                 isMoving = false;
                 transform.position = targetPosition;
+                Utilities.chessBoard[(int)targetPosition.x, (int)targetPosition.y] = this;
             }
             else
             {
@@ -76,7 +77,6 @@ public abstract class ChessPiece : MonoBehaviour
                 currentX = (int)targetPosition.x;
                 currentY = (int)targetPosition.y;
                 Utilities.chessBoard[(int)transform.position.x, (int)transform.position.y] = null;
-                Utilities.chessBoard[(int)targetSquare.x, (int)targetSquare.y] = this;
             }
         }
     }
@@ -113,14 +113,15 @@ public abstract class ChessPiece : MonoBehaviour
         shot = aShot;
     }
 
-    public void fire()
+    public void fire(int playerNumber)
     {
         if (Time.time > nextFire)
         {
-            if (isAimPossible((int)Controller.getAim(1).x, (int)Controller.getAim(1).y))
+            if (isAimPossible((int)Controller.getAim(playerNumber).x, (int)Controller.getAim(playerNumber).y))
             {
                 nextFire = Time.time + fireRate;
                 GameObject thisShot = Instantiate(shot, this.transform.position, this.transform.rotation);
+                thisShot.SendMessage("NewStart", playerNumber);
                 Destroy(thisShot, 2);
                 healthBar.DealDamage(selfDamagePerShot);
             }

@@ -6,9 +6,9 @@ public class FireBullet : MonoBehaviour {
 
     public float speed;
 
-	void Start()
+	void NewStart(int playerNumber)
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        rb.velocity = Controller.getAim(1) * speed;
+        rb.velocity = Controller.getAim(playerNumber) * speed;
     }
 }
