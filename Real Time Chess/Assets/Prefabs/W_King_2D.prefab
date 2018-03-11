@@ -49,10 +49,10 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1247013989669632}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10.24, y: 10.24, z: 0.2}
+  m_Size: {x: 1, y: 1, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114570784844432932
 MonoBehaviour:
@@ -65,10 +65,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8efae3319640e2f42920e555904c489b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 5
   isWhite: 1
+  isMoving: 0
+  shot: {fileID: 0}
   fireRate: 0.5
-  lightSelect: {fileID: 4290633819327492, guid: 0753db176cfb2584590128841d21d34c,
-    type: 2}
+  selfDamagePerShot: 1
 --- !u!212 &212715145517147594
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -78,6 +80,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -93,6 +96,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5

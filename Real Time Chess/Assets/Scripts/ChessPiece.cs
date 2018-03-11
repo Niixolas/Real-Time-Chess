@@ -128,4 +128,17 @@ public abstract class ChessPiece : MonoBehaviour
 
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "bullet")
+        {
+            if (collision.gameObject.GetComponent<FireBullet>().playerNum == 1 && !isWhite ||
+                collision.gameObject.GetComponent<FireBullet>().playerNum == 2 && isWhite)
+            {
+                healthBar.DealDamage(collision.gameObject.GetComponent<FireBullet>().damage);
+                Destroy(collision.gameObject);
+            }
+        }
+    }
 }
