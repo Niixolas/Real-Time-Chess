@@ -62,7 +62,7 @@ public abstract class ChessPiece : MonoBehaviour
         }
     }
 
-    public void movePiece()
+    public virtual void movePiece()
     { 
         Vector2 movement = Controller.getMovement(isWhite ? 1 : 2);
         targetSquare = Utilities.getBoardCoordinates(transform.position.x, transform.position.y);

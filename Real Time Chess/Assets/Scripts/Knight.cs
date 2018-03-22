@@ -6,6 +6,11 @@ public class Knight : ChessPiece
 {
     public override bool isMovePossible(int x, int y, ChessPiece target)
     {
+        int dirX = x - currentX;
+        int dirY = y - currentY;
+
+        //dirX = (dirX == 0) ? 1
+
         if (target == null)
         {
             // Knight movement
@@ -16,6 +21,11 @@ public class Knight : ChessPiece
 
         }
         return false;
+    }
+
+    public override void movePiece()
+    {
+        
     }
 
 }
