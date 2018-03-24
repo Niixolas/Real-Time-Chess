@@ -8,10 +8,10 @@ public class BoardManager : MonoBehaviour
     //public ChessPiece[,] chessBoard { set; get; }
 
     // Variable to hold the currently selected piece
-    private ChessPiece greenSelectedPiece;
-    private ChessPiece redSelectedPiece;
+    public ChessPiece greenSelectedPiece;
+    public ChessPiece redSelectedPiece;
 
-    //variable to hold the healthbar of a particluar peice
+    //variable to hold the healthbar of a particular peice
     public HealthBar healthBar;
 
     public GameObject shot;
@@ -49,9 +49,20 @@ public class BoardManager : MonoBehaviour
         checkInputs();
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<FireBullet>())
+        {
+            Destroy(collision.gameObject);
+        }
+    }
+
+
     // Check controller inputs
     private void checkInputs()
     {
+
+
         if (Controller.getPressed(1))
         {
             if (greenSelectedPiece == null)
@@ -90,8 +101,8 @@ public class BoardManager : MonoBehaviour
             }
         }
 
-        if (Controller.getFire(1))
-        {
+        //if (Controller.getFire(1))
+        //{
             if (Controller.getAim(1) != Vector2.zero)
             {
                 if (greenSelectedPiece != null)
@@ -99,10 +110,10 @@ public class BoardManager : MonoBehaviour
                     greenSelectedPiece.fire(1);
                 }
             }
-        }
+        //}
 
-        if (Controller.getFire(2))
-        {
+        //if (Controller.getFire(2))
+        //{
             if (Controller.getAim(2) != Vector2.zero)
             {
                 if (redSelectedPiece != null)
@@ -110,7 +121,7 @@ public class BoardManager : MonoBehaviour
                     redSelectedPiece.fire(2);
                 }
             }
-        }
+        //}
 
         if (Controller.getMovement(1) != Vector2.zero)
         {

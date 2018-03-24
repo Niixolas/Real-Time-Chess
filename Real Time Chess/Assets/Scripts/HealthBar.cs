@@ -30,7 +30,8 @@ public class HealthBar : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         MaxHealth = maxHealth;
         //resets health to full on game load
         CurrentHealth = MaxHealth;
@@ -45,7 +46,7 @@ public class HealthBar : MonoBehaviour {
         ArialFont = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
         myText.font = ArialFont;
         myText.material = ArialFont.material;
-        myText.color = Color.red;
+        myText.color = Color.yellow;
         myText.fontSize = 11;
         myText.fontStyle = FontStyle.Bold;
 
@@ -83,7 +84,23 @@ public class HealthBar : MonoBehaviour {
     void Die()
     {
         CurrentHealth = 0;
-        Debug.Log("You dead.");
+        BoardManager bm = FindObjectOfType<BoardManager>();
+        if (GetComponentInParent<ChessPiece>().isWhite && bm.greenSelectedPiece == this.GetComponentInParent<ChessPiece>())
+        {
+            Destroy(GameObject.FindGameObjectWithTag("greenSelector"));
+            bm.whiteSelectionBox.GetComponent<SpriteRenderer>().enabled = true;
+            bm.whiteSelectionBox.transform.position = Utilities.getTileCenter(bm.greenSelectedPiece.currentX, bm.greenSelectedPiece.currentY);
+            bm.greenSelectedPiece = null;
+        }
+        if (!GetComponentInParent<ChessPiece>().isWhite && bm.redSelectedPiece == this.GetComponentInParent<ChessPiece>())
+        {
+            Destroy(GameObject.FindGameObjectWithTag("redSelector"));
+            bm.blackSelectionBox.GetComponent<SpriteRenderer>().enabled = true;
+            bm.blackSelectionBox.transform.position = Utilities.getTileCenter(bm.redSelectedPiece.currentX, bm.redSelectedPiece.currentY);
+            bm.redSelectedPiece = null;
+        }
+
+        Destroy(transform.parent.gameObject);
     }
 
 }
