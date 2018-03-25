@@ -6,14 +6,14 @@ public abstract class ChessPiece : MonoBehaviour
 {
     public int currentX { set; get; }
     public int currentY { set; get; }
-    public float speed = 5.0f;
+    public float speed = 50.0f;
     public bool isWhite;
 
     [HideInInspector]
     public bool isMoving;
 
-    private Vector2 targetSquare;
-    private Vector2 targetPosition;
+    protected Vector2 targetSquare;
+    protected Vector2 targetPosition;
 
     private HealthBar healthBar;
     
@@ -35,7 +35,7 @@ public abstract class ChessPiece : MonoBehaviour
     {
         if (isMoving)
         {
-            if (Mathf.Abs(targetPosition.x - transform.position.x) < 0.2 && Mathf.Abs(targetPosition.y - transform.position.y) < 0.2)
+            if (Mathf.Abs(targetPosition.x - transform.position.x) < 0.05 && Mathf.Abs(targetPosition.y - transform.position.y) < 0.05)
             {
                 isMoving = false;
                 transform.position = targetPosition;
@@ -43,20 +43,8 @@ public abstract class ChessPiece : MonoBehaviour
             }
             else
             {
-                float deltaX = targetPosition.x - transform.position.x;
-                float deltaY = targetPosition.y - transform.position.y;
-                float moveX = 0;
-                float moveY = 0;
-                if (deltaX != 0)
-                {
-                    moveX = (deltaX > 0) ? 1 : -1;
-                }
-                if (deltaY != 0)
-                {
-                    moveY = (deltaY > 0) ? 1 : -1;
-                }
-                float newX = transform.position.x + moveX * speed * Time.deltaTime;
-                float newY = transform.position.y + moveY * speed * Time.deltaTime;
+                float newX = Mathf.Lerp(transform.position.x, targetPosition.x, Time.deltaTime * speed * (1 / Mathf.Abs(transform.position.x - targetPosition.x)));
+                float newY = Mathf.Lerp(transform.position.y, targetPosition.y, Time.deltaTime * speed * (1 / Mathf.Abs(transform.position.y - targetPosition.y)));
                 transform.position = new Vector2(newX, newY);
             }
         }

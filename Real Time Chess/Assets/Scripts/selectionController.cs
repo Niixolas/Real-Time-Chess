@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class selectionController : MonoBehaviour
 {
-    public float speed = 2.5f;
+    public float speed = 10.0f;
     public int startX = 4;
     public int startY = 3;
 
@@ -44,27 +44,15 @@ public class selectionController : MonoBehaviour
 
             if (isMoving)
             {
-                if (Mathf.Abs(targetPosition.x - transform.position.x) < 0.2 && Mathf.Abs(targetPosition.y - transform.position.y) < 0.2)
+                if (Mathf.Abs(targetPosition.x - transform.position.x) < 0.05 && Mathf.Abs(targetPosition.y - transform.position.y) < 0.05)
                 {
                     isMoving = false;
                     transform.position = targetPosition;
                 }
                 else
                 {
-                    float deltaX = targetPosition.x - transform.position.x;
-                    float deltaY = targetPosition.y - transform.position.y;
-                    float moveX = 0;
-                    float moveY = 0;
-                    if (deltaX != 0)
-                    {
-                        moveX = (deltaX > 0) ? 1 : -1;
-                    }
-                    if (deltaY != 0)
-                    {
-                        moveY = (deltaY > 0) ? 1 : -1;
-                    }
-                    float newX = transform.position.x + moveX * speed * Time.deltaTime;
-                    float newY = transform.position.y + moveY * speed * Time.deltaTime;
+                    float newX = Mathf.Lerp(transform.position.x, targetPosition.x, Time.deltaTime * speed * (1 / Mathf.Abs(transform.position.x - targetPosition.x)));
+                    float newY = Mathf.Lerp(transform.position.y, targetPosition.y, Time.deltaTime * speed * (1 / Mathf.Abs(transform.position.y - targetPosition.y)));
                     transform.position = new Vector2(newX, newY);
                 }
             }

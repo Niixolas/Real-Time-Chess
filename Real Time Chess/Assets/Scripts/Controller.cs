@@ -33,6 +33,63 @@ static public class Controller
         return new Vector2(xDir, yDir);
     }
 
+    public static Vector2 getKnightMovement(int joyNumber)
+    {
+        int xDir = 0;
+        int yDir = 0;
+        string leftHorizontal = "LeftStick_Horizontal";
+        string leftVertical = "LeftStick_Vertical";
+        if (joyNumber == 2)
+        {
+            leftHorizontal = "P2_LeftStick_Horizontal";
+            leftVertical = "P2_LeftStick_Vertical";
+        }
+
+        float rot = Mathf.Atan2(Input.GetAxis(leftVertical), Input.GetAxis(leftHorizontal)) * Mathf.Rad2Deg;
+
+        if (rot > 0 && rot < 45)
+        {
+            xDir = 2;
+            yDir = 1;
+        }
+        if (rot > 45 && rot < 90)
+        {
+            xDir = 1;
+            yDir = 2;
+        }
+        if (rot > 90 && rot < 135)
+        {
+            xDir = -1;
+            yDir = 2;
+        }
+        if (rot > 135 && rot < 180)
+        {
+            xDir = -2;
+            yDir = 1;
+        }
+        if (rot < -135 && rot > -180)
+        {
+            xDir = -2;
+            yDir = -1;
+        }
+        if (rot < -90 && rot > -135)
+        {
+            xDir = -1;
+            yDir = -2;
+        }
+        if (rot < -45 && rot > -90)
+        {
+            xDir = 1;
+            yDir = -2;
+        }
+        if (rot > -45 && rot < 0)
+        {
+            xDir = 2;
+            yDir = -1;
+        }
+        return new Vector2(xDir, yDir);
+    }
+
     public static Vector2 getAim(int joyNumber)
     {
         int xDir = 0;

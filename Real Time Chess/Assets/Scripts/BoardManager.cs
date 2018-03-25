@@ -71,6 +71,7 @@ public class BoardManager : MonoBehaviour
                 {
                     selectPiece(Controller.greenSelectionX, Controller.greenSelectionY, 1);
                     whiteSelectionBox.GetComponent<SpriteRenderer>().enabled = false;
+                    whiteSelectionBox.GetComponent<selectionController>().isMoving = false;
                 }
             }
             else
@@ -90,6 +91,7 @@ public class BoardManager : MonoBehaviour
                 {
                     selectPiece(Controller.redSelectionX, Controller.redSelectionY, 2);
                     blackSelectionBox.GetComponent<SpriteRenderer>().enabled = false;
+                    blackSelectionBox.GetComponent<selectionController>().isMoving = false;
                 }
             }
             else
@@ -127,15 +129,7 @@ public class BoardManager : MonoBehaviour
         {
             if (greenSelectedPiece != null && !greenSelectedPiece.isMoving)
             {
-                int targetX = greenSelectedPiece.currentX + (int)Controller.getMovement(1).x;
-                int targetY = greenSelectedPiece.currentY + (int)Controller.getMovement(1).y;
-                if (targetX >= 0 && targetX <= 7 && targetY >= 0 && targetY <= 7)
-                {
-                    if (greenSelectedPiece.isMovePossible(targetX, targetY, Utilities.chessBoard[targetX, targetY]))
-                    {
-                        greenSelectedPiece.movePiece();
-                    }
-                }
+                greenSelectedPiece.movePiece();
             }
         }
 
@@ -143,15 +137,7 @@ public class BoardManager : MonoBehaviour
         {
             if (redSelectedPiece != null && !redSelectedPiece.isMoving)
             {
-                int targetX = redSelectedPiece.currentX + (int)Controller.getMovement(2).x;
-                int targetY = redSelectedPiece.currentY + (int)Controller.getMovement(2).y;
-                if (targetX >= 0 && targetX <= 7 && targetY >= 0 && targetY <= 7)
-                {
-                    if (redSelectedPiece.isMovePossible(targetX, targetY, Utilities.chessBoard[targetX, targetY]))
-                    {
-                        redSelectedPiece.movePiece();
-                    }
-                }
+                redSelectedPiece.movePiece();
             }
         }
 
