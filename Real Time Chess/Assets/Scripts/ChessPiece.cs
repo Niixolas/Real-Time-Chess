@@ -19,6 +19,8 @@ public abstract class ChessPiece : MonoBehaviour
     
     public GameObject shot;
 
+    public BoardManager bm;
+
     private float nextFire = 0.0F;
     public float fireRate = 0.5F;
     public int selfDamagePerShot = 1;
@@ -29,6 +31,7 @@ public abstract class ChessPiece : MonoBehaviour
         transform.position = Utilities.getTileCenter(currentX, currentY);
         targetSquare = new Vector2(0, 0);
         targetPosition = Utilities.getTileCenter((int)targetSquare.x, (int)targetSquare.y);
+        bm = FindObjectOfType<BoardManager>(); 
     }
 
     private void Update()
@@ -65,6 +68,7 @@ public abstract class ChessPiece : MonoBehaviour
                 currentX = (int)targetPosition.x;
                 currentY = (int)targetPosition.y;
                 Utilities.chessBoard[(int)transform.position.x, (int)transform.position.y] = null;
+                bm.GetComponent<AudioSource>().Play();
             }
         }
     }
