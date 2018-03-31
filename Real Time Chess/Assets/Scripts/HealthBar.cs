@@ -57,10 +57,9 @@ public class HealthBar : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
-        
-        myText.text = CurrentHealth.ToString();
-        
+    void Update ()
+    {        
+        myText.text = (Mathf.Floor(CurrentHealth)).ToString();        
     }
 
     public void DealDamage(float damageValue)

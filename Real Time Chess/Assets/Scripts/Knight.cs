@@ -37,4 +37,28 @@ public class Knight : ChessPiece
         }
     }
 
+    public override void fire(int playerNumber)
+    {
+        if (Time.time > nextFire)
+        {
+            if (Controller.getKnightAim(playerNumber) != Vector2.zero)
+            {
+                nextFire = Time.time + fireRate;
+                GameObject thisShot = Instantiate(shot, this.transform.position, this.transform.rotation);
+
+                thisShot.SendMessage("NewStart", playerNumber);
+                thisShot.SendMessage("SetInstigator", this.gameObject);
+
+                Vector2 aim = Controller.getKnightAim(playerNumber);
+                Vector2 targetSquare = new Vector2(currentX + aim.x, currentY + aim.y);
+                thisShot.SendMessage("SetKnight", targetSquare);
+
+                thisShot.layer = LayerMask.NameToLayer("Knight");
+                Destroy(thisShot, 2);
+                healthBar.DealDamage(selfDamagePerShot);
+            }
+
+        }
+    }
+
 }

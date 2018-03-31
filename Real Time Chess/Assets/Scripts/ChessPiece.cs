@@ -15,15 +15,15 @@ public abstract class ChessPiece : MonoBehaviour
     protected Vector2 targetSquare;
     protected Vector2 targetPosition;
 
-    private HealthBar healthBar;
+    protected HealthBar healthBar;
     
     public GameObject shot;
 
     public BoardManager bm;
 
-    private float nextFire = 0.0F;
+    protected float nextFire = 0.0F;
     public float fireRate = 0.5F;
-    public int selfDamagePerShot = 1;
+    public float selfDamagePerShot = 0.5f;
 
     void Start()
     {
@@ -105,7 +105,7 @@ public abstract class ChessPiece : MonoBehaviour
         shot = aShot;
     }
 
-    public void fire(int playerNumber)
+    public virtual void fire(int playerNumber)
     {
         if (Time.time > nextFire)
         {
@@ -124,7 +124,7 @@ public abstract class ChessPiece : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "bullet")
+        if (collision.tag == "bullet" && collision.gameObject.layer != LayerMask.NameToLayer("Knight"))
         {
             if (collision.gameObject.GetComponent<FireBullet>().playerNum == 1 && !isWhite ||
                 collision.gameObject.GetComponent<FireBullet>().playerNum == 2 && isWhite)

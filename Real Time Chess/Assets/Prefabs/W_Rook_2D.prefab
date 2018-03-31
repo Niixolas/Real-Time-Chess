@@ -84,7 +84,7 @@ MonoBehaviour:
   shot: {fileID: 0}
   bm: {fileID: 0}
   fireRate: 0.1
-  selfDamagePerShot: 1
+  selfDamagePerShot: 0.5
 --- !u!212 &212115139471043478
 SpriteRenderer:
   m_ObjectHideFlags: 1
