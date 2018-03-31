@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bfb74b9fc338614fbded1fcbf7ae8bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startText: {fileID: 1141753163}
 --- !u!4 &41260829
 Transform:
   m_ObjectHideFlags: 0
@@ -337,7 +338,7 @@ GameObject:
   - component: {fileID: 1141753164}
   - component: {fileID: 1141753163}
   m_Layer: 5
-  m_Name: Text
+  m_Name: startText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -479,7 +480,7 @@ GameObject:
   - component: {fileID: 1768855942}
   - component: {fileID: 1768855941}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: exitText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
