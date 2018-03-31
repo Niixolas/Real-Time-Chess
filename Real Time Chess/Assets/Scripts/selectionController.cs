@@ -27,7 +27,7 @@ public class selectionController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (GetComponent<SpriteRenderer>().enabled == true)
         {

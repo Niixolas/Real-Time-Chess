@@ -34,7 +34,7 @@ public abstract class ChessPiece : MonoBehaviour
         bm = FindObjectOfType<BoardManager>(); 
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (isMoving)
         {
