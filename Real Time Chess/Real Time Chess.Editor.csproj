@@ -285,17 +285,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Real Time Chess.Plugins.csproj">
-      <Project>{4B4B9B05-89A2-FAD1-E150-78DB926C0EA0}</Project>
-      <Name>Real Time Chess.Plugins</Name>
-    </ProjectReference>
     <ProjectReference Include="Real Time Chess.csproj">
       <Project>{FABBC599-4246-2354-DCB9-E842318E1620}</Project>
       <Name>Real Time Chess</Name>
-    </ProjectReference>
-    <ProjectReference Include="Real Time Chess.Editor.Plugins.csproj">
-      <Project>{FB72B7B7-AE70-8ADF-1BC8-345F7852AD46}</Project>
-      <Name>Real Time Chess.Editor.Plugins</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -376,11 +368,6 @@
     <None Include="Assets\PostProcessing\Resources\Shaders\Uber.shader" />
     <None Include="Assets\PostProcessing\Resources\Shaders\UberSecondPass.cginc" />
     <None Include="Assets\PostProcessing\Utilities\CustomMotionTexture\Shaders\CustomMotionVectorTexture.shader" />
-    <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
-    <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
-    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
-    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
-    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

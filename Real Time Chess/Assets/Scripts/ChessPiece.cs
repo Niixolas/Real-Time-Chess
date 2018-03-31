@@ -114,6 +114,7 @@ public abstract class ChessPiece : MonoBehaviour
                 nextFire = Time.time + fireRate;
                 GameObject thisShot = Instantiate(shot, this.transform.position, this.transform.rotation);
                 thisShot.SendMessage("NewStart", playerNumber);
+                thisShot.SendMessage("SetInstigator", this.gameObject);
                 Destroy(thisShot, 2);
                 healthBar.DealDamage(selfDamagePerShot);
             }
@@ -129,8 +130,12 @@ public abstract class ChessPiece : MonoBehaviour
                 collision.gameObject.GetComponent<FireBullet>().playerNum == 2 && isWhite)
             {
                 healthBar.DealDamage(collision.gameObject.GetComponent<FireBullet>().damage);
+            }
+            if (this.gameObject != collision.GetComponent<FireBullet>().instigator)
+            {
                 Destroy(collision.gameObject);
             }
+            
         }
     }
 }

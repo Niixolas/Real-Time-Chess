@@ -65,7 +65,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.6, y: 0.6}
   m_EdgeRadius: 0
 --- !u!114 &114455298916337384
 MonoBehaviour:
@@ -82,6 +82,7 @@ MonoBehaviour:
   isWhite: 0
   isMoving: 0
   shot: {fileID: 0}
+  bm: {fileID: 0}
   fireRate: 0.1
   selfDamagePerShot: 1
 --- !u!212 &212809915746678642
