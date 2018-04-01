@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Menu_Controller : MonoBehaviour 
 {
-    public Canvas canvas;
+    public Canvas pauseCanvas;
 
     private void Update()
     {
@@ -14,7 +14,7 @@ public class Menu_Controller : MonoBehaviour
         {
             Pause();
         }
-        if (Input.GetButtonDown("SelectButton") && canvas.isActiveAndEnabled == true)
+        if (Input.GetButtonDown("SelectButton") && pauseCanvas.isActiveAndEnabled == true)
         {
             Quit();
         }
@@ -36,15 +36,15 @@ public class Menu_Controller : MonoBehaviour
 
 	public void Pause()
 	{
-		if (canvas.isActiveAndEnabled == false)
+		if (pauseCanvas.isActiveAndEnabled == false)
         {
             //canvas.enabled = true;
-            canvas.gameObject.SetActive(true);
+            pauseCanvas.gameObject.SetActive(true);
 			Time.timeScale = 0;
 			Debug.Log ("Pause");
 		} else
         {
-            canvas.gameObject.SetActive(false);
+            pauseCanvas.gameObject.SetActive(false);
             Time.timeScale = 1;
         }
 	}

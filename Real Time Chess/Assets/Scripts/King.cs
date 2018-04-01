@@ -17,4 +17,12 @@ public class King : ChessPiece
     {
         return true;
     }
+
+    private void Update()
+    {
+        if (healthBar.CurrentHealth <= 10)
+        {
+            FindObjectOfType<BoardManager>().setCheck(isWhite);
+        }
+    }
 }

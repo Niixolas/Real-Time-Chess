@@ -9,6 +9,8 @@ TagManager:
   - greenSelector
   - redSelector
   - bullet
+  - PauseCanvas
+  - CheckCanvas
   layers:
   - Default
   - TransparentFX

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class BoardManager : MonoBehaviour
@@ -29,6 +30,10 @@ public class BoardManager : MonoBehaviour
     // Selection box
     public GameObject whiteSelectionBox;
     public GameObject blackSelectionBox;
+
+    // Pulsing "Check!" text
+    public Text redCheckText;
+    public Text greenCheckText;
 
     // Currently selected tile. No selection provides -1.
     private int selectionX = -1;
@@ -265,5 +270,16 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    public void setCheck(bool isWhite)
+    {
+        if (isWhite)
+        {
+            greenCheckText.enabled = true;
+        }
+        else
+        {
+            redCheckText.enabled = true;
+        }
+    }
 
 }
