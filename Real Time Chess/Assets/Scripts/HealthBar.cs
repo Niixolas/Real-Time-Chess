@@ -7,6 +7,7 @@ public class HealthBar : MonoBehaviour {
 
     public float CurrentHealth { get; set; }
     public float maxHealth;
+    
     Image healthbar;
     GameObject newGO;
     Text myText;
@@ -41,18 +42,18 @@ public class HealthBar : MonoBehaviour {
 
         healthbar.fillAmount = CalculateHealth();
 
-        newGO = new GameObject("myTextGO");
-        myText = newGO.AddComponent<Text>();
-        ArialFont = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
-        myText.font = ArialFont;
-        myText.material = ArialFont.material;
-        myText.color = Color.yellow;
-        myText.fontSize = 11;
-        myText.fontStyle = FontStyle.Bold;
+        myText = GetComponentInChildren<Text>();
+        //newGO = new GameObject("myTextGO");
+        //myText = newGO.AddComponent<Text>();
+        //ArialFont = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
+        //myText.font = ArialFont;
+        //myText.material = ArialFont.material;
+        //myText.color = Color.yellow;
+        //myText.fontSize = 11;
+        //myText.fontStyle = FontStyle.Bold;
 
-        myText.transform.SetParent(this.transform, false);
-        myText.transform.Translate(1, -1, 0);
-
+        //myText.transform.SetParent(this.transform, false);
+        //myText.transform.Translate(1, -1, 0);
 
     }
 
@@ -64,6 +65,8 @@ public class HealthBar : MonoBehaviour {
 
     public void DealDamage(float damageValue)
     {
+        myText.GetComponent<Animator>().SetTrigger("wasHit");
+
         //deduct the damage dealt from the character's health
         CurrentHealth -= damageValue;
         healthbar.fillAmount = CalculateHealth();
