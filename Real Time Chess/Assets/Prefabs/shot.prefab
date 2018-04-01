@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 61190913838181420}
   - component: {fileID: 50262169445592364}
   - component: {fileID: 82128292912093976}
+  - component: {fileID: 95342631677211264}
   m_Layer: 0
   m_Name: shot
   m_TagString: bullet
@@ -169,6 +170,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!95 &95342631677211264
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1828008381664386}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ac983dda1a33ff64ea3942e6e485d1af, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114556280438993394
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -180,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96204001813ed904a98f4353f0429e1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 5
   damage: 1
   playerNum: 0
   instigator: {fileID: 0}

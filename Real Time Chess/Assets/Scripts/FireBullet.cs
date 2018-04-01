@@ -34,6 +34,7 @@ public class FireBullet : MonoBehaviour
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         Vector2 dir = Utilities.getTileCenter((int)targetSquare.x, (int)targetSquare.y) - Utilities.getTileCenter((int)gameObject.transform.position.x, (int)gameObject.transform.position.y);
         rb.velocity = dir * speed;
+        GetComponent<Animator>().enabled = true;
     }
 
     private void Update()
