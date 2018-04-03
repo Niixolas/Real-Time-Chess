@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
-    // Array representing the board and locations of the pieces
-    //public ChessPiece[,] chessBoard { set; get; }
+    // Game sentinel value
+    [HideInInspector]
+    public bool gameOver;
 
     // Variable to hold the currently selected piece
     public ChessPiece greenSelectedPiece;
@@ -42,6 +43,7 @@ public class BoardManager : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        gameOver = false;
         spawnAllPieces();
     }
 
@@ -50,8 +52,11 @@ public class BoardManager : MonoBehaviour
     /// </summary>
     void Update ()
     {
-        drawChessBoard();
-        checkInputs();
+        if (!gameOver)
+        {
+            drawChessBoard();
+            checkInputs();
+        }        
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -66,8 +71,6 @@ public class BoardManager : MonoBehaviour
     // Check controller inputs
     private void checkInputs()
     {
-
-
         if (Controller.getPressed(1))
         {
             if (greenSelectedPiece == null)

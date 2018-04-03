@@ -7,16 +7,54 @@ using UnityEngine.UI;
 public class Menu_Controller : MonoBehaviour 
 {
     public Canvas pauseCanvas;
+    public GameObject checkmatePanel;
+
+    public GameObject greenWinnerText;
+    public GameObject redWinnerText;
+
+    bool gameOver = false;
 
     private void Update()
     {
-        if (Input.GetButtonDown("StartButton"))
+        if (!gameOver)
         {
-            Pause();
+            if (Input.GetButtonDown("StartButton"))
+            {
+                Pause();
+            }
+            if (Input.GetButtonDown("SelectButton") && pauseCanvas.isActiveAndEnabled == true)
+            {
+                Quit();
+            }
         }
-        if (Input.GetButtonDown("SelectButton") && pauseCanvas.isActiveAndEnabled == true)
+        else
         {
-            Quit();
+            if (Input.GetButtonDown("StartButton"))
+            {
+                LoadScene("_Main");
+            }
+            if (Input.GetButtonDown("SelectButton"))
+            {
+                Quit();
+            }
+        }
+
+    }
+
+    public void setWinner(bool isWhite)
+    {
+        Time.timeScale = 0;
+        checkmatePanel.SetActive(true);
+        gameOver = true;
+        FindObjectOfType<BoardManager>().gameOver = true;
+
+        if (isWhite)
+        {
+            greenWinnerText.SetActive(true);
+        }
+        else
+        {
+            redWinnerText.SetActive(true);
         }
     }
 
@@ -24,8 +62,6 @@ public class Menu_Controller : MonoBehaviour
 	{
 		Time.timeScale = 1;
 		SceneManager.LoadScene (sceneName);
-
-
 	}
 
 	public void Quit()
@@ -38,10 +74,8 @@ public class Menu_Controller : MonoBehaviour
 	{
 		if (pauseCanvas.isActiveAndEnabled == false)
         {
-            //canvas.enabled = true;
             pauseCanvas.gameObject.SetActive(true);
 			Time.timeScale = 0;
-			Debug.Log ("Pause");
 		} else
         {
             pauseCanvas.gameObject.SetActive(false);

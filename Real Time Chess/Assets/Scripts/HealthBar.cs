@@ -102,6 +102,11 @@ public class HealthBar : MonoBehaviour {
             bm.redSelectedPiece = null;
         }
 
+        if (transform.parent.gameObject.GetComponent<King>())
+        {
+            FindObjectOfType<Menu_Controller>().setWinner(!transform.parent.gameObject.GetComponent<ChessPiece>().isWhite);
+        }
+
         Destroy(transform.parent.gameObject);
     }
 
