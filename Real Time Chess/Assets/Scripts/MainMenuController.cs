@@ -19,7 +19,11 @@ public class MainMenuController : MonoBehaviour
         {
             SceneManager.LoadScene("_Main");
         }
-        if (Input.GetButtonDown("SelectButton"))
+        //if (Input.GetButtonDown("SelectButton"))
+        //{
+        //    Quit();
+        //}
+        if (Input.GetButton("keyExit"))
         {
             Quit();
         }

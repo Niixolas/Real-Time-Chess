@@ -154,7 +154,7 @@ public class BoardManager : MonoBehaviour
     /// <summary>
     /// Selects a chess piece if a piece exists in the selected square
     /// </summary>
-    private void selectPiece(int x, int y, int player)
+    public void selectPiece(int x, int y, int player)
     {
         if (Utilities.chessBoard[x, y] == null)
         {
@@ -214,7 +214,7 @@ public class BoardManager : MonoBehaviour
     /// <summary>
     /// Spawn a chess piece
     /// </summary>
-    private void spawnPiece (int index, int x, int y, int maxHealthValue)
+    public void spawnPiece (int index, int x, int y, int maxHealthValue)
     {
         GameObject chessPiece = Instantiate(pieces[index], Utilities.getTileCenter(x, y), Quaternion.identity) as GameObject;
         ChessPiece aPiece = chessPiece.GetComponent<ChessPiece>();

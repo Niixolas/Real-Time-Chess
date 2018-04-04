@@ -12,6 +12,8 @@ public class Menu_Controller : MonoBehaviour
     public GameObject greenWinnerText;
     public GameObject redWinnerText;
 
+    public AudioSource backgroundMusic;
+
     bool gameOver = false;
 
     private void Update()
@@ -47,6 +49,8 @@ public class Menu_Controller : MonoBehaviour
         checkmatePanel.SetActive(true);
         gameOver = true;
         FindObjectOfType<BoardManager>().gameOver = true;
+        backgroundMusic.Stop();
+        GetComponent<AudioSource>().Play();
 
         if (isWhite)
         {

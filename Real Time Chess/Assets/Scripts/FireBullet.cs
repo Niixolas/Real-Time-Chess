@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class FireBullet : MonoBehaviour
 {
-
     public float speed;
     public float damage = 1;
     public int playerNum;
 
     private bool isKnight = false;
+    private bool isPawnOrKing = false;
     private Vector2 targetSquare;
 
     [HideInInspector]
@@ -37,9 +37,18 @@ public class FireBullet : MonoBehaviour
         GetComponent<Animator>().enabled = true;
     }
 
+    void SetPawnOrKing(Vector2 target)
+    {
+        isPawnOrKing = true;
+        targetSquare = target;
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        Vector2 dir = Utilities.getTileCenter((int)targetSquare.x, (int)targetSquare.y) - Utilities.getTileCenter((int)gameObject.transform.position.x, (int)gameObject.transform.position.y);
+        rb.velocity = dir * speed;
+    }
+
     private void Update()
     {
-        if (isKnight)
+        if (isKnight || isPawnOrKing)
         {
             Vector2 currentTile = Utilities.getBoardCoordinates(gameObject.transform.position.x, gameObject.transform.position.y);
             if (currentTile == Utilities.getBoardCoordinates(targetSquare.x, targetSquare.y))

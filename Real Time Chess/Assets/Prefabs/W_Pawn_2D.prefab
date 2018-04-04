@@ -65,7 +65,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6, y: 0.6}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!114 &114073172701188408
 MonoBehaviour:
@@ -82,9 +82,11 @@ MonoBehaviour:
   isWhite: 1
   isMoving: 0
   shot: {fileID: 0}
+  explosion: {fileID: 1269972836079418, guid: 73fe1eb196fe1684eaf745caf7c19d44, type: 2}
   bm: {fileID: 0}
   fireRate: 0.2
   selfDamagePerShot: 0.5
+  hitClip: {fileID: 8300000, guid: ada6f048599e0064e840e3fc29d28303, type: 3}
 --- !u!212 &212497291010366034
 SpriteRenderer:
   m_ObjectHideFlags: 1

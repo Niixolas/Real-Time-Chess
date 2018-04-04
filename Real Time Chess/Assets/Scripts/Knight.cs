@@ -33,13 +33,16 @@ public class Knight : ChessPiece
                 currentX = (int)targetPosition.x;
                 currentY = (int)targetPosition.y;
                 Utilities.chessBoard[(int)transform.position.x, (int)transform.position.y] = null;
+                Utilities.chessBoard[(int)targetPosition.x, (int)targetPosition.y] = this;
+                bm.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
+                bm.GetComponent<AudioSource>().Play();
             }
         }
     }
 
     public override void fire(int playerNumber)
     {
-        if (Time.time > nextFire)
+        if (Time.time > nextFire && !isMoving)
         {
             if (Controller.getKnightAim(playerNumber) != Vector2.zero)
             {
@@ -48,6 +51,7 @@ public class Knight : ChessPiece
 
                 thisShot.SendMessage("NewStart", playerNumber);
                 thisShot.SendMessage("SetInstigator", this.gameObject);
+                thisShot.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
 
                 Vector2 aim = Controller.getKnightAim(playerNumber);
                 Vector2 targetSquare = new Vector2(currentX + aim.x, currentY + aim.y);
