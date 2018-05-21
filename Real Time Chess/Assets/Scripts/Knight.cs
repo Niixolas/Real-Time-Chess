@@ -44,7 +44,8 @@ public class Knight : ChessPiece
     {
         if (Time.time > nextFire && !isMoving)
         {
-            if (Controller.getKnightAim(playerNumber) != Vector2.zero)
+            Vector2 aim = Controller.getKnightAim(playerNumber);
+            if (aim != Vector2.zero)
             {
                 nextFire = Time.time + fireRate;
                 GameObject thisShot = Instantiate(shot, this.transform.position, this.transform.rotation);
@@ -53,7 +54,6 @@ public class Knight : ChessPiece
                 thisShot.SendMessage("SetInstigator", this.gameObject);
                 thisShot.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
 
-                Vector2 aim = Controller.getKnightAim(playerNumber);
                 Vector2 targetSquare = new Vector2(currentX + aim.x, currentY + aim.y);
                 thisShot.SendMessage("SetKnight", targetSquare);
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 static public class Controller
 {
@@ -11,210 +12,248 @@ static public class Controller
 
     public static Vector2 getMovement(int joyNumber)
     {
-        int xDir = 0;
-        int yDir = 0;
-        string leftHorizontal = "LeftStick_Horizontal";
-        string leftVertical = "LeftStick_Vertical";
-        if (joyNumber == 2)
+        // Establish input devices
+        InputDevice playerOne = null;
+        InputDevice playerTwo = null;
+
+        // Check for connected devices
+        if (InputManager.Devices.Count > 0)
         {
-            leftHorizontal = "P2_LeftStick_Horizontal";
-            leftVertical = "P2_LeftStick_Vertical";
+            playerOne = InputManager.Devices[0];
+
+            if (InputManager.Devices.Count > 1)
+            {
+                playerTwo = InputManager.Devices[1];
+            }
         }
 
-        if (Input.GetAxis(leftHorizontal) != 0)
+        // Establish movement vector2 based on left stick input
+        Vector2 movement = new Vector2(0, 0);
+
+        if (joyNumber == 1 && playerOne != null)
         {
-            xDir = Input.GetAxis(leftHorizontal) > 0 ? 1 : -1;
-        }
-        if (Input.GetAxis(leftVertical) != 0)
+            movement = playerOne.LeftStick;
+        } else if (joyNumber == 2 && playerTwo != null)
         {
-            yDir = Input.GetAxis(leftVertical) > 0 ? 1 : -1;
+            movement = playerTwo.LeftStick;
         }
 
-        return new Vector2(xDir, yDir);
+        return movement;
     }
+
 
     public static Vector2 getKnightMovement(int joyNumber)
     {
-        int xDir = 0;
-        int yDir = 0;
-        string leftHorizontal = "LeftStick_Horizontal";
-        string leftVertical = "LeftStick_Vertical";
-        if (joyNumber == 2)
+        // Establish input devices
+        InputDevice playerOne = null;
+        InputDevice playerTwo = null;
+
+        // Check for connected devices
+        if (InputManager.Devices.Count > 0)
         {
-            leftHorizontal = "P2_LeftStick_Horizontal";
-            leftVertical = "P2_LeftStick_Vertical";
+            playerOne = InputManager.Devices[0];
+
+            if (InputManager.Devices.Count > 1)
+            {
+                playerTwo = InputManager.Devices[1];
+            }
         }
 
-        float rot = Mathf.Atan2(Input.GetAxis(leftVertical), Input.GetAxis(leftHorizontal)) * Mathf.Rad2Deg;
+        // Establish movement vector2 based on left stick input
+        Vector2 movement = new Vector2(0, 0);
+
+        if (joyNumber == 1 && playerOne != null)
+        {
+            movement = playerOne.LeftStick.Vector;
+        }
+        else if (joyNumber == 2 && playerTwo != null)
+        {
+            movement = playerTwo.LeftStick.Vector;
+        }
+
+        float rot = Mathf.Atan2(movement.x, movement.y) * Mathf.Rad2Deg;
 
         if (rot > 0 && rot < 45)
         {
-            xDir = 2;
-            yDir = 1;
+            movement = new Vector2(1, 2);
         }
-        if (rot > 45 && rot < 90)
+        else if (rot > 45 && rot < 90)
         {
-            xDir = 1;
-            yDir = 2;
+            movement = new Vector2(2, 1);
         }
-        if (rot > 90 && rot < 135)
+        else if (rot > 90 && rot < 135)
         {
-            xDir = -1;
-            yDir = 2;
+            movement = new Vector2(2, -1);
         }
-        if (rot > 135 && rot < 180)
+        else if (rot > 135 && rot <= 180)
         {
-            xDir = -2;
-            yDir = 1;
+            movement = new Vector2(1, -2);
         }
-        if (rot < -135 && rot > -180)
+        else if (rot < -135 && rot > -180)
         {
-            xDir = -2;
-            yDir = -1;
+            movement = new Vector2(-1, -2);
         }
-        if (rot < -90 && rot > -135)
+        else if (rot < -90 && rot > -135)
         {
-            xDir = -1;
-            yDir = -2;
+            movement = new Vector2(-2, -1);
         }
-        if (rot < -45 && rot > -90)
+        else if (rot < -45 && rot > -90)
         {
-            xDir = 1;
-            yDir = -2;
+            movement = new Vector2(-2, 1);
         }
-        if (rot > -45 && rot < 0)
+        else if (rot > -45 && rot < 0)
         {
-            xDir = 2;
-            yDir = -1;
+            movement = new Vector2(-1, 2);
         }
-        return new Vector2(xDir, yDir);
+        else
+        {
+            movement = new Vector2(0, 0);
+        }
+        return movement;
     }
 
     public static Vector2 getKnightAim(int joyNumber)
     {
-        int xDir = 0;
-        int yDir = 0;
-        string rightHorizontal = "RightStick_Horizontal";
-        string rightVertical = "RightStick_Vertical";
-        if (joyNumber == 2)
+        // Establish input devices
+        InputDevice playerOne = null;
+        InputDevice playerTwo = null;
+
+        // Check for connected devices
+        if (InputManager.Devices.Count > 0)
         {
-            rightHorizontal = "P2_RightStick_Horizontal";
-            rightVertical = "P2_RightStick_Vertical";
+            playerOne = InputManager.Devices[0];
+
+            if (InputManager.Devices.Count > 1)
+            {
+                playerTwo = InputManager.Devices[1];
+            }
         }
 
-        //bug.Log(Input.GetAxis(rightVertical) + " " + Input.GetAxis(rightHorizontal));
-        float rot = Mathf.Atan2(Input.GetAxis(rightVertical), Input.GetAxis(rightHorizontal)) * Mathf.Rad2Deg;
+        // Establish movement vector2 based on left stick input
+        Vector2 movement = new Vector2(0, 0);
 
-        if (rot >= 0 && rot < 45)
+        if (joyNumber == 1 && playerOne != null)
         {
-            xDir = 2;
-            yDir = 1;
+            movement = playerOne.RightStick;
         }
-        if (rot >= 45 && rot < 90)
+        else if (joyNumber == 2 && playerTwo != null)
         {
-            xDir = 1;
-            yDir = 2;
-        }
-        if (rot >= 90 && rot < 135)
-        {
-            xDir = -1;
-            yDir = 2;
-        }
-        if (rot >= 135 && rot <= 180)
-        {
-            xDir = -2;
-            yDir = 1;
-        }
-        if (rot < -135 && rot >= -180)
-        {
-            xDir = -2;
-            yDir = -1;
-        }
-        if (rot < -90 && rot >= -135)
-        {
-            xDir = -1;
-            yDir = -2;
-        }
-        if (rot < -45 && rot >= -90)
-        {
-            xDir = 1;
-            yDir = -2;
-        }
-        if (rot >= -45 && rot < 0)
-        {
-            xDir = 2;
-            yDir = -1;
+            movement = playerTwo.RightStick;
         }
 
-        return new Vector2(xDir, yDir);
+        float rot = Mathf.Atan2(movement.x, movement.y) * Mathf.Rad2Deg;
+
+        if (rot > 0 && rot < 45)
+        {
+            movement = new Vector2(1, 2);
+        }
+        else if (rot > 45 && rot < 90)
+        {
+            movement = new Vector2(2, 1);
+        }
+        else if (rot > 90 && rot < 135)
+        {
+            movement = new Vector2(2, -1);
+        }
+        else if (rot > 135 && rot <= 180)
+        {
+            movement = new Vector2(1, -2);
+        }
+        else if (rot < -135 && rot > -180)
+        {
+            movement = new Vector2(-1, -2);
+        }
+        else if (rot < -90 && rot > -135)
+        {
+            movement = new Vector2(-2, -1);
+        }
+        else if (rot < -45 && rot > -90)
+        {
+            movement = new Vector2(-2, 1);
+        }
+        else if (rot > -45 && rot < 0)
+        {
+            movement = new Vector2(-1, 2);
+        }
+        else
+        {
+            movement = new Vector2(0, 0);
+        }
+        return movement;
     }
 
     public static Vector2 getAim(int joyNumber)
     {
-        int xDir = 0;
-        int yDir = 0;
-        if (joyNumber == 1)
+        // Establish input devices
+        InputDevice playerOne = null;
+        InputDevice playerTwo = null;
+
+        // Check for connected devices
+        if (InputManager.Devices.Count > 0)
         {
-            if (Input.GetAxis("RightStick_Horizontal") != 0)
+            playerOne = InputManager.Devices[0];
+
+            if (InputManager.Devices.Count > 1)
             {
-                xDir = Input.GetAxis("RightStick_Horizontal") > 0 ? 1 : -1;
-            }
-            if (Input.GetAxis("RightStick_Vertical") != 0)
-            {
-                yDir = Input.GetAxis("RightStick_Vertical") > 0 ? 1 : -1;
+                playerTwo = InputManager.Devices[1];
             }
         }
 
-        if (joyNumber == 2)
-        {
-            if (Input.GetAxis("P2_RightStick_Horizontal") != 0)
-            {
-                xDir = Input.GetAxis("P2_RightStick_Horizontal") > 0 ? 1 : -1;
-            }
-            if (Input.GetAxis("P2_RightStick_Vertical") != 0)
-            {
-                yDir = Input.GetAxis("P2_RightStick_Vertical") > 0 ? 1 : -1;
-            }
-        }
+        // Establish movement vector2 based on left stick input
+        Vector2 movement = new Vector2(0, 0);
 
-        return new Vector2(xDir, yDir);
+        if (joyNumber == 1 && playerOne != null)
+        {
+            movement = playerOne.RightStick;
+        }
+        else if (joyNumber == 2 && playerTwo != null)
+        {
+            movement = playerTwo.RightStick;
+        }
+        if (movement.x != 0)
+        {
+            movement.x = movement.x < 0 ? -1 : 1;
+        }
+        if (movement.y != 0)
+        {
+            movement.y = movement.y < 0 ? -1 : 1;
+        }
+        
+        
+
+        return movement;
     }
 
     public static bool getPressed(int joyNumber)
     {
+        // Establish input devices
+        InputDevice playerOne = null;
+        InputDevice playerTwo = null;
 
-        bool Pressed = false;
-        if (joyNumber == 1)
+        // Check for connected devices
+        if (InputManager.Devices.Count > 0)
         {
-            Pressed = Input.GetButtonDown("Submit");
-        }
-        if (joyNumber == 2)
-        {
-            Pressed = Input.GetButtonDown("P2_Submit");
-        }        
+            playerOne = InputManager.Devices[0];
 
-        return Pressed;
-    }
-
-    public static bool getFire(int joyNumber)
-    {
-        bool firing = false;
-        if (joyNumber == 1)
-        {
-            if (Input.GetAxis("Shoot") > 0.5)
+            if (InputManager.Devices.Count > 1)
             {
-                firing = true;
-            }
-        }
-        if (joyNumber == 2)
-        {
-            if (Input.GetAxis("P2_Shoot") > 0.5)
-            {
-                firing = true;
+                playerTwo = InputManager.Devices[1];
             }
         }
 
-        return firing;        
-    }
+        // Check for button press
+        bool pressed = false;
 
+        if (joyNumber == 1 && playerOne != null && playerOne.Action1.LastState != playerOne.Action1.State)
+        {
+            pressed = playerOne.Action1.IsPressed;
+        }
+        else if (joyNumber == 2 && playerTwo != null && playerTwo.Action1.LastState != playerTwo.Action1.State)
+        {
+            pressed = playerTwo.Action1.IsPressed;
+        }
+
+        return pressed;
+    }
+    
 }
