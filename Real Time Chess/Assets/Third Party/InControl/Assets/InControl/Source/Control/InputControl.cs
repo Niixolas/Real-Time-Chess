@@ -13,9 +13,9 @@ namespace InControl
 
 		public ulong UpdateTick { get; protected set; }
 
-		public float Sensitivity = 1.0f;
-		public float LowerDeadZone = 0.0f;
-		public float UpperDeadZone = 0.0f;
+		public float Sensitivity = 0.5f;
+		public float LowerDeadZone = 0.5f;
+		public float UpperDeadZone = 0.5f;
 
 		public bool IsButton { get; protected set; }
 

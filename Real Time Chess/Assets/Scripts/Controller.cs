@@ -209,18 +209,21 @@ static public class Controller
         else if (joyNumber == 2 && playerTwo != null)
         {
             movement = playerTwo.RightStick;
-        }
-        if (movement.x != 0)
+        }        
+
+        // Correct for deadzone and check for vertical/horizontal aim
+        if (Mathf.Abs(movement.x) - 0.1 > 0)
         {
             movement.x = movement.x < 0 ? -1 : 1;
         }
-        if (movement.y != 0)
+
+        if (Mathf.Abs(movement.y) - 0.1 > 0)
         {
             movement.y = movement.y < 0 ? -1 : 1;
         }
-        
-        
 
+
+        
         return movement;
     }
 
