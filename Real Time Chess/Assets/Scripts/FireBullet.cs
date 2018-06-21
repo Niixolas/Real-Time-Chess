@@ -19,7 +19,6 @@ public class FireBullet : MonoBehaviour
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.velocity = Controller.getAim(playerNumber) * speed;
-        Debug.Log(Controller.getAim(playerNumber));
         playerNum = playerNumber;
     }
 
