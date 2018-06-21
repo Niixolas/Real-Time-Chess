@@ -216,10 +216,18 @@ static public class Controller
         {
             movement.x = movement.x < 0 ? -1 : 1;
         }
+        else
+        {
+            movement.x = 0;
+        }
 
         if (Mathf.Abs(movement.y) - 0.1 > 0)
         {
             movement.y = movement.y < 0 ? -1 : 1;
+        }
+        else
+        {
+            movement.y = 0;
         }
 
 
