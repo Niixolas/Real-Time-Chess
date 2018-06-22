@@ -212,7 +212,7 @@ static public class Controller
         }        
 
         // Correct for deadzone and check for vertical/horizontal aim
-        if (Mathf.Abs(movement.x) - 0.1 > 0)
+        if (Mathf.Abs(movement.x) - 0.3 > 0)
         {
             movement.x = movement.x < 0 ? -1 : 1;
         }
@@ -221,7 +221,7 @@ static public class Controller
             movement.x = 0;
         }
 
-        if (Mathf.Abs(movement.y) - 0.1 > 0)
+        if (Mathf.Abs(movement.y) - 0.3 > 0)
         {
             movement.y = movement.y < 0 ? -1 : 1;
         }
