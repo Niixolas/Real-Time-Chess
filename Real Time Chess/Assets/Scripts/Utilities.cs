@@ -14,9 +14,9 @@ public static class Utilities
     /// <summary>
     /// Get the screen coordinates for the center of a tile
     /// </summary>
-    public static Vector2 getTileCenter(int x, int y)
+    public static Vector3 getTileCenter(int x, int y)
     {
-        return new Vector2(tileWidth * x + tileOffset, tileWidth * y + tileOffset);
+        return new Vector3(tileWidth * x + tileOffset, tileWidth * y + tileOffset, -5.0f);
     }
 
     public static Vector2 getBoardCoordinates(float x, float y)

@@ -15,12 +15,15 @@ public abstract class ChessPiece : MonoBehaviour
     protected Vector2 targetSquare;
     protected Vector2 targetPosition;
 
-    protected HealthBar healthBar;
+    public HealthBar healthBar;
     
+    [HideInInspector]
     public GameObject shot;
+
     public GameObject explosion;
 
-    public BoardManager bm;
+    protected BoardManager bm;
+    protected InputController inputController;
 
     protected float nextFire = 0.0F;
     public float fireRate = 0.5F;
@@ -36,6 +39,7 @@ public abstract class ChessPiece : MonoBehaviour
         targetSquare = new Vector2(0, 0);
         targetPosition = Utilities.getTileCenter((int)targetSquare.x, (int)targetSquare.y);
         bm = FindObjectOfType<BoardManager>();
+        inputController = FindObjectOfType<InputController>();
         hitSound = gameObject.AddComponent<AudioSource>();
         hitSound.clip = hitClip;
         hitSound.loop = false;
@@ -55,16 +59,16 @@ public abstract class ChessPiece : MonoBehaviour
                 float thisHealth = healthBar.CurrentHealth;
                 if (isWhite && (int)targetPosition.y == 7 && this.GetComponent<Pawn>() != null)
                 {
-                    FindObjectOfType<BoardManager>().spawnPiece(1, (int)targetPosition.x, 7, (int)thisHealth + 20);
+                    FindObjectOfType<BoardManager>().SpawnPiece(1, (int)targetPosition.x, 7, (int)thisHealth + 20);
                     FindObjectOfType<BoardManager>().greenSelectedPiece = null;
-                    FindObjectOfType<BoardManager>().selectPiece((int)targetPosition.x, (int)targetPosition.y, 1);
+                    FindObjectOfType<BoardManager>().SelectPiece((int)targetPosition.x, (int)targetPosition.y, 1);
                     Destroy(this.gameObject);
                 }
                 if (!isWhite && (int)targetPosition.y == 0 && this.GetComponent<Pawn>() != null)
                 {
-                    FindObjectOfType<BoardManager>().spawnPiece(7, (int)targetPosition.x, 0, (int)thisHealth + 20);
+                    FindObjectOfType<BoardManager>().SpawnPiece(7, (int)targetPosition.x, 0, (int)thisHealth + 20);
                     FindObjectOfType<BoardManager>().redSelectedPiece = null;
-                    FindObjectOfType<BoardManager>().selectPiece((int)targetPosition.x, (int)targetPosition.y, 2);
+                    FindObjectOfType<BoardManager>().SelectPiece((int)targetPosition.x, (int)targetPosition.y, 2);
                     Destroy(this.gameObject);
                 }
             }
@@ -78,8 +82,9 @@ public abstract class ChessPiece : MonoBehaviour
     }
 
     public virtual void movePiece()
-    { 
-        Vector2 movement = Controller.getMovement(isWhite ? 1 : 2);
+    {
+        Vector2 movement = isWhite ? inputController.p1Move : inputController.p2Move;
+        //Vector2 movement = Controller.getMovement(isWhite ? 1 : 2);
         targetSquare = Utilities.getBoardCoordinates(transform.position.x, transform.position.y);
         Vector2 destination = Utilities.getBoardCoordinates(transform.position.x + movement.x, transform.position.y + movement.y);
         if (destination.x <= 7 && destination.x >= 0 && destination.y <= 7 && destination.y >= 0)
@@ -135,15 +140,31 @@ public abstract class ChessPiece : MonoBehaviour
     {
         if (Time.time > nextFire && !isMoving)
         {
-            if (isAimPossible((int)Controller.getAim(playerNumber).x, (int)Controller.getAim(playerNumber).y))
+            if (playerNumber == 1)
             {
-                nextFire = Time.time + fireRate;
-                GameObject thisShot = Instantiate(shot, this.transform.position, this.transform.rotation);
-                thisShot.SendMessage("NewStart", playerNumber);
-                thisShot.SendMessage("SetInstigator", this.gameObject);
-                thisShot.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
-                Destroy(thisShot, 2);
-                healthBar.DealDamage(selfDamagePerShot);
+                if (isAimPossible((int)inputController.p1Aim.x, (int)inputController.p1Aim.y))
+                {
+                    nextFire = Time.time + fireRate;
+                    GameObject thisShot = Instantiate(shot, this.transform.position, this.transform.rotation);
+                    thisShot.SendMessage("NewStart", playerNumber);
+                    thisShot.SendMessage("SetInstigator", this.gameObject);
+                    thisShot.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
+                    Destroy(thisShot, 2);
+                    healthBar.DealDamage(selfDamagePerShot);
+                }
+            }
+            else if (playerNumber == 2)
+            {
+                if (isAimPossible((int)inputController.p2Aim.x, (int)inputController.p2Aim.y))
+                {
+                    nextFire = Time.time + fireRate;
+                    GameObject thisShot = Instantiate(shot, this.transform.position, this.transform.rotation);
+                    thisShot.SendMessage("NewStart", playerNumber);
+                    thisShot.SendMessage("SetInstigator", this.gameObject);
+                    thisShot.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
+                    Destroy(thisShot, 2);
+                    healthBar.DealDamage(selfDamagePerShot);
+                }
             }
 
         }

@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using InControl;
+
+// This File is Deprecated. Using the experimental Unity Input System now.
 
 static public class Controller
 {
@@ -9,34 +10,38 @@ static public class Controller
     public static int greenSelectionY = -1;
     public static int redSelectionX = -1;
     public static int redSelectionY = -1;
-
+    
     public static Vector2 getMovement(int joyNumber)
     {
+
         // Establish input devices
-        InputDevice playerOne = null;
-        InputDevice playerTwo = null;
-
+        //InputDevice playerOne = null;
+        //InputDevice playerTwo = null;
+        //
         // Check for connected devices
-        if (InputManager.Devices.Count > 0)
-        {
-            playerOne = InputManager.Devices[0];
+        //if (InputManager.GetAxis("MovementX", PlayerID.One) > 0)
+        //{
 
-            if (InputManager.Devices.Count > 1)
-            {
-                playerTwo = InputManager.Devices[1];
-            }
-        }
+        //}
+        //{
+        //    playerOne = InputManager.Devices[0];
 
-        // Establish movement vector2 based on left stick input
+        //    if (InputManager.Devices.Count > 1)
+        //    {
+        //        playerTwo = InputManager.Devices[1];
+        //    }
+        //}
+
+        //// Establish movement vector2 based on left stick input
         Vector2 movement = new Vector2(0, 0);
 
-        if (joyNumber == 1 && playerOne != null)
-        {
-            movement = playerOne.LeftStick;
-        } else if (joyNumber == 2 && playerTwo != null)
-        {
-            movement = playerTwo.LeftStick;
-        }
+        //if (joyNumber == 1 && playerOne != null)
+        //{
+        //    movement = playerOne.LeftStick;
+        //} else if (joyNumber == 2 && playerTwo != null)
+        //{
+        //    movement = playerTwo.LeftStick;
+        //}
 
         return movement;
     }
@@ -44,32 +49,32 @@ static public class Controller
 
     public static Vector2 getKnightMovement(int joyNumber)
     {
-        // Establish input devices
-        InputDevice playerOne = null;
-        InputDevice playerTwo = null;
+    //    // Establish input devices
+    //    InputDevice playerOne = null;
+    //    InputDevice playerTwo = null;
 
-        // Check for connected devices
-        if (InputManager.Devices.Count > 0)
-        {
-            playerOne = InputManager.Devices[0];
+    //    // Check for connected devices
+    //    if (InputManager.Devices.Count > 0)
+    //    {
+    //        playerOne = InputManager.Devices[0];
 
-            if (InputManager.Devices.Count > 1)
-            {
-                playerTwo = InputManager.Devices[1];
-            }
-        }
+    //        if (InputManager.Devices.Count > 1)
+    //        {
+    //            playerTwo = InputManager.Devices[1];
+    //        }
+    //    }
 
         // Establish movement vector2 based on left stick input
         Vector2 movement = new Vector2(0, 0);
 
-        if (joyNumber == 1 && playerOne != null)
-        {
-            movement = playerOne.LeftStick.Vector;
-        }
-        else if (joyNumber == 2 && playerTwo != null)
-        {
-            movement = playerTwo.LeftStick.Vector;
-        }
+        //if (joyNumber == 1 && playerOne != null)
+        //{
+        //    movement = playerOne.LeftStick.Vector;
+        //}
+        //else if (joyNumber == 2 && playerTwo != null)
+        //{
+        //    movement = playerTwo.LeftStick.Vector;
+        //}
 
         float rot = Mathf.Atan2(movement.x, movement.y) * Mathf.Rad2Deg;
 
@@ -114,32 +119,32 @@ static public class Controller
 
     public static Vector2 getKnightAim(int joyNumber)
     {
-        // Establish input devices
-        InputDevice playerOne = null;
-        InputDevice playerTwo = null;
+        //// Establish input devices
+        //InputDevice playerOne = null;
+        //InputDevice playerTwo = null;
 
-        // Check for connected devices
-        if (InputManager.Devices.Count > 0)
-        {
-            playerOne = InputManager.Devices[0];
+        //// Check for connected devices
+        //if (InputManager.Devices.Count > 0)
+        //{
+        //    playerOne = InputManager.Devices[0];
 
-            if (InputManager.Devices.Count > 1)
-            {
-                playerTwo = InputManager.Devices[1];
-            }
-        }
+        //    if (InputManager.Devices.Count > 1)
+        //    {
+        //        playerTwo = InputManager.Devices[1];
+        //    }
+        //}
 
         // Establish movement vector2 based on left stick input
         Vector2 movement = new Vector2(0, 0);
 
-        if (joyNumber == 1 && playerOne != null)
-        {
-            movement = playerOne.RightStick;
-        }
-        else if (joyNumber == 2 && playerTwo != null)
-        {
-            movement = playerTwo.RightStick;
-        }
+        //if (joyNumber == 1 && playerOne != null)
+        //{
+        //    movement = playerOne.RightStick;
+        //}
+        //else if (joyNumber == 2 && playerTwo != null)
+        //{
+        //    movement = playerTwo.RightStick;
+        //}
 
         float rot = Mathf.Atan2(movement.x, movement.y) * Mathf.Rad2Deg;
 
@@ -184,32 +189,32 @@ static public class Controller
 
     public static Vector2 getAim(int joyNumber)
     {
-        // Establish input devices
-        InputDevice playerOne = null;
-        InputDevice playerTwo = null;
+        //// Establish input devices
+        //InputDevice playerOne = null;
+        //InputDevice playerTwo = null;
 
-        // Check for connected devices
-        if (InputManager.Devices.Count > 0)
-        {
-            playerOne = InputManager.Devices[0];
+        //// Check for connected devices
+        //if (InputManager.Devices.Count > 0)
+        //{
+        //    playerOne = InputManager.Devices[0];
 
-            if (InputManager.Devices.Count > 1)
-            {
-                playerTwo = InputManager.Devices[1];
-            }
-        }
+        //    if (InputManager.Devices.Count > 1)
+        //    {
+        //        playerTwo = InputManager.Devices[1];
+        //    }
+        //}
 
         // Establish movement vector2 based on left stick input
         Vector2 movement = new Vector2(0, 0);
 
-        if (joyNumber == 1 && playerOne != null)
-        {
-            movement = playerOne.RightStick;
-        }
-        else if (joyNumber == 2 && playerTwo != null)
-        {
-            movement = playerTwo.RightStick;
-        }        
+        //if (joyNumber == 1 && playerOne != null)
+        //{
+        //    movement = playerOne.RightStick;
+        //}
+        //else if (joyNumber == 2 && playerTwo != null)
+        //{
+        //    movement = playerTwo.RightStick;
+        //}        
 
         // Correct for deadzone and check for vertical/horizontal aim
         if (Mathf.Abs(movement.x) - 0.3 > 0)
@@ -237,32 +242,32 @@ static public class Controller
 
     public static bool getPressed(int joyNumber)
     {
-        // Establish input devices
-        InputDevice playerOne = null;
-        InputDevice playerTwo = null;
+        //// Establish input devices
+        //InputDevice playerOne = null;
+        //InputDevice playerTwo = null;
 
-        // Check for connected devices
-        if (InputManager.Devices.Count > 0)
-        {
-            playerOne = InputManager.Devices[0];
+        //// Check for connected devices
+        //if (InputManager.Devices.Count > 0)
+        //{
+        //    playerOne = InputManager.Devices[0];
 
-            if (InputManager.Devices.Count > 1)
-            {
-                playerTwo = InputManager.Devices[1];
-            }
-        }
+        //    if (InputManager.Devices.Count > 1)
+        //    {
+        //        playerTwo = InputManager.Devices[1];
+        //    }
+        //}
 
         // Check for button press
         bool pressed = false;
 
-        if (joyNumber == 1 && playerOne != null && playerOne.Action1.LastState != playerOne.Action1.State)
-        {
-            pressed = playerOne.Action1.IsPressed;
-        }
-        else if (joyNumber == 2 && playerTwo != null && playerTwo.Action1.LastState != playerTwo.Action1.State)
-        {
-            pressed = playerTwo.Action1.IsPressed;
-        }
+        //if (joyNumber == 1 && playerOne != null && playerOne.Action1.LastState != playerOne.Action1.State)
+        //{
+        //    pressed = playerOne.Action1.IsPressed;
+        //}
+        //else if (joyNumber == 2 && playerTwo != null && playerTwo.Action1.LastState != playerTwo.Action1.State)
+        //{
+        //    pressed = playerTwo.Action1.IsPressed;
+        //}
 
         return pressed;
     }

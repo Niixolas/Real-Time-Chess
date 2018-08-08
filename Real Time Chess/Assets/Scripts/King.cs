@@ -22,7 +22,7 @@ public class King : ChessPiece
     {
         if (healthBar.CurrentHealth <= 10)
         {
-            FindObjectOfType<BoardManager>().setCheck(isWhite);
+            FindObjectOfType<BoardManager>().SetCheck(isWhite);
         }
     }
 
@@ -30,7 +30,7 @@ public class King : ChessPiece
     {
         if (Time.time > nextFire && !isMoving)
         {
-            if (Controller.getAim(playerNumber) != Vector2.zero)
+            if ( ( (playerNumber == 1) ? inputController.p1Aim : inputController.p2Aim ) != Vector2.zero)
             {
                 nextFire = Time.time + fireRate;
                 GameObject thisShot = Instantiate(shot, this.transform.position, this.transform.rotation);
@@ -39,7 +39,7 @@ public class King : ChessPiece
                 thisShot.SendMessage("SetInstigator", this.gameObject);
                 thisShot.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
 
-                Vector2 aim = Controller.getAim(playerNumber);
+                Vector2 aim = playerNumber == 1 ? inputController.p1Aim : inputController.p2Aim;
                 Vector2 targetSquare = new Vector2(currentX + aim.x, currentY + aim.y);
                 thisShot.SendMessage("SetPawnOrKing", targetSquare);
 

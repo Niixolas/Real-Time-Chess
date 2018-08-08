@@ -8,6 +8,8 @@ public class FireBullet : MonoBehaviour
     public float damage = 1;
     public int playerNum;
 
+    private static InputController inputController = null;
+
     private bool isKnight = false;
     private bool isPawnOrKing = false;
     private Vector2 targetSquare;
@@ -15,10 +17,18 @@ public class FireBullet : MonoBehaviour
     [HideInInspector]
     public GameObject instigator;
 
-	void NewStart(int playerNumber)
+    private void Awake()
+    {
+        if (inputController == null)
+        {
+            inputController = FindObjectOfType<InputController>();
+        }
+    }
+
+    void NewStart(int playerNumber)
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        rb.velocity = Controller.getAim(playerNumber) * speed;
+        rb.velocity = (playerNumber == 1 ? inputController.p1Aim : inputController.p2Aim) * speed;
         playerNum = playerNumber;
     }
 

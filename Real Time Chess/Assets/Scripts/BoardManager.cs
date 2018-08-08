@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
-using InControl;
+//using InControl;
 
 public class BoardManager : MonoBehaviour
 {
     // Game sentinel value
     [HideInInspector]
     public bool gameOver;
+
+    public InputController inputController;
 
     // Variable to hold the currently selected piece
     public ChessPiece greenSelectedPiece;
@@ -45,7 +47,7 @@ public class BoardManager : MonoBehaviour
     void Start ()
     {
         gameOver = false;
-        spawnAllPieces();
+        SpawnAllPieces();
     }
 
     /// <summary>
@@ -55,9 +57,9 @@ public class BoardManager : MonoBehaviour
     {
         if (!gameOver)
         {
-            drawChessBoard();
-            checkInputs();
-        }        
+            DrawChessBoard();
+            CheckInputs();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -70,15 +72,15 @@ public class BoardManager : MonoBehaviour
 
 
     // Check controller inputs
-    private void checkInputs()
+    private void CheckInputs()
     {
-        if (Controller.getPressed(1))
+        if (inputController.p1Pressed)
         {
             if (greenSelectedPiece == null)
             {
                 if (Utilities.chessBoard[Controller.greenSelectionX, Controller.greenSelectionY] != null && Utilities.chessBoard[Controller.greenSelectionX, Controller.greenSelectionY].isWhite)
                 {
-                    selectPiece(Controller.greenSelectionX, Controller.greenSelectionY, 1);
+                    SelectPiece(Controller.greenSelectionX, Controller.greenSelectionY, 1);
                     whiteSelectionBox.GetComponent<SpriteRenderer>().enabled = false;
                     whiteSelectionBox.GetComponent<selectionController>().isMoving = false;
                 }
@@ -92,13 +94,13 @@ public class BoardManager : MonoBehaviour
             }
         }
 
-        if (Controller.getPressed(2))
+        if (inputController.p2Pressed)
         {
             if (redSelectedPiece == null)
             {
                 if (Utilities.chessBoard[Controller.redSelectionX, Controller.redSelectionY] != null && !Utilities.chessBoard[Controller.redSelectionX, Controller.redSelectionY].isWhite)
                 {
-                    selectPiece(Controller.redSelectionX, Controller.redSelectionY, 2);
+                    SelectPiece(Controller.redSelectionX, Controller.redSelectionY, 2);
                     blackSelectionBox.GetComponent<SpriteRenderer>().enabled = false;
                     blackSelectionBox.GetComponent<selectionController>().isMoving = false;
                 }
@@ -114,7 +116,7 @@ public class BoardManager : MonoBehaviour
 
         //if (Controller.getFire(1))
         //{
-            if (Controller.getAim(1) != Vector2.zero)
+            if (inputController.p1Aim != Vector2.zero)
             {
                 if (greenSelectedPiece != null)
                 {
@@ -125,7 +127,7 @@ public class BoardManager : MonoBehaviour
 
         //if (Controller.getFire(2))
         //{
-            if (Controller.getAim(2) != Vector2.zero)
+            if (inputController.p2Aim != Vector2.zero)
             {
                 if (redSelectedPiece != null)
                 {
@@ -134,7 +136,7 @@ public class BoardManager : MonoBehaviour
             }
         //}
 
-        if (Controller.getMovement(1) != Vector2.zero)
+        if (inputController.p1Move != Vector2.zero)
         {
             if (greenSelectedPiece != null && !greenSelectedPiece.isMoving)
             {
@@ -142,7 +144,7 @@ public class BoardManager : MonoBehaviour
             }
         }
 
-        if (Controller.getMovement(2) != Vector2.zero)
+        if (inputController.p2Move != Vector2.zero)
         {
             if (redSelectedPiece != null && !redSelectedPiece.isMoving)
             {
@@ -155,7 +157,7 @@ public class BoardManager : MonoBehaviour
     /// <summary>
     /// Selects a chess piece if a piece exists in the selected square
     /// </summary>
-    public void selectPiece(int x, int y, int player)
+    public void SelectPiece(int x, int y, int player)
     {
         if (Utilities.chessBoard[x, y] == null)
         {
@@ -177,7 +179,7 @@ public class BoardManager : MonoBehaviour
     /// <summary>
     /// Draws the (debug line) chessboard
     /// </summary>
-    private void drawChessBoard ()
+    private void DrawChessBoard ()
     {
 
         // For debugging - Mark on screen the chessboard grid
@@ -215,7 +217,7 @@ public class BoardManager : MonoBehaviour
     /// <summary>
     /// Spawn a chess piece
     /// </summary>
-    public void spawnPiece (int index, int x, int y, int maxHealthValue)
+    public void SpawnPiece (int index, int x, int y, int maxHealthValue)
     {
         GameObject chessPiece = Instantiate(pieces[index], Utilities.getTileCenter(x, y), Quaternion.identity) as GameObject;
         ChessPiece aPiece = chessPiece.GetComponent<ChessPiece>();
@@ -223,9 +225,9 @@ public class BoardManager : MonoBehaviour
         Utilities.chessBoard[x, y] = aPiece;
         Utilities.chessBoard[x, y].setPosition(x, y);
 
-        HealthBar hb = Instantiate(healthBar , aPiece.transform);
+        HealthBar hb = chessPiece.GetComponentInChildren<HealthBar>();
         hb.MaxHealth = maxHealthValue;
-        hb.transform.SetParent(aPiece.transform, false);
+        //hb.transform.SetParent(aPiece.transform, false);
         hb.CurrentHealth = maxHealthValue;
         aPiece.setHealthBar(hb);
         aPiece.setShot(shot);
@@ -236,45 +238,45 @@ public class BoardManager : MonoBehaviour
     /// <summary>
     /// Spawn a chess piece
     /// </summary>
-    private void spawnAllPieces()
+    private void SpawnAllPieces()
     {
         activePieces = new List<GameObject>();
         Utilities.chessBoard = new ChessPiece[8, 8];
 
         // Spawn White pieces
-        spawnPiece(0, 4, 0, 200); // King
-        spawnPiece(1, 3, 0, 200); // Queen
-        spawnPiece(2, 0, 0, 100); // Rook 1
-        spawnPiece(2, 7, 0, 100); // Rook 2
-        spawnPiece(3, 1, 0, 100); // Knight 1
-        spawnPiece(3, 6, 0, 100); // Knight 2
-        spawnPiece(4, 2, 0, 100); // Bishop 1
-        spawnPiece(4, 5, 0, 100); // Bishop 2
+        SpawnPiece(0, 4, 0, 200); // King
+        SpawnPiece(1, 3, 0, 200); // Queen
+        SpawnPiece(2, 0, 0, 100); // Rook 1
+        SpawnPiece(2, 7, 0, 100); // Rook 2
+        SpawnPiece(3, 1, 0, 100); // Knight 1
+        SpawnPiece(3, 6, 0, 100); // Knight 2
+        SpawnPiece(4, 2, 0, 100); // Bishop 1
+        SpawnPiece(4, 5, 0, 100); // Bishop 2
 
         // Pawns
         for (int i = 0; i < 8; i++)
         {
-            spawnPiece(5, i, 1, 20);
+            SpawnPiece(5, i, 1, 20);
         }
 
         // Spawn Black pieces
-        spawnPiece(6, 4, 7, 200); // King
-        spawnPiece(7, 3, 7, 200); // Queen
-        spawnPiece(8, 0, 7, 100); // Rook 1
-        spawnPiece(8, 7, 7, 100); // Rook 2
-        spawnPiece(9, 1, 7, 100); // Knight 1
-        spawnPiece(9, 6, 7, 100); // Knight 2
-        spawnPiece(10, 2, 7, 100); // Bishop 1
-        spawnPiece(10, 5, 7, 100); // Bishop 2
+        SpawnPiece(6, 4, 7, 200); // King
+        SpawnPiece(7, 3, 7, 200); // Queen
+        SpawnPiece(8, 0, 7, 100); // Rook 1
+        SpawnPiece(8, 7, 7, 100); // Rook 2
+        SpawnPiece(9, 1, 7, 100); // Knight 1
+        SpawnPiece(9, 6, 7, 100); // Knight 2
+        SpawnPiece(10, 2, 7, 100); // Bishop 1
+        SpawnPiece(10, 5, 7, 100); // Bishop 2
 
         // Pawns
         for (int i = 0; i < 8; i++)
         {
-            spawnPiece(11, i, 6, 20);
+            SpawnPiece(11, i, 6, 20);
         }
     }
 
-    public void setCheck(bool isWhite)
+    public void SetCheck(bool isWhite)
     {
         if (isWhite)
         {

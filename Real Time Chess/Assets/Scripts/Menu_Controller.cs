@@ -20,14 +20,14 @@ public class Menu_Controller : MonoBehaviour
     {
         if (!gameOver)
         {
-            if (Input.GetButtonDown("StartButton"))
-            {
-                Pause();
-            }
-            if (Input.GetButtonDown("SelectButton") && pauseCanvas.isActiveAndEnabled == true)
-            {
-                Quit();
-            }
+            //if (Input.GetButtonDown("StartButton"))
+            //{
+            //    Pause();
+            //}
+            //if (Input.GetButtonDown("SelectButton") && pauseCanvas.isActiveAndEnabled == true)
+            //{
+            //    Quit();
+            //}
         }
         else
         {

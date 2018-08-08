@@ -17,6 +17,8 @@ public class selectionController : MonoBehaviour
     private Vector2 targetSquare;
     private Vector2 targetPosition;
 
+    private InputController inputController;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -24,6 +26,8 @@ public class selectionController : MonoBehaviour
         transform.position = Utilities.getTileCenter(startX, startY);
         targetSquare = new Vector2(0, 0);
         targetPosition = Utilities.getTileCenter((int)targetSquare.x, (int)targetSquare.y);
+
+        inputController = FindObjectOfType<InputController>();
     }
 
     // Update is called once per frame
@@ -58,7 +62,7 @@ public class selectionController : MonoBehaviour
             }
             else
             {
-                Vector2 movement = Controller.getMovement(playerNumber);
+                Vector2 movement = playerNumber == 1 ? inputController.p1Move : inputController.p2Move;
                 targetSquare = Utilities.getBoardCoordinates(transform.position.x, transform.position.y);
                 if (movement.x != 0 || movement.y != 0)
                 {

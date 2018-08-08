@@ -38,7 +38,7 @@ public class HealthBar : MonoBehaviour {
         CurrentHealth = MaxHealth;
 
         // Get the instance of the health bar
-        healthbar = GetComponentInChildren<Image>();
+        healthbar = GetComponent<Image>();
 
         healthbar.fillAmount = CalculateHealth();
 
