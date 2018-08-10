@@ -268,7 +268,7 @@ partial class CoreTests
         var pathName = "/gamepad/leftStick";
         var sourceActionName = "some action";
         var groupName = "group";
-        var flags = 10;
+        //var flags = 10;
         var inputBinding = new InputBinding()
         {
             path = pathName,

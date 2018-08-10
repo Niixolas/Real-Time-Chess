@@ -9,7 +9,7 @@ public class Knight : ChessPiece
         if (target == null)
         {
             // Knight movement
-            if ( ( (Mathf.Abs(currentX - x) == 2) && (Mathf.Abs(currentY - y) == 1) ) || ( (Mathf.Abs(currentX - x) == 1) && (Mathf.Abs(currentY - y) == 2) ) )
+            if ( ( (Mathf.Abs(CurrentX - x) == 2) && (Mathf.Abs(CurrentY - y) == 1) ) || ( (Mathf.Abs(CurrentX - x) == 1) && (Mathf.Abs(CurrentY - y) == 2) ) )
             {
                 return true;
             }
@@ -30,8 +30,8 @@ public class Knight : ChessPiece
                 isMoving = true;
                 targetSquare = destination;
                 targetPosition = Utilities.getTileCenter((int)targetSquare.x, (int)targetSquare.y);
-                currentX = (int)targetPosition.x;
-                currentY = (int)targetPosition.y;
+                CurrentX = (int)targetPosition.x;
+                CurrentY = (int)targetPosition.y;
                 Utilities.chessBoard[(int)transform.position.x, (int)transform.position.y] = null;
                 Utilities.chessBoard[(int)targetPosition.x, (int)targetPosition.y] = this;
                 bm.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
@@ -54,7 +54,7 @@ public class Knight : ChessPiece
                 thisShot.SendMessage("SetInstigator", this.gameObject);
                 thisShot.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
 
-                Vector2 targetSquare = new Vector2(currentX + aim.x, currentY + aim.y);
+                Vector2 targetSquare = new Vector2(CurrentX + aim.x, CurrentY + aim.y);
                 thisShot.SendMessage("SetKnight", targetSquare);
 
                 thisShot.layer = LayerMask.NameToLayer("Knight");

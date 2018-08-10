@@ -56,7 +56,8 @@ namespace UnityEngine.Experimental.Input.Editor
                     return true;
                 }
                 window = CreateInstance<ActionInspectorWindow>();
-                window.title = obj.name + " (Input Manager)";
+                window.titleContent.text = obj.name + " (Input Manager)";
+                //window.title = obj.name + " (Input Manager)";
                 window.SetReferencedObject(obj);
                 window.Show();
                 return true;

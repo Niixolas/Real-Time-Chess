@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class ChessPiece : MonoBehaviour
 {
-    public int currentX { set; get; }
-    public int currentY { set; get; }
+    public int CurrentX { set; get; }
+    public int CurrentY { set; get; }
     public float speed = 50.0f;
     public bool isWhite;
 
@@ -22,6 +22,8 @@ public abstract class ChessPiece : MonoBehaviour
 
     public GameObject explosion;
 
+    public SpriteRenderer glow;
+
     protected BoardManager bm;
     protected InputController inputController;
 
@@ -35,7 +37,7 @@ public abstract class ChessPiece : MonoBehaviour
     void Start()
     {
         isMoving = false;
-        transform.position = Utilities.getTileCenter(currentX, currentY);
+        transform.position = Utilities.getTileCenter(CurrentX, CurrentY);
         targetSquare = new Vector2(0, 0);
         targetPosition = Utilities.getTileCenter((int)targetSquare.x, (int)targetSquare.y);
         bm = FindObjectOfType<BoardManager>();
@@ -60,7 +62,7 @@ public abstract class ChessPiece : MonoBehaviour
                 if (isWhite && (int)targetPosition.y == 7 && this.GetComponent<Pawn>() != null)
                 {
                     FindObjectOfType<BoardManager>().SpawnPiece(1, (int)targetPosition.x, 7, (int)thisHealth + 20);
-                    FindObjectOfType<BoardManager>().greenSelectedPiece = null;
+                    FindObjectOfType<BoardManager>().blueSelectedPiece = null;
                     FindObjectOfType<BoardManager>().SelectPiece((int)targetPosition.x, (int)targetPosition.y, 1);
                     Destroy(this.gameObject);
                 }
@@ -94,8 +96,8 @@ public abstract class ChessPiece : MonoBehaviour
                 isMoving = true;
                 targetSquare = destination;
                 targetPosition = Utilities.getTileCenter((int)targetSquare.x, (int)targetSquare.y);
-                currentX = (int)targetPosition.x;
-                currentY = (int)targetPosition.y;
+                CurrentX = (int)targetPosition.x;
+                CurrentY = (int)targetPosition.y;
                 Utilities.chessBoard[(int)transform.position.x, (int)transform.position.y] = null;
                 Utilities.chessBoard[(int)targetPosition.x, (int)targetPosition.y] = this;
                 bm.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
@@ -107,8 +109,8 @@ public abstract class ChessPiece : MonoBehaviour
 
     public void setPosition(int x, int y)
     {
-        currentX = x;
-        currentY = y;
+        CurrentX = x;
+        CurrentY = y;
     }
 
     public virtual bool isMovePossible(int x, int y, ChessPiece target)

@@ -13,7 +13,7 @@ public class BoardManager : MonoBehaviour
     public InputController inputController;
 
     // Variable to hold the currently selected piece
-    public ChessPiece greenSelectedPiece;
+    public ChessPiece blueSelectedPiece;
     public ChessPiece redSelectedPiece;
 
     //variable to hold the healthbar of a particular peice
@@ -27,8 +27,12 @@ public class BoardManager : MonoBehaviour
     // List containing currently active pieces
     public List<GameObject> activePieces;
 
+    // Holding which piece is glowing
+    private Vector2 blueSelection;
+    private Vector2 redSelection;
+
     // Selector Box (particles)
-    public GameObject greenSelector;
+    public GameObject blueSelector;
     public GameObject redSelector;
 
     // Selection box
@@ -48,6 +52,8 @@ public class BoardManager : MonoBehaviour
     {
         gameOver = false;
         SpawnAllPieces();
+        Utilities.chessBoard[4, 0].glow.enabled = true;
+        blueSelection = new Vector2(4, 0);
     }
 
     /// <summary>
@@ -76,7 +82,7 @@ public class BoardManager : MonoBehaviour
     {
         if (inputController.p1Pressed)
         {
-            if (greenSelectedPiece == null)
+            if (blueSelectedPiece == null)
             {
                 if (Utilities.chessBoard[Controller.greenSelectionX, Controller.greenSelectionY] != null && Utilities.chessBoard[Controller.greenSelectionX, Controller.greenSelectionY].isWhite)
                 {
@@ -89,8 +95,8 @@ public class BoardManager : MonoBehaviour
             {
                 Destroy(GameObject.FindGameObjectWithTag("greenSelector"));
                 whiteSelectionBox.GetComponent<SpriteRenderer>().enabled = true;
-                whiteSelectionBox.transform.position = Utilities.getTileCenter(greenSelectedPiece.currentX, greenSelectedPiece.currentY);
-                greenSelectedPiece = null;
+                whiteSelectionBox.transform.position = Utilities.getTileCenter(blueSelectedPiece.CurrentX, blueSelectedPiece.CurrentY);
+                blueSelectedPiece = null;
             }
         }
 
@@ -109,7 +115,7 @@ public class BoardManager : MonoBehaviour
             {
                 Destroy(GameObject.FindGameObjectWithTag("redSelector"));
                 blackSelectionBox.GetComponent<SpriteRenderer>().enabled = true;
-                blackSelectionBox.transform.position = Utilities.getTileCenter(redSelectedPiece.currentX, redSelectedPiece.currentY);
+                blackSelectionBox.transform.position = Utilities.getTileCenter(redSelectedPiece.CurrentX, redSelectedPiece.CurrentY);
                 redSelectedPiece = null;
             }
         }
@@ -118,9 +124,9 @@ public class BoardManager : MonoBehaviour
         //{
             if (inputController.p1Aim != Vector2.zero)
             {
-                if (greenSelectedPiece != null)
+                if (blueSelectedPiece != null)
                 {
-                    greenSelectedPiece.fire(1);
+                    blueSelectedPiece.fire(1);
                 }
             }
         //}
@@ -138,9 +144,9 @@ public class BoardManager : MonoBehaviour
 
         if (inputController.p1Move != Vector2.zero)
         {
-            if (greenSelectedPiece != null && !greenSelectedPiece.isMoving)
+            if (blueSelectedPiece != null && !blueSelectedPiece.isMoving)
             {
-                greenSelectedPiece.movePiece();
+                blueSelectedPiece.movePiece();
             }
         }
 
@@ -166,8 +172,8 @@ public class BoardManager : MonoBehaviour
 
         if (player == 1 && Utilities.chessBoard[x, y].isWhite)
         {
-            greenSelectedPiece = Utilities.chessBoard[x, y];
-            Instantiate(greenSelector, greenSelectedPiece.transform);
+            blueSelectedPiece = Utilities.chessBoard[x, y];
+            Instantiate(blueSelector, blueSelectedPiece.transform);
         }
         if (player == 2 && !Utilities.chessBoard[x, y].isWhite)
         {

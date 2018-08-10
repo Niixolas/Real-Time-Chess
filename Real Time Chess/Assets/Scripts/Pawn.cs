@@ -8,13 +8,13 @@ public class Pawn : ChessPiece
     {
         if (target == null)
         {
-            if (x == this.currentX)
+            if (x == this.CurrentX)
             {
-                if (isWhite && y > this.currentY)
+                if (isWhite && y > this.CurrentY)
                 {
                     return true;
                 }
-                if (!isWhite && y < this.currentY)
+                if (!isWhite && y < this.CurrentY)
                 {
                     return true;
                 }
@@ -52,7 +52,7 @@ public class Pawn : ChessPiece
                     thisShot.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
 
                     Vector2 aim = playerNumber == 1 ? inputController.p1Aim : inputController.p2Aim;
-                    Vector2 targetSquare = new Vector2(currentX + aim.x, currentY + aim.y);
+                    Vector2 targetSquare = new Vector2(CurrentX + aim.x, CurrentY + aim.y);
                     thisShot.SendMessage("SetPawnOrKing", targetSquare);
 
                     Destroy(thisShot, 2);

@@ -87,18 +87,18 @@ public class HealthBar : MonoBehaviour {
     {
         CurrentHealth = 0;
         BoardManager bm = FindObjectOfType<BoardManager>();
-        if (GetComponentInParent<ChessPiece>().isWhite && bm.greenSelectedPiece == this.GetComponentInParent<ChessPiece>())
+        if (GetComponentInParent<ChessPiece>().isWhite && bm.blueSelectedPiece == this.GetComponentInParent<ChessPiece>())
         {
             Destroy(GameObject.FindGameObjectWithTag("greenSelector"));
             bm.whiteSelectionBox.GetComponent<SpriteRenderer>().enabled = true;
-            bm.whiteSelectionBox.transform.position = Utilities.getTileCenter(bm.greenSelectedPiece.currentX, bm.greenSelectedPiece.currentY);
-            bm.greenSelectedPiece = null;
+            bm.whiteSelectionBox.transform.position = Utilities.getTileCenter(bm.blueSelectedPiece.CurrentX, bm.blueSelectedPiece.CurrentY);
+            bm.blueSelectedPiece = null;
         }
         if (!GetComponentInParent<ChessPiece>().isWhite && bm.redSelectedPiece == this.GetComponentInParent<ChessPiece>())
         {
             Destroy(GameObject.FindGameObjectWithTag("redSelector"));
             bm.blackSelectionBox.GetComponent<SpriteRenderer>().enabled = true;
-            bm.blackSelectionBox.transform.position = Utilities.getTileCenter(bm.redSelectedPiece.currentX, bm.redSelectedPiece.currentY);
+            bm.blackSelectionBox.transform.position = Utilities.getTileCenter(bm.redSelectedPiece.CurrentX, bm.redSelectedPiece.CurrentY);
             bm.redSelectedPiece = null;
         }
 

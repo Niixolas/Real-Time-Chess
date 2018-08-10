@@ -4238,10 +4238,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aee7d906ad092fb468f16369a5fe8481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  p1Move: {x: 0, y: 0}
-  p2Move: {x: 0, y: 0}
   p1Aim: {x: 0, y: 0}
+  p1Move: {x: 0, y: 0}
+  p1KnightAim: {x: 0, y: 0}
+  p1KnightMove: {x: 0, y: 0}
+  p1Pressed: 0
   p2Aim: {x: 0, y: 0}
+  p2Move: {x: 0, y: 0}
+  p2KnightAim: {x: 0, y: 0}
+  p2KnightMove: {x: 0, y: 0}
+  p2Pressed: 0
 --- !u!4 &1044364664
 Transform:
   m_ObjectHideFlags: 0

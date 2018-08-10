@@ -9,7 +9,7 @@ public class Rook : ChessPiece
         if (target == null)
         {
             // Same row or Same column movement
-            if (this.currentX == x || this.currentY == y)
+            if (this.CurrentX == x || this.CurrentY == y)
             {
                 return true;
             }

@@ -71,7 +71,7 @@ namespace UnityEngine.Experimental.Input.Editor
             var listRect = new Rect(rect.x, rect.y + toolbarRect.height, rect.width, rect.height - toolbarRect.height);
 
             m_PathTree.OnGUI(listRect);
-            m_FirstRenderCompleted = true;
+            //m_FirstRenderCompleted = true;
         }
 
         private void DrawToolbar()
@@ -87,7 +87,7 @@ namespace UnityEngine.Experimental.Input.Editor
         private SerializedProperty m_PathProperty;
         private PathTreeView m_PathTree;
         private TreeViewState m_PathTreeState;
-        private bool m_FirstRenderCompleted;
+        //private bool m_FirstRenderCompleted;
 
         private static class Styles
         {

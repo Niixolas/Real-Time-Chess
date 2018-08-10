@@ -9,7 +9,7 @@ public class Bishop : ChessPiece
         if (target == null)
         {
             // Diagonal movement
-            if (Mathf.Abs(this.currentX - x) == Mathf.Abs(this.currentY - y))
+            if (Mathf.Abs(this.CurrentX - x) == Mathf.Abs(this.CurrentY - y))
             {
                 return true;
             }
