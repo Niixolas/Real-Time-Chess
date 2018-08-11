@@ -89,17 +89,21 @@ public class HealthBar : MonoBehaviour {
         BoardManager bm = FindObjectOfType<BoardManager>();
         if (GetComponentInParent<ChessPiece>().isWhite && bm.blueSelectedPiece == this.GetComponentInParent<ChessPiece>())
         {
-            Destroy(GameObject.FindGameObjectWithTag("greenSelector"));
-            bm.whiteSelectionBox.GetComponent<SpriteRenderer>().enabled = true;
-            bm.whiteSelectionBox.transform.position = Utilities.getTileCenter(bm.blueSelectedPiece.CurrentX, bm.blueSelectedPiece.CurrentY);
-            bm.blueSelectedPiece = null;
+            // TODO: Need to find closest piece to move glowing selection to.
+
+            //Destroy(GameObject.FindGameObjectWithTag("greenSelector"));
+            //bm.whiteSelectionBox.GetComponent<SpriteRenderer>().enabled = true;
+            //bm.whiteSelectionBox.transform.position = Utilities.getTileCenter(bm.blueSelectedPiece.CurrentX, bm.blueSelectedPiece.CurrentY);
+            //bm.blueSelectedPiece = null;
         }
         if (!GetComponentInParent<ChessPiece>().isWhite && bm.redSelectedPiece == this.GetComponentInParent<ChessPiece>())
         {
-            Destroy(GameObject.FindGameObjectWithTag("redSelector"));
-            bm.blackSelectionBox.GetComponent<SpriteRenderer>().enabled = true;
-            bm.blackSelectionBox.transform.position = Utilities.getTileCenter(bm.redSelectedPiece.CurrentX, bm.redSelectedPiece.CurrentY);
-            bm.redSelectedPiece = null;
+            // TODO: Need to find closest piece to move glowing selection to.
+
+            //Destroy(GameObject.FindGameObjectWithTag("redSelector"));
+            //bm.blackSelectionBox.GetComponent<SpriteRenderer>().enabled = true;
+            //bm.blackSelectionBox.transform.position = Utilities.getTileCenter(bm.redSelectedPiece.CurrentX, bm.redSelectedPiece.CurrentY);
+            //bm.redSelectedPiece = null;
         }
 
         if (transform.parent.gameObject.GetComponent<King>())

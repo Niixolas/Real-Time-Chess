@@ -28,16 +28,16 @@ public class BoardManager : MonoBehaviour
     public List<GameObject> activePieces;
 
     // Holding which piece is glowing
-    private Vector2 blueSelection;
-    private Vector2 redSelection;
+    public Vector2Int blueSelection;
+    public Vector2Int redSelection;
 
     // Selector Box (particles)
     public GameObject blueSelector;
     public GameObject redSelector;
 
     // Selection box
-    public GameObject whiteSelectionBox;
-    public GameObject blackSelectionBox;
+    //public GameObject whiteSelectionBox;
+    //public GameObject blackSelectionBox;
 
     // Pulsing "Check!" text
     public Text redCheckText;
@@ -47,13 +47,23 @@ public class BoardManager : MonoBehaviour
     private int selectionX = -1;
     private int selectionY = -1;
 
+    private readonly float SelectionMoveDelay = 0.25f;
+    private float BlueSelectionMoveTime = 0.0f;
+    private float RedSelectionMoveTime = 0.0f;
+
     // Use this for initialization
     void Start ()
     {
         gameOver = false;
         SpawnAllPieces();
+
+        // Set first blue selection to king
         Utilities.chessBoard[4, 0].glow.enabled = true;
-        blueSelection = new Vector2(4, 0);
+        blueSelection = new Vector2Int(4, 0);
+
+        // Set first red selection to king
+        Utilities.chessBoard[4, 7].glow.enabled = true;
+        redSelection = new Vector2Int(4, 7);
     }
 
     /// <summary>
@@ -65,6 +75,18 @@ public class BoardManager : MonoBehaviour
         {
             DrawChessBoard();
             CheckInputs();
+        }
+
+        if (BlueSelectionMoveTime > 0)
+        {
+            BlueSelectionMoveTime -= Time.deltaTime;
+            BlueSelectionMoveTime = BlueSelectionMoveTime < 0 ? 0 : BlueSelectionMoveTime;
+        }
+
+        if (RedSelectionMoveTime > 0)
+        {
+            RedSelectionMoveTime -= Time.deltaTime;
+            RedSelectionMoveTime = RedSelectionMoveTime < 0 ? 0 : RedSelectionMoveTime;
         }
     }
 
@@ -80,81 +102,118 @@ public class BoardManager : MonoBehaviour
     // Check controller inputs
     private void CheckInputs()
     {
+        // Check for player 1 moving glowing selection
+        if (inputController.p1Move != Vector2.zero && blueSelectedPiece == null && BlueSelectionMoveTime == 0.0f)
+        {
+            Vector2 rayStart = Utilities.getTileCenter(blueSelection.x, blueSelection.y);
+            RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.2f, inputController.p1MoveFloat, 10.0f, LayerMask.GetMask("BluePieces"));
+            
+            if (hit.collider != null && hit.collider.GetComponent<ChessPiece>().isWhite)
+            {
+                Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.enabled = false;
+
+                int targetX = hit.collider.GetComponent<ChessPiece>().CurrentX;
+                int targetY = hit.collider.GetComponent<ChessPiece>().CurrentY;
+
+                blueSelection = new Vector2Int(targetX, targetY);
+                Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.enabled = true;
+
+                BlueSelectionMoveTime = SelectionMoveDelay;
+            }
+        }
+
+        // Check for player 2 moving glowing selection
+        if (inputController.p2Move != Vector2.zero && redSelectedPiece == null && RedSelectionMoveTime == 0.0f)
+        {
+            Vector2 rayStart = Utilities.getTileCenter(redSelection.x, redSelection.y);
+            RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.2f, inputController.p2MoveFloat, 10.0f, LayerMask.GetMask("RedPieces"));
+
+            if (hit.collider != null && !hit.collider.GetComponent<ChessPiece>().isWhite)
+            {
+                Utilities.chessBoard[redSelection.x, redSelection.y].glow.enabled = false;
+
+                int targetX = hit.collider.GetComponent<ChessPiece>().CurrentX;
+                int targetY = hit.collider.GetComponent<ChessPiece>().CurrentY;
+
+                redSelection = new Vector2Int(targetX, targetY);
+                Utilities.chessBoard[redSelection.x, redSelection.y].glow.enabled = true;
+
+                RedSelectionMoveTime = SelectionMoveDelay;
+            }
+        }
+
+        // Check if player 1 pressed action button
         if (inputController.p1Pressed)
         {
             if (blueSelectedPiece == null)
             {
-                if (Utilities.chessBoard[Controller.greenSelectionX, Controller.greenSelectionY] != null && Utilities.chessBoard[Controller.greenSelectionX, Controller.greenSelectionY].isWhite)
+                // If blue player is not already selecting a piece, and the current selection is not null and is also a blue piece
+                if (Utilities.chessBoard[blueSelection.x, blueSelection.y] != null && Utilities.chessBoard[blueSelection.x, blueSelection.y].isWhite)
                 {
-                    SelectPiece(Controller.greenSelectionX, Controller.greenSelectionY, 1);
-                    whiteSelectionBox.GetComponent<SpriteRenderer>().enabled = false;
-                    whiteSelectionBox.GetComponent<selectionController>().isMoving = false;
+                    SelectPiece(blueSelection.x, blueSelection.y, 1);
                 }
             }
             else
             {
-                Destroy(GameObject.FindGameObjectWithTag("greenSelector"));
-                whiteSelectionBox.GetComponent<SpriteRenderer>().enabled = true;
-                whiteSelectionBox.transform.position = Utilities.getTileCenter(blueSelectedPiece.CurrentX, blueSelectedPiece.CurrentY);
+                // Player 1 unselects their piece
+                Destroy(GameObject.FindGameObjectWithTag("blueParticles"));
+                blueSelectedPiece.glow.enabled = true;
                 blueSelectedPiece = null;
             }
         }
 
+        // Check if player 2 pressed action button
         if (inputController.p2Pressed)
         {
             if (redSelectedPiece == null)
             {
-                if (Utilities.chessBoard[Controller.redSelectionX, Controller.redSelectionY] != null && !Utilities.chessBoard[Controller.redSelectionX, Controller.redSelectionY].isWhite)
+                if (Utilities.chessBoard[redSelection.x, redSelection.y] != null && !Utilities.chessBoard[redSelection.x, redSelection.y].isWhite)
                 {
-                    SelectPiece(Controller.redSelectionX, Controller.redSelectionY, 2);
-                    blackSelectionBox.GetComponent<SpriteRenderer>().enabled = false;
-                    blackSelectionBox.GetComponent<selectionController>().isMoving = false;
+                    SelectPiece(redSelection.x, redSelection.y, 2);
                 }
             }
             else
             {
-                Destroy(GameObject.FindGameObjectWithTag("redSelector"));
-                blackSelectionBox.GetComponent<SpriteRenderer>().enabled = true;
-                blackSelectionBox.transform.position = Utilities.getTileCenter(redSelectedPiece.CurrentX, redSelectedPiece.CurrentY);
+                // Player 2 unselects their piece
+                Destroy(GameObject.FindGameObjectWithTag("redParticles"));
+                redSelectedPiece.glow.enabled = true;
                 redSelectedPiece = null;
             }
         }
 
-        //if (Controller.getFire(1))
-        //{
-            if (inputController.p1Aim != Vector2.zero)
+        // If player 1 is firing
+        if (inputController.p1Aim != Vector2.zero)
+        {
+            if (blueSelectedPiece != null)
             {
-                if (blueSelectedPiece != null)
-                {
-                    blueSelectedPiece.fire(1);
-                }
+                blueSelectedPiece.fire(1);
             }
-        //}
+        }
 
-        //if (Controller.getFire(2))
-        //{
-            if (inputController.p2Aim != Vector2.zero)
+        // If player 2 is firing
+        if (inputController.p2Aim != Vector2.zero)
+        {
+            if (redSelectedPiece != null)
             {
-                if (redSelectedPiece != null)
-                {
-                    redSelectedPiece.fire(2);
-                }
+                redSelectedPiece.fire(2);
             }
-        //}
+        }
 
+        // If player 1 is moving a piece
         if (inputController.p1Move != Vector2.zero)
         {
             if (blueSelectedPiece != null && !blueSelectedPiece.isMoving)
             {
-                blueSelectedPiece.movePiece();
+                blueSelectedPiece.MovePiece();
             }
         }
 
+        // If player 2 is moving a piece
         if (inputController.p2Move != Vector2.zero)
         {
             if (redSelectedPiece != null && !redSelectedPiece.isMoving)
             {
-                redSelectedPiece.movePiece();
+                redSelectedPiece.MovePiece();
             }
         }
 
@@ -173,11 +232,13 @@ public class BoardManager : MonoBehaviour
         if (player == 1 && Utilities.chessBoard[x, y].isWhite)
         {
             blueSelectedPiece = Utilities.chessBoard[x, y];
+            blueSelectedPiece.glow.enabled = false;
             Instantiate(blueSelector, blueSelectedPiece.transform);
         }
         if (player == 2 && !Utilities.chessBoard[x, y].isWhite)
         {
             redSelectedPiece = Utilities.chessBoard[x, y];
+            redSelectedPiece.glow.enabled = false;
             Instantiate(redSelector, redSelectedPiece.transform);
         }        
     }
@@ -233,7 +294,6 @@ public class BoardManager : MonoBehaviour
 
         HealthBar hb = chessPiece.GetComponentInChildren<HealthBar>();
         hb.MaxHealth = maxHealthValue;
-        //hb.transform.SetParent(aPiece.transform, false);
         hb.CurrentHealth = maxHealthValue;
         aPiece.setHealthBar(hb);
         aPiece.setShot(shot);

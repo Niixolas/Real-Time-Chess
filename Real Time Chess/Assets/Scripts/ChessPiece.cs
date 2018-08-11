@@ -73,6 +73,15 @@ public abstract class ChessPiece : MonoBehaviour
                     FindObjectOfType<BoardManager>().SelectPiece((int)targetPosition.x, (int)targetPosition.y, 2);
                     Destroy(this.gameObject);
                 }
+
+                if (isWhite)
+                {
+                    bm.blueSelection = new Vector2Int((int)targetPosition.x, (int)targetPosition.y);
+                }
+                else
+                {
+                    bm.redSelection = new Vector2Int((int)targetPosition.x, (int)targetPosition.y);
+                }
             }
             else
             {
@@ -83,7 +92,7 @@ public abstract class ChessPiece : MonoBehaviour
         }
     }
 
-    public virtual void movePiece()
+    public virtual void MovePiece()
     {
         Vector2 movement = isWhite ? inputController.p1Move : inputController.p2Move;
         //Vector2 movement = Controller.getMovement(isWhite ? 1 : 2);

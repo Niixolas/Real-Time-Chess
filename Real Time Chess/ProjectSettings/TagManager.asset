@@ -11,6 +11,8 @@ TagManager:
   - bullet
   - PauseCanvas
   - CheckCanvas
+  - blueParticles
+  - redParticles
   layers:
   - Default
   - TransparentFX
@@ -24,8 +26,8 @@ TagManager:
   - Knight
   - 
   - 
-  - 
-  - 
+  - BluePieces
+  - RedPieces
   - 
   - 
   - 

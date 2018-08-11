@@ -18,7 +18,7 @@ public class Knight : ChessPiece
         return false;
     }
 
-    public override void movePiece()
+    public override void MovePiece()
     {
         Vector2 movement = isWhite ? inputController.p1KnightMove : inputController.p2KnightMove;
         targetSquare = Utilities.getBoardCoordinates(transform.position.x, transform.position.y);

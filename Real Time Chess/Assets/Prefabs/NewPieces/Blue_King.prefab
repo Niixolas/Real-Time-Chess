@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 212480564506866646}
   - component: {fileID: 114450025103866122}
   - component: {fileID: 61923951606124264}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Blue_King
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +301,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0b4bf8c76d7b1404d8ca25446309ffd2, type: 3}
-  m_Color: {r: 0.24313726, g: 0.27450982, b: 0.8627451, a: 1}
+  m_Color: {r: 0.827451, g: 0.6117647, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

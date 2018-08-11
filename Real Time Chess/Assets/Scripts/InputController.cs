@@ -9,13 +9,15 @@ public class InputController : MonoBehaviour
 
     // The variables used for game inputs
     public Vector2 p1Aim;
-    public Vector2 p1Move;    
+    public Vector2 p1Move;
+    public Vector2 p1MoveFloat;
     public Vector2 p1KnightAim;
     public Vector2 p1KnightMove;
     public bool p1Pressed;
 
     public Vector2 p2Aim;
     public Vector2 p2Move;
+    public Vector2 p2MoveFloat;
     public Vector2 p2KnightAim;
     public Vector2 p2KnightMove;
     public bool p2Pressed;
@@ -112,6 +114,7 @@ public class InputController : MonoBehaviour
         if (gamepad1 != null)
         {
             p1Move = new Vector2(gamepad1.leftStick.x.ReadValue(), gamepad1.leftStick.y.ReadValue());
+            p1MoveFloat = p1Move;
             p1KnightMove = GetKnightAim(p1Move);
             p1Move = NormalizeMove(p1Move);
 
@@ -124,6 +127,7 @@ public class InputController : MonoBehaviour
         if (gamepad2 != null)
         {
             p2Move = new Vector2(gamepad2.leftStick.x.ReadValue(), gamepad2.leftStick.y.ReadValue());
+            p2MoveFloat = p2Move;
             p2KnightMove = GetKnightAim(p2Move);
             p2Move = NormalizeMove(p2Move);
 
