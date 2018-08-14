@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Knight : ChessPiece
 {
-    public override bool isMovePossible(int x, int y, ChessPiece target)
+    public override bool IsMovePossible(int x, int y, ChessPiece target)
     {
         if (target == null)
         {
@@ -25,7 +25,7 @@ public class Knight : ChessPiece
         Vector2 destination = Utilities.getBoardCoordinates(transform.position.x + movement.x, transform.position.y + movement.y);
         if (destination.x <= 7 && destination.x >= 0 && destination.y <= 7 && destination.y >= 0)
         {
-            if (isMovePossible((int)destination.x, (int)destination.y, Utilities.chessBoard[(int)destination.x, (int)destination.y]))
+            if (IsMovePossible((int)destination.x, (int)destination.y, Utilities.chessBoard[(int)destination.x, (int)destination.y]))
             {
                 isMoving = true;
                 targetSquare = destination;
@@ -40,7 +40,7 @@ public class Knight : ChessPiece
         }
     }
 
-    public override void fire(int playerNumber)
+    public override void Fire(int playerNumber)
     {
         if (Time.time > nextFire && !isMoving)
         {

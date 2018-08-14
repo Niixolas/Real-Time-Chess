@@ -243,16 +243,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b7f760fcb98c614b9a3a35a44be9e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
   isWhite: 0
-  isMoving: 0
-  healthBar: {fileID: 114777371385677236}
-  shot: {fileID: 0}
-  explosion: {fileID: 1269972836079418, guid: 73fe1eb196fe1684eaf745caf7c19d44, type: 2}
-  glow: {fileID: 212139516440509008}
+  speed: 3
   fireRate: 0.3
   selfDamagePerShot: 0.5
+  healthBar: {fileID: 114777371385677236}
+  glow: {fileID: 212139516440509008}
+  targetMoveSquare: {fileID: 1476629675679648, guid: c1495b6e5fa395f47a6e600837cc0a53,
+    type: 2}
+  targetAimSquare: {fileID: 1239386842062286, guid: 6dddb507bf672b84893ccadf7a78caa7,
+    type: 2}
+  explosion: {fileID: 1269972836079418, guid: 73fe1eb196fe1684eaf745caf7c19d44, type: 2}
   hitClip: {fileID: 8300000, guid: ada6f048599e0064e840e3fc29d28303, type: 3}
+  isMoving: 0
+  shot: {fileID: 0}
 --- !u!114 &114777371385677236
 MonoBehaviour:
   m_ObjectHideFlags: 1

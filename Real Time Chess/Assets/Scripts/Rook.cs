@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Rook : ChessPiece
 {
-    public override bool isMovePossible(int x, int y, ChessPiece target)
+    public override bool IsMovePossible(int x, int y, ChessPiece target)
     {
         if (target == null)
         {
@@ -18,7 +18,7 @@ public class Rook : ChessPiece
         return false;
     }
 
-    public override bool isAimPossible(int x, int y)
+    public override bool IsAimPossible(int x, int y)
     {
         if (x != 0 && y == 0 || x == 0 && y !=0)
         {

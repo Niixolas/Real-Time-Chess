@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pawn : ChessPiece
 {
-    public override bool isMovePossible(int x, int y, ChessPiece target)
+    public override bool IsMovePossible(int x, int y, ChessPiece target)
     {
         if (target == null)
         {
@@ -23,7 +23,7 @@ public class Pawn : ChessPiece
         return false;
     }
 
-    public override bool isAimPossible(int x, int y)
+    public override bool IsAimPossible(int x, int y)
     {
         if (isWhite && x != 0 && y > 0)
         {
@@ -36,13 +36,13 @@ public class Pawn : ChessPiece
         return false;
     }
 
-    public override void fire(int playerNumber)
+    public override void Fire(int playerNumber)
     {
         if (Time.time > nextFire && !isMoving)
         {
             if (playerNumber == 1)
             {
-                if (inputController.p1Aim != Vector2.zero && isAimPossible((int)inputController.p1Aim.x, (int)inputController.p1Aim.y))
+                if (inputController.p1Aim != Vector2.zero && IsAimPossible((int)inputController.p1Aim.x, (int)inputController.p1Aim.y))
                 {
                     nextFire = Time.time + fireRate;
                     GameObject thisShot = Instantiate(shot, this.transform.position, this.transform.rotation);
@@ -59,8 +59,39 @@ public class Pawn : ChessPiece
                     healthBar.DealDamage(selfDamagePerShot);
                 }
             }
-            
+        }
+    }
 
+    public override void ShowPossibleActions()
+    {
+        int moveLookX = CurrentX;
+        int moveLookY = isWhite ? CurrentY + 1 : CurrentY - 1;
+
+        if (Utilities.chessBoard[moveLookX, moveLookY] == null)
+        {
+            Vector3 newMoveSquarePosition = Utilities.getTileCenter(moveLookX, moveLookY);
+            newMoveSquarePosition.z = -5.0f;
+            GameObject newMoveSquare = Instantiate(targetMoveSquare, newMoveSquarePosition, Quaternion.identity);
+            targetMoveAndAimSquares.Add(newMoveSquare);
+        }
+
+        List<Vector2Int> aimLook = new List<Vector2Int>();
+        Vector2Int aimLook1 = new Vector2Int(CurrentX + 1, isWhite ? CurrentY + 1 : CurrentY - 1);
+        Vector2Int aimLook2 = new Vector2Int(CurrentX - 1, isWhite ? CurrentY + 1 : CurrentY - 1);
+
+        aimLook.Add(aimLook1);
+        aimLook.Add(aimLook2);
+
+        foreach (Vector2Int aimLookVector in aimLook)
+        {
+            if (aimLookVector.x >= 0 && aimLookVector.x <= 7 && aimLookVector.y >= 0 && aimLookVector.y <= 7)
+            {
+                Vector3 newAimSquarePosition = Utilities.getTileCenter(aimLookVector.x, aimLookVector.y);
+                newAimSquarePosition.z = -5.0f;
+                GameObject newAimSquare = Instantiate(targetAimSquare, newAimSquarePosition, Quaternion.identity);
+                targetMoveAndAimSquares.Add(newAimSquare);
+            }
+            
         }
     }
 }

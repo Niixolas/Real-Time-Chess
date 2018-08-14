@@ -44,7 +44,9 @@ public class BoardManager : MonoBehaviour
     [HideInInspector]
     public List<GameObject> activePieces;
 
-    // Holding which pieces are glowing
+    /// <summary>
+    /// Vector holding position of currently selected glowing piece
+    /// </summary>
     [HideInInspector]
     public Vector2Int blueSelection, redSelection;
 
@@ -160,6 +162,7 @@ public class BoardManager : MonoBehaviour
                 if (Utilities.chessBoard[blueSelection.x, blueSelection.y] != null && Utilities.chessBoard[blueSelection.x, blueSelection.y].isWhite)
                 {
                     SelectPiece(blueSelection.x, blueSelection.y, 1);
+                    Utilities.chessBoard[blueSelection.x, blueSelection.y].ShowPossibleActions();
                 }
             }
             else
@@ -168,6 +171,7 @@ public class BoardManager : MonoBehaviour
                 Destroy(GameObject.FindGameObjectWithTag("blueParticles"));
                 blueSelectedPiece.glow.enabled = true;
                 blueSelectedPiece = null;
+                Utilities.chessBoard[blueSelection.x, blueSelection.y].HidePossibleActions();
             }
         }
 
@@ -179,6 +183,7 @@ public class BoardManager : MonoBehaviour
                 if (Utilities.chessBoard[redSelection.x, redSelection.y] != null && !Utilities.chessBoard[redSelection.x, redSelection.y].isWhite)
                 {
                     SelectPiece(redSelection.x, redSelection.y, 2);
+                    Utilities.chessBoard[redSelection.x, redSelection.y].ShowPossibleActions();
                 }
             }
             else
@@ -187,6 +192,7 @@ public class BoardManager : MonoBehaviour
                 Destroy(GameObject.FindGameObjectWithTag("redParticles"));
                 redSelectedPiece.glow.enabled = true;
                 redSelectedPiece = null;
+                Utilities.chessBoard[redSelection.x, redSelection.y].HidePossibleActions();
             }
         }
 
@@ -195,7 +201,7 @@ public class BoardManager : MonoBehaviour
         {
             if (blueSelectedPiece != null)
             {
-                blueSelectedPiece.fire(1);
+                blueSelectedPiece.Fire(1);
             }
         }
 
@@ -204,7 +210,7 @@ public class BoardManager : MonoBehaviour
         {
             if (redSelectedPiece != null)
             {
-                redSelectedPiece.fire(2);
+                redSelectedPiece.Fire(2);
             }
         }
 
@@ -292,13 +298,13 @@ public class BoardManager : MonoBehaviour
         ChessPiece aPiece = chessPiece.GetComponent<ChessPiece>();
 
         Utilities.chessBoard[x, y] = aPiece;
-        Utilities.chessBoard[x, y].setPosition(x, y);
+        Utilities.chessBoard[x, y].SetPosition(x, y);
 
-        HealthBar hb = chessPiece.GetComponentInChildren<HealthBar>();
-        hb.MaxHealth = maxHealthValue;
-        hb.CurrentHealth = maxHealthValue;
-        aPiece.setHealthBar(hb);
-        aPiece.setShot(shot);
+        //HealthBar hb = chessPiece.GetComponentInChildren<HealthBar>();
+        aPiece.healthBar.MaxHealth = maxHealthValue;
+        aPiece.healthBar.CurrentHealth = maxHealthValue;
+        //aPiece.setHealthBar(hb);
+        aPiece.SetShot(shot);
 
         activePieces.Add(chessPiece);
     }
