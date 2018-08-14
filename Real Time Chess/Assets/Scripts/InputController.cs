@@ -4,23 +4,18 @@ using UnityEngine.Experimental.Input;
 public class InputController : MonoBehaviour
 {
     // Holds the gamepads for each player
-    private Gamepad gamepad1;
-    private Gamepad gamepad2;
+    [HideInInspector]
+    private Gamepad gamepad1, gamepad2;
 
     // The variables used for game inputs
-    public Vector2 p1Aim;
-    public Vector2 p1Move;
-    public Vector2 p1MoveFloat;
-    public Vector2 p1KnightAim;
-    public Vector2 p1KnightMove;
-    public bool p1Pressed;
+    [HideInInspector]
+    public Vector2 p1Aim, p1Move, p1MoveFloat, p1KnightAim, p1KnightMove;
 
-    public Vector2 p2Aim;
-    public Vector2 p2Move;
-    public Vector2 p2MoveFloat;
-    public Vector2 p2KnightAim;
-    public Vector2 p2KnightMove;
-    public bool p2Pressed;
+    [HideInInspector]
+    public Vector2 p2Aim, p2Move, p2MoveFloat, p2KnightAim, p2KnightMove;
+
+    [HideInInspector]
+    public bool p1Pressed, p2Pressed;
 
     // Set the devices up
     private void Awake()
@@ -57,6 +52,8 @@ public class InputController : MonoBehaviour
                 {
                     if (gamepad1 == null)
                     {
+                        // If a gamepad is connected, and there are 2 gamepads, and gamepad1 is missing:
+                        // Check to see which slot gamepad2 is occupying and put gamepad1 in the other one.
                         if (gamepad2.device == allPads[0].device)
                         {
                             gamepad1 = allPads[1];
@@ -68,6 +65,8 @@ public class InputController : MonoBehaviour
                     }
                     else if (gamepad2 == null)
                     {
+                        // If a gamepad is connected, and there are 2 gamepads, and gamepad2 is missing:
+                        // Check to see which slot gamepad1 is occupying and put gamepad2 in the other one.
                         if (gamepad1.device == allPads[0].device)
                         {
                             gamepad2 = allPads[1];
@@ -80,6 +79,7 @@ public class InputController : MonoBehaviour
                 }
                 else if (allPads.Count == 1)
                 {
+                    // If a gamepad is connected, and there is only one gamepad, give it the first slot.
                     gamepad1 = allPads[0];
                 }
 
@@ -89,11 +89,14 @@ public class InputController : MonoBehaviour
             {
                 if (Gamepad.all.Count == 0)
                 {
+                    // If a gamepad is removed and there are no gamepads, clear the slots.
                     gamepad1 = null;
                     gamepad2 = null;
                 }
                 if (Gamepad.all.Count == 1)
                 {
+                    // If a gamepad is removed and there is only one gamepad connected,
+                    // Check to see which gamepad is connected and clear the slot for the other one.
                     if (gamepad1.device == Gamepad.all[0].device)
                     {
                         gamepad2 = null;
@@ -103,6 +106,7 @@ public class InputController : MonoBehaviour
                         gamepad1 = null;
                     }
                 }
+
                 Debug.Log("Device Removed");
             }
         };
@@ -111,6 +115,7 @@ public class InputController : MonoBehaviour
     // Update the variables based on device input
     private void Update()
     {
+        // Update the input variables for gamepad1 if it is connected
         if (gamepad1 != null)
         {
             p1Move = new Vector2(gamepad1.leftStick.x.ReadValue(), gamepad1.leftStick.y.ReadValue());
@@ -124,6 +129,8 @@ public class InputController : MonoBehaviour
             
             p1Pressed = gamepad1.buttonSouth.wasJustPressed;
         }
+
+        // Update the input variables for gamepad2 if it is connected
         if (gamepad2 != null)
         {
             p2Move = new Vector2(gamepad2.leftStick.x.ReadValue(), gamepad2.leftStick.y.ReadValue());
@@ -136,10 +143,14 @@ public class InputController : MonoBehaviour
             p2Aim = NormalizeMove(p2Aim);
             
             p2Pressed = gamepad2.buttonSouth.wasJustPressed;
-        }
-        
+        }        
     }
 
+    /// <summary>
+    /// Normalize an input move vector so its components are -1, 0, or 1
+    /// </summary>
+    /// <param name="move">A vector2 movement input</param>
+    /// <returns></returns>
     private Vector2 NormalizeMove(Vector2 move)
     {
         Vector2 newMove = Vector2.zero;
@@ -165,12 +176,19 @@ public class InputController : MonoBehaviour
         return move;
     }
 
+    /// <summary>
+    /// Get the appropriate aim position based on the Knight's pattern
+    /// </summary>
+    /// <param name="aim">The Vector2 input for the player's aim</param>
+    /// <returns></returns>
     private Vector2 GetKnightAim(Vector2 aim)
     {
         Vector2 movement = Vector2.zero;
 
+        // Convert the Vector2 to a rotational position
         float rot = Mathf.Atan2(aim.x, aim.y) * Mathf.Rad2Deg;
 
+        // Set the movement vector based on the rotational position
         if (rot > 0 && rot < 45)
         {
             movement = new Vector2(1, 2);
