@@ -109,6 +109,20 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    public void RefreshActions()
+    {
+        if (blueSelectedPiece != null)
+        {
+            blueSelectedPiece.HidePossibleActions();
+            blueSelectedPiece.ShowPossibleActions();
+        }
+
+        if (redSelectedPiece != null)
+        {
+            redSelectedPiece.HidePossibleActions();
+            redSelectedPiece.ShowPossibleActions();
+        }
+    }
 
     // Check controller inputs
     private void CheckInputs()

@@ -86,7 +86,10 @@ public class HealthBar : MonoBehaviour {
     void Die()
     {
         CurrentHealth = 0;
+        GetComponentInParent<ChessPiece>().HidePossibleActions();
+
         BoardManager bm = FindObjectOfType<BoardManager>();
+
         if (GetComponentInParent<ChessPiece>().isWhite && bm.blueSelectedPiece == this.GetComponentInParent<ChessPiece>())
         {
             // TODO: Need to find closest piece to move glowing selection to.
@@ -94,7 +97,7 @@ public class HealthBar : MonoBehaviour {
             //Destroy(GameObject.FindGameObjectWithTag("greenSelector"));
             //bm.whiteSelectionBox.GetComponent<SpriteRenderer>().enabled = true;
             //bm.whiteSelectionBox.transform.position = Utilities.getTileCenter(bm.blueSelectedPiece.CurrentX, bm.blueSelectedPiece.CurrentY);
-            //bm.blueSelectedPiece = null;
+            bm.blueSelectedPiece = null;
         }
         if (!GetComponentInParent<ChessPiece>().isWhite && bm.redSelectedPiece == this.GetComponentInParent<ChessPiece>())
         {
@@ -103,13 +106,17 @@ public class HealthBar : MonoBehaviour {
             //Destroy(GameObject.FindGameObjectWithTag("redSelector"));
             //bm.blackSelectionBox.GetComponent<SpriteRenderer>().enabled = true;
             //bm.blackSelectionBox.transform.position = Utilities.getTileCenter(bm.redSelectedPiece.CurrentX, bm.redSelectedPiece.CurrentY);
-            //bm.redSelectedPiece = null;
+            bm.redSelectedPiece = null;
         }
 
         if (transform.parent.gameObject.GetComponent<King>())
         {
             FindObjectOfType<Menu_Controller>().setWinner(!transform.parent.gameObject.GetComponent<ChessPiece>().isWhite);
         }
+
+        Utilities.chessBoard[GetComponentInParent<ChessPiece>().CurrentX, GetComponentInParent<ChessPiece>().CurrentY] = null;
+
+        bm.RefreshActions();
 
         Destroy(transform.parent.gameObject);
     }

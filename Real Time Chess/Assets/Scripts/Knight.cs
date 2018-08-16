@@ -36,6 +36,15 @@ public class Knight : ChessPiece
                 Utilities.chessBoard[(int)targetPosition.x, (int)targetPosition.y] = this;
                 bm.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
                 bm.GetComponent<AudioSource>().Play();
+
+                if (isWhite)
+                {
+                    bm.blueSelection = new Vector2Int((int)targetSquare.x, (int)targetSquare.y);
+                }
+                else
+                {
+                    bm.redSelection = new Vector2Int((int)targetSquare.x, (int)targetSquare.y);
+                }
             }
         }
     }
@@ -62,6 +71,48 @@ public class Knight : ChessPiece
                 healthBar.DealDamage(selfDamagePerShot);
             }
 
+        }
+    }
+
+    public override void ShowPossibleActions()
+    {
+        for (int xDir = -2; xDir <= 2; xDir += 1)
+        {
+            for (int yDir = -2; yDir <= 2; yDir += 1)
+            {
+                int x = CurrentX + xDir;
+                int y = CurrentY + yDir;
+
+                if (x < 0 || x > 7 || y < 0 || y > 7)
+                {
+                    continue;
+                }
+
+                if (Mathf.Abs(xDir) + Mathf.Abs(yDir) != 3)
+                {
+                    continue;
+                }
+
+                if (Utilities.chessBoard[x, y] == null)
+                {
+                    Vector3 newMoveSquarePosition = Utilities.getTileCenter(x, y);
+                    newMoveSquarePosition.z = -5.0f;
+                    GameObject newMoveSquare = Instantiate(targetMoveSquare, newMoveSquarePosition, Quaternion.identity);
+                    targetMoveAndAimSquares.Add(newMoveSquare);
+                }
+                else
+                {
+                    if (Utilities.chessBoard[x, y].isWhite != isWhite)
+                    {
+                        Vector3 newMoveSquarePosition = Utilities.getTileCenter(x, y);
+                        //newMoveSquarePosition.z = -5.0f;
+                        GameObject newAimSquare = Instantiate(targetAimSquare, newMoveSquarePosition, Quaternion.identity);
+                        targetMoveAndAimSquares.Add(newAimSquare);
+                    }
+                    continue;
+                }
+
+            }
         }
     }
 

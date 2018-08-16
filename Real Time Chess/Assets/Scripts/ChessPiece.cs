@@ -55,7 +55,6 @@ public abstract class ChessPiece : MonoBehaviour
     protected List<GameObject> targetMoveAndAimSquares;
 
     private AudioSource hitSound;
-    
 
     void Start()
     {
@@ -87,29 +86,16 @@ public abstract class ChessPiece : MonoBehaviour
             {
                 // Stop the piece and position it at the exact correct position (to correct for minor drift)
                 isMoving = false;
-                if (isWhite? bm.blueSelectedPiece != null : bm.redSelectedPiece != null)
-                {
-                    ShowPossibleActions();
-                }
-                
-
                 transform.position = targetPosition;
+
+                // Refresh move and aim boxes
+                bm.RefreshActions();                
 
                 // Place the piece in the chessboard array so it knows the piece is there
                 Utilities.chessBoard[(int)targetPosition.x, (int)targetPosition.y] = this;
 
                 // If the piece is a pawn, check if it reached the other side of the board
                 CheckPawnPromotion();
-
-                // Set the glowing selection vector at the right location
-                //if (isWhite)
-                //{
-                //    bm.blueSelection = new Vector2Int((int)targetPosition.x, (int)targetPosition.y);
-                //}
-                //else
-                //{
-                //    bm.redSelection = new Vector2Int((int)targetPosition.x, (int)targetPosition.y);
-                //}
             }
             else
             {
@@ -155,7 +141,9 @@ public abstract class ChessPiece : MonoBehaviour
             if (IsMovePossible((int)destination.x, (int)destination.y, Utilities.chessBoard[(int)destination.x, (int)destination.y]))
             {
                 isMoving = true;
+                bm.RefreshActions();
                 HidePossibleActions();
+
 
                 targetSquare = destination;
                 targetPosition = Utilities.getTileCenter((int)targetSquare.x, (int)targetSquare.y);

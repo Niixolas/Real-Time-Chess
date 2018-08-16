@@ -203,7 +203,7 @@ MonoBehaviour:
   glow: {fileID: 212870297593385960}
   targetMoveSquare: {fileID: 1476629675679648, guid: c1495b6e5fa395f47a6e600837cc0a53,
     type: 2}
-  targetAimSquare: {fileID: 1239386842062286, guid: 6dddb507bf672b84893ccadf7a78caa7,
+  targetAimSquare: {fileID: 1914516531732290, guid: 310dad642e34b324082777a7a2ee72cc,
     type: 2}
   explosion: {fileID: 1269972836079418, guid: 73fe1eb196fe1684eaf745caf7c19d44, type: 2}
   hitClip: {fileID: 8300000, guid: ada6f048599e0064e840e3fc29d28303, type: 3}

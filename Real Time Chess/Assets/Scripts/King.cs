@@ -49,4 +49,42 @@ public class King : ChessPiece
 
         }
     }
+
+    public override void ShowPossibleActions()
+    {
+        for (int xDir = -1; xDir <= 1; xDir += 1)
+        {
+            for (int yDir = -1; yDir <= 1; yDir += 1)
+            {
+                int x = CurrentX + xDir;
+                int y = CurrentY + yDir;
+
+                if (x < 0 || x > 7 || y < 0 || y > 7 || (xDir == 0 && yDir == 0) )
+                {
+                    continue;
+                }
+
+                if (Utilities.chessBoard[x, y] == null)
+                {
+                    Vector3 newMoveSquarePosition = Utilities.getTileCenter(x, y);
+                    newMoveSquarePosition.z = -5.0f;
+                    GameObject newMoveSquare = Instantiate(targetMoveSquare, newMoveSquarePosition, Quaternion.identity);
+                    targetMoveAndAimSquares.Add(newMoveSquare);
+                }
+                else
+                {
+                    if (Utilities.chessBoard[x, y].isWhite != isWhite)
+                    {
+                        Vector3 newMoveSquarePosition = Utilities.getTileCenter(x, y);
+                        //newMoveSquarePosition.z = -5.0f;
+                        GameObject newAimSquare = Instantiate(targetAimSquare, newMoveSquarePosition, Quaternion.identity);
+                        targetMoveAndAimSquares.Add(newAimSquare);
+                    }
+                    continue;
+                }
+                
+            }
+        }
+    }
+
 }
