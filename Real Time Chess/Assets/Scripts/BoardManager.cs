@@ -24,6 +24,10 @@ public class BoardManager : MonoBehaviour
     [Tooltip("Prefabs for the pulsing 'Check!' text")]
     public Text redCheckText, greenCheckText;
 
+    [Header("References")]
+    [Tooltip("Reference to the firing sound")]
+    public AudioClip hitClip;
+
     [Header("Variables")]
     [Tooltip("Time between movement input checks")]
     [SerializeField]

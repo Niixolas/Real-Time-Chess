@@ -329,6 +329,7 @@ MonoBehaviour:
   - {fileID: 1658998771559646, guid: 666385b46b9ec904e81c08e19f38b936, type: 2}
   redCheckText: {fileID: 56387654}
   greenCheckText: {fileID: 789089328}
+  hitClip: {fileID: 8300000, guid: ada6f048599e0064e840e3fc29d28303, type: 3}
   SelectionMoveDelay: 0.25
   gameOver: 0
   blueSelectedPiece: {fileID: 0}

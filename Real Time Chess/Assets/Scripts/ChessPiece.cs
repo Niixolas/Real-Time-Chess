@@ -41,8 +41,8 @@ public abstract class ChessPiece : MonoBehaviour
     [Tooltip("Reference to the explosion prefab")]
     public GameObject explosion;
 
-    [Tooltip("Reference to the sound when hit")]
-    public AudioClip hitClip;
+    //[Tooltip("Reference to the sound when hit")]
+    private AudioClip hitClip;
 
     [HideInInspector]
     // Boolean to trigger whether a piece is moving, or is able to move
@@ -79,6 +79,7 @@ public abstract class ChessPiece : MonoBehaviour
 
         // Create the audio source for the hit explosion
         hitSound = gameObject.AddComponent<AudioSource>();
+        hitClip = FindObjectOfType<BoardManager>().hitClip;
         hitSound.clip = hitClip;
         hitSound.loop = false;
         hitSound.playOnAwake = false;
