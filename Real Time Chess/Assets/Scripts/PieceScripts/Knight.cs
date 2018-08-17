@@ -6,7 +6,7 @@ public class Knight : ChessPiece
 {
     public override bool IsMovePossible(int x, int y, ChessPiece target)
     {
-        if (target == null)
+        if (target == null && canMove)
         {
             // Knight movement
             if ( ( (Mathf.Abs(CurrentX - x) == 2) && (Mathf.Abs(CurrentY - y) == 1) ) || ( (Mathf.Abs(CurrentX - x) == 1) && (Mathf.Abs(CurrentY - y) == 2) ) )

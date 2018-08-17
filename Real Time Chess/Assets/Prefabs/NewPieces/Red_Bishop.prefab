@@ -308,6 +308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isWhite: 0
   speed: 4
+  moveDelay: 0
   fireRate: 0.1
   selfDamagePerShot: 0.5
   healthBar: {fileID: 114795067542008894}
@@ -318,9 +319,10 @@ MonoBehaviour:
   targetAimSquare: {fileID: 1476629675679648, guid: 791dd434ce5e3a34dbd152a85f649d58,
     type: 2}
   explosion: {fileID: 1269972836079418, guid: 73fe1eb196fe1684eaf745caf7c19d44, type: 2}
-  hitClip: {fileID: 8300000, guid: ada6f048599e0064e840e3fc29d28303, type: 3}
   isMoving: 0
   shot: {fileID: 0}
+  canMove: 0
+  nextMove: 0
 --- !u!114 &114399973138353806
 MonoBehaviour:
   m_ObjectHideFlags: 1

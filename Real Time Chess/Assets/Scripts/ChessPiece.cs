@@ -16,6 +16,9 @@ public abstract class ChessPiece : MonoBehaviour
     [Tooltip("Piece speed")]
     public float speed = 50.0f;
 
+    [Tooltip("Delay between movements")]
+    public float moveDelay = 0.2f;
+
     [Tooltip("How fast the piece can fire")]
     public float fireRate = 0.5F;
 
@@ -51,9 +54,12 @@ public abstract class ChessPiece : MonoBehaviour
     [HideInInspector]
     public GameObject shot;
 
+    public bool canMove;
+    public float nextMove;
+
     protected Vector2 targetSquare;
     protected Vector2 targetPosition;
-    protected float nextFire = 0.0F;
+    protected float nextFire;
 
     protected List<GameObject> targetMoveAndAimSquares;
 
@@ -68,6 +74,7 @@ public abstract class ChessPiece : MonoBehaviour
     {
         // Initialize variables
         isMoving = false;
+        canMove = true;
         transform.position = Utilities.getTileCenter(CurrentX, CurrentY);
         targetSquare = new Vector2(0, 0);
         targetPosition = Utilities.getTileCenter((int)targetSquare.x, (int)targetSquare.y);
@@ -84,6 +91,19 @@ public abstract class ChessPiece : MonoBehaviour
         hitSound.loop = false;
         hitSound.playOnAwake = false;
         hitSound.volume = 0.8f;
+    }
+
+    protected virtual void Update()
+    {
+        if (!canMove)
+        {
+            nextMove -= Time.deltaTime;
+            if (nextMove <= 0)
+            {
+                canMove = true;
+                nextMove = 0.0f;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -106,7 +126,8 @@ public abstract class ChessPiece : MonoBehaviour
                 // Place the piece in the chessboard array so it knows the piece is there
                 Utilities.chessBoard[(int)targetPosition.x, (int)targetPosition.y] = this;
 
-                
+                canMove = false;
+                nextMove = moveDelay;
             }
             else
             {
@@ -151,40 +172,44 @@ public abstract class ChessPiece : MonoBehaviour
 
     public virtual void MovePiece()
     {
-        Vector2 movement = isWhite ? inputController.p1Move : inputController.p2Move;
-
-        targetSquare = Utilities.getBoardCoordinates(transform.position.x, transform.position.y);
-
-        Vector2 destination = Utilities.getBoardCoordinates(transform.position.x + movement.x, transform.position.y + movement.y);
-
-        if (destination.x <= 7 && destination.x >= 0 && destination.y <= 7 && destination.y >= 0)
+        if (canMove)
         {
-            if (IsMovePossible((int)destination.x, (int)destination.y, Utilities.chessBoard[(int)destination.x, (int)destination.y]))
+            Vector2 movement = isWhite ? inputController.p1Move : inputController.p2Move;
+
+            targetSquare = Utilities.getBoardCoordinates(transform.position.x, transform.position.y);
+
+            Vector2 destination = Utilities.getBoardCoordinates(transform.position.x + movement.x, transform.position.y + movement.y);
+
+            if (destination.x <= 7 && destination.x >= 0 && destination.y <= 7 && destination.y >= 0)
             {
-                isMoving = true;
-                bm.RefreshActions();
-                HidePossibleActions();
-
-
-                targetSquare = destination;
-                targetPosition = Utilities.getTileCenter((int)targetSquare.x, (int)targetSquare.y);
-                CurrentX = (int)targetPosition.x;
-                CurrentY = (int)targetPosition.y;
-                Utilities.chessBoard[(int)transform.position.x, (int)transform.position.y] = null;
-                Utilities.chessBoard[(int)targetPosition.x, (int)targetPosition.y] = this;
-                bm.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
-                bm.GetComponent<AudioSource>().Play();
-
-                if (isWhite)
+                if (IsMovePossible((int)destination.x, (int)destination.y, Utilities.chessBoard[(int)destination.x, (int)destination.y]))
                 {
-                    bm.blueSelection = new Vector2Int((int)targetSquare.x, (int)targetSquare.y);
-                }
-                else
-                {
-                    bm.redSelection = new Vector2Int((int)targetSquare.x, (int)targetSquare.y);
+                    isMoving = true;
+                    bm.RefreshActions();
+                    HidePossibleActions();
+
+
+                    targetSquare = destination;
+                    targetPosition = Utilities.getTileCenter((int)targetSquare.x, (int)targetSquare.y);
+                    CurrentX = (int)targetPosition.x;
+                    CurrentY = (int)targetPosition.y;
+                    Utilities.chessBoard[(int)transform.position.x, (int)transform.position.y] = null;
+                    Utilities.chessBoard[(int)targetPosition.x, (int)targetPosition.y] = this;
+                    bm.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
+                    bm.GetComponent<AudioSource>().Play();
+
+                    if (isWhite)
+                    {
+                        bm.blueSelection = new Vector2Int((int)targetSquare.x, (int)targetSquare.y);
+                    }
+                    else
+                    {
+                        bm.redSelection = new Vector2Int((int)targetSquare.x, (int)targetSquare.y);
+                    }
                 }
             }
         }
+        
     }
 
 

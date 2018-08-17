@@ -18,8 +18,10 @@ public class King : ChessPiece
         return true;
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+
         if (healthBar.CurrentHealth <= 10)
         {
             FindObjectOfType<BoardManager>().SetCheck(isWhite);
