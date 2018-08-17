@@ -42,7 +42,7 @@ public class Rook : ChessPiece
 
                     if ( !(xDir == 0 || yDir == 0) || (x == 0 && y == 0) )
                     {
-                        continue;
+                        break;
                     }
 
                     if (Utilities.chessBoard[x, y] == null)

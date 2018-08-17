@@ -29,6 +29,9 @@ public abstract class ChessPiece : MonoBehaviour
     [Tooltip("Reference to the pieces glow selection sprite")]
     public SpriteRenderer glow;
 
+    [Tooltip("Reference to the pieces selected outline sprite")]
+    public SpriteRenderer selectedOutline;
+
     [Tooltip("Reference to the target move square prefab")]
     public GameObject targetMoveSquare;
 

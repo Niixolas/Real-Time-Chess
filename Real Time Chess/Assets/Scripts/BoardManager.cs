@@ -182,8 +182,9 @@ public class BoardManager : MonoBehaviour
             else
             {
                 // Player 1 unselects their piece
-                Destroy(GameObject.FindGameObjectWithTag("blueParticles"));
+                //Destroy(GameObject.FindGameObjectWithTag("blueParticles"));
                 blueSelectedPiece.glow.enabled = true;
+                blueSelectedPiece.selectedOutline.enabled = false;
                 blueSelectedPiece = null;
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].HidePossibleActions();
             }
@@ -203,8 +204,9 @@ public class BoardManager : MonoBehaviour
             else
             {
                 // Player 2 unselects their piece
-                Destroy(GameObject.FindGameObjectWithTag("redParticles"));
+                //Destroy(GameObject.FindGameObjectWithTag("redParticles"));
                 redSelectedPiece.glow.enabled = true;
+                redSelectedPiece.selectedOutline.enabled = false;
                 redSelectedPiece = null;
                 Utilities.chessBoard[redSelection.x, redSelection.y].HidePossibleActions();
             }
@@ -262,13 +264,15 @@ public class BoardManager : MonoBehaviour
         {
             blueSelectedPiece = Utilities.chessBoard[x, y];
             blueSelectedPiece.glow.enabled = false;
-            Instantiate(blueSelector, blueSelectedPiece.transform);
+            blueSelectedPiece.selectedOutline.enabled = true;
+            //Instantiate(blueSelector, blueSelectedPiece.transform);
         }
         if (player == 2 && !Utilities.chessBoard[x, y].isWhite)
         {
             redSelectedPiece = Utilities.chessBoard[x, y];
             redSelectedPiece.glow.enabled = false;
-            Instantiate(redSelector, redSelectedPiece.transform);
+            redSelectedPiece.selectedOutline.enabled = true;
+            //Instantiate(redSelector, redSelectedPiece.transform);
         }        
     }
 
