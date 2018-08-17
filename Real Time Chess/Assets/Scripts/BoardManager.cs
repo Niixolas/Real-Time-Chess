@@ -69,12 +69,12 @@ public class BoardManager : MonoBehaviour
         SpawnAllPieces();
 
         // Set first blue selection to king
-        Utilities.chessBoard[4, 0].glow.enabled = true;
-        blueSelection = new Vector2Int(4, 0);
+        Utilities.chessBoard[4, 1].glow.enabled = true;
+        blueSelection = new Vector2Int(4, 1);
 
         // Set first red selection to king
-        Utilities.chessBoard[4, 7].glow.enabled = true;
-        redSelection = new Vector2Int(4, 7);
+        Utilities.chessBoard[4, 6].glow.enabled = true;
+        redSelection = new Vector2Int(4, 6);
     }
 
     /// <summary>
