@@ -4192,6 +4192,7 @@ MonoBehaviour:
   p2MoveFloat: {x: 0, y: 0}
   p2KnightAim: {x: 0, y: 0}
   p2KnightMove: {x: 0, y: 0}
+  startPressed: 0
   p1Pressed: 0
   p2Pressed: 0
 --- !u!4 &1044364664
@@ -6430,6 +6431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19bae2200c65c644f9e594e53797392a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputController: {fileID: 1044364663}
   pauseCanvas: {fileID: 297504022}
   checkmatePanel: {fileID: 1719849818}
   greenWinnerText: {fileID: 401853276}

@@ -15,6 +15,9 @@ public class InputController : MonoBehaviour
     public Vector2 p2Aim, p2Move, p2MoveFloat, p2KnightAim, p2KnightMove;
 
     [HideInInspector]
+    public bool startPressed, selectPressed;
+
+    [HideInInspector]
     public bool p1Pressed, p2Pressed;
 
     // Set the devices up
@@ -27,6 +30,9 @@ public class InputController : MonoBehaviour
         p2Aim = Vector2.zero;
         p1Pressed = false;
         p2Pressed = false;
+        startPressed = false;
+        selectPressed = false;
+        
 
         // Check for and assign gamepads
         var allGamepads = Gamepad.all;
@@ -115,6 +121,9 @@ public class InputController : MonoBehaviour
     // Update the variables based on device input
     private void Update()
     {
+        startPressed = false;
+        selectPressed = false;
+
         // Update the input variables for gamepad1 if it is connected
         if (gamepad1 != null)
         {
@@ -128,6 +137,16 @@ public class InputController : MonoBehaviour
             p1Aim = NormalizeMove(p1Aim);
             
             p1Pressed = gamepad1.buttonSouth.wasJustPressed;
+
+            if (gamepad1.startButton.wasJustPressed)
+            {
+                startPressed = true;
+            }
+
+            if (gamepad1.selectButton.wasJustPressed)
+            {
+                selectPressed = true;
+            }
         }
 
         // Update the input variables for gamepad2 if it is connected
@@ -143,6 +162,16 @@ public class InputController : MonoBehaviour
             p2Aim = NormalizeMove(p2Aim);
             
             p2Pressed = gamepad2.buttonSouth.wasJustPressed;
+
+            if (gamepad2.startButton.wasJustPressed)
+            {
+                startPressed = true;
+            }
+
+            if (gamepad2.selectButton.wasJustPressed)
+            {
+                selectPressed = true;
+            }
         }        
     }
 
