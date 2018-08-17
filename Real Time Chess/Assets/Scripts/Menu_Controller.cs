@@ -36,7 +36,7 @@ public class Menu_Controller : MonoBehaviour
             {
                 LoadScene("_Main");
             }
-            if (inputController.startPressed)
+            if (inputController.selectPressed)
             {
                 Quit();
             }

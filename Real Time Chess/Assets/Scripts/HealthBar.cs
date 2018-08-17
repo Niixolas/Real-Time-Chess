@@ -2,17 +2,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour {
-
-
+public class HealthBar : MonoBehaviour
+{
     public float CurrentHealth { get; set; }
     public float maxHealth;
-    
-    Image healthbar;
-    GameObject newGO;
-    Text myText;
-    Font ArialFont;
 
+    private BoardManager bm;
+    
+    private Image healthbar;
+    private Text myText;
+
+    //GameObject newGO;
+    //Font ArialFont;
 
     public float MaxHealth
     {
@@ -28,21 +29,20 @@ public class HealthBar : MonoBehaviour {
         }
     }
 
-
-
     // Use this for initialization
     void Start ()
     {
-        MaxHealth = maxHealth;
+        bm = FindObjectOfType<BoardManager>();
+
         //resets health to full on game load
+        MaxHealth = maxHealth;        
         CurrentHealth = MaxHealth;
 
         // Get the instance of the health bar
         healthbar = GetComponent<Image>();
-
         healthbar.fillAmount = CalculateHealth();
-
         myText = GetComponentInChildren<Text>();
+
         //newGO = new GameObject("myTextGO");
         //myText = newGO.AddComponent<Text>();
         //ArialFont = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
@@ -75,7 +75,6 @@ public class HealthBar : MonoBehaviour {
         {
             Die();
         }
-            
     }
 
     float CalculateHealth()
@@ -88,25 +87,81 @@ public class HealthBar : MonoBehaviour {
         CurrentHealth = 0;
         GetComponentInParent<ChessPiece>().HidePossibleActions();
 
-        BoardManager bm = FindObjectOfType<BoardManager>();
+        GetComponentInParent<BoxCollider2D>().enabled = false;
 
-        if (GetComponentInParent<ChessPiece>().isWhite && bm.blueSelectedPiece == this.GetComponentInParent<ChessPiece>())
+        if (GetComponentInParent<ChessPiece>().isWhite)
         {
-            // TODO: Need to find closest piece to move glowing selection to.
+            if (bm.blueSelectedPiece == this.GetComponentInParent<ChessPiece>())
+            {
+                float x = 0.0f;
+                Collider2D collider = null;
+                LayerMask lm = LayerMask.GetMask("BluePieces");
 
-            //Destroy(GameObject.FindGameObjectWithTag("greenSelector"));
-            //bm.whiteSelectionBox.GetComponent<SpriteRenderer>().enabled = true;
-            //bm.whiteSelectionBox.transform.position = Utilities.getTileCenter(bm.blueSelectedPiece.CurrentX, bm.blueSelectedPiece.CurrentY);
-            bm.blueSelectedPiece = null;
+                do
+                {
+                    x += 0.5f;
+                    collider = Physics2D.OverlapCircle(GetComponentInParent<ChessPiece>().transform.position, x, lm);
+                } while (collider == null);
+
+                bm.blueSelection = new Vector2Int(collider.GetComponentInParent<ChessPiece>().CurrentX, collider.GetComponentInParent<ChessPiece>().CurrentY);
+                collider.GetComponentInParent<ChessPiece>().glow.enabled = true;
+
+                bm.blueSelectedPiece = null;
+            }
+
+            if (GetComponentInParent<ChessPiece>().glow.enabled)
+            {
+                float x = 0.0f;
+                Collider2D collider = null;
+                LayerMask lm = LayerMask.GetMask("BluePieces");
+
+                do
+                {
+                    x += 0.5f;
+                    collider = Physics2D.OverlapCircle(GetComponentInParent<ChessPiece>().transform.position, x, lm);
+                } while (collider == null);
+
+                bm.blueSelection = new Vector2Int(collider.GetComponentInParent<ChessPiece>().CurrentX, collider.GetComponentInParent<ChessPiece>().CurrentY);
+                collider.GetComponentInParent<ChessPiece>().glow.enabled = true;
+            }
+            
         }
-        if (!GetComponentInParent<ChessPiece>().isWhite && bm.redSelectedPiece == this.GetComponentInParent<ChessPiece>())
+        if (!GetComponentInParent<ChessPiece>().isWhite)
         {
-            // TODO: Need to find closest piece to move glowing selection to.
+            if (bm.redSelectedPiece == this.GetComponentInParent<ChessPiece>())
+            {
+                float x = 0.0f;
+                Collider2D collider = null;
+                LayerMask lm = LayerMask.GetMask("RedPieces");
 
-            //Destroy(GameObject.FindGameObjectWithTag("redSelector"));
-            //bm.blackSelectionBox.GetComponent<SpriteRenderer>().enabled = true;
-            //bm.blackSelectionBox.transform.position = Utilities.getTileCenter(bm.redSelectedPiece.CurrentX, bm.redSelectedPiece.CurrentY);
-            bm.redSelectedPiece = null;
+                do
+                {
+                    x += 0.5f;
+                    collider = Physics2D.OverlapCircle(GetComponentInParent<ChessPiece>().transform.position, x, lm);
+                } while (collider == null);
+
+                bm.redSelection = new Vector2Int(collider.GetComponentInParent<ChessPiece>().CurrentX, collider.GetComponentInParent<ChessPiece>().CurrentY);
+                collider.GetComponentInParent<ChessPiece>().glow.enabled = true;
+
+                bm.redSelectedPiece = null;
+            }
+
+            if (GetComponentInParent<ChessPiece>().glow.enabled)
+            {
+                float x = 0.0f;
+                Collider2D collider = null;
+                LayerMask lm = LayerMask.GetMask("RedPieces");
+
+                do
+                {
+                    x += 0.5f;
+                    collider = Physics2D.OverlapCircle(GetComponentInParent<ChessPiece>().transform.position, x, lm);
+                } while (collider == null);
+
+                bm.redSelection = new Vector2Int(collider.GetComponentInParent<ChessPiece>().CurrentX, collider.GetComponentInParent<ChessPiece>().CurrentY);
+                collider.GetComponentInParent<ChessPiece>().glow.enabled = true;
+            }
+            
         }
 
         if (transform.parent.gameObject.GetComponent<King>())

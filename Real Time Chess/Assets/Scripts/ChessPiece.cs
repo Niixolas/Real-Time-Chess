@@ -205,11 +205,6 @@ public abstract class ChessPiece : MonoBehaviour
 
     }
 
-    //public void setHealthBar(HealthBar aHealthBar)
-    //{
-    //    healthBar = aHealthBar;
-    //}
-
     public void SetShot(GameObject aShot)
     {
         shot = aShot;
@@ -268,7 +263,6 @@ public abstract class ChessPiece : MonoBehaviour
             {
                 Destroy(collision.gameObject);
             }
-
             
         }
     }

@@ -10,9 +10,6 @@ public class BoardManager : MonoBehaviour
     [Tooltip("A reference to the InputController")]
     public InputController inputController;
 
-    //variable to hold the healthbar of a particular peice
-    //public HealthBar healthBar;
-
     [Header("Game Prefabs")]
     [Tooltip("The prefab for the shots that are fired")]
     public GameObject shot;
@@ -49,15 +46,7 @@ public class BoardManager : MonoBehaviour
     /// </summary>
     [HideInInspector]
     public Vector2Int blueSelection, redSelection;
-
-    // Selection box
-    //public GameObject whiteSelectionBox;
-    //public GameObject blackSelectionBox;
-
-    // Currently selected tile. No selection provides -1.
-    //private int selectionX = -1;
-    //private int selectionY = -1;
-
+    
     // Variables to keep track of the delay between movement
     private float BlueSelectionMoveTime = 0.0f;
     private float RedSelectionMoveTime = 0.0f;
@@ -182,7 +171,6 @@ public class BoardManager : MonoBehaviour
             else
             {
                 // Player 1 unselects their piece
-                //Destroy(GameObject.FindGameObjectWithTag("blueParticles"));
                 blueSelectedPiece.glow.enabled = true;
                 blueSelectedPiece.selectedOutline.enabled = false;
                 blueSelectedPiece = null;
@@ -204,7 +192,6 @@ public class BoardManager : MonoBehaviour
             else
             {
                 // Player 2 unselects their piece
-                //Destroy(GameObject.FindGameObjectWithTag("redParticles"));
                 redSelectedPiece.glow.enabled = true;
                 redSelectedPiece.selectedOutline.enabled = false;
                 redSelectedPiece = null;
@@ -265,14 +252,12 @@ public class BoardManager : MonoBehaviour
             blueSelectedPiece = Utilities.chessBoard[x, y];
             blueSelectedPiece.glow.enabled = false;
             blueSelectedPiece.selectedOutline.enabled = true;
-            //Instantiate(blueSelector, blueSelectedPiece.transform);
         }
         if (player == 2 && !Utilities.chessBoard[x, y].isWhite)
         {
             redSelectedPiece = Utilities.chessBoard[x, y];
             redSelectedPiece.glow.enabled = false;
             redSelectedPiece.selectedOutline.enabled = true;
-            //Instantiate(redSelector, redSelectedPiece.transform);
         }        
     }
 
@@ -313,15 +298,14 @@ public class BoardManager : MonoBehaviour
     public void SpawnPiece (int index, int x, int y, int maxHealthValue)
     {
         GameObject chessPiece = Instantiate(pieces[index], Utilities.getTileCenter(x, y), Quaternion.identity) as GameObject;
+        chessPiece.transform.position = new Vector3(chessPiece.transform.position.x, chessPiece.transform.position.y, 0.0f);
         ChessPiece aPiece = chessPiece.GetComponent<ChessPiece>();
 
         Utilities.chessBoard[x, y] = aPiece;
         Utilities.chessBoard[x, y].SetPosition(x, y);
 
-        //HealthBar hb = chessPiece.GetComponentInChildren<HealthBar>();
         aPiece.healthBar.MaxHealth = maxHealthValue;
         aPiece.healthBar.CurrentHealth = maxHealthValue;
-        //aPiece.setHealthBar(hb);
         aPiece.SetShot(shot);
 
         activePieces.Add(chessPiece);

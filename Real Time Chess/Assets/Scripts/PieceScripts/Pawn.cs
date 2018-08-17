@@ -90,7 +90,7 @@ public class Pawn : ChessPiece
         if (Utilities.chessBoard[moveLookX, moveLookY] == null)
         {
             Vector3 newMoveSquarePosition = Utilities.getTileCenter(moveLookX, moveLookY);
-            newMoveSquarePosition.z = -5.0f;
+            newMoveSquarePosition.z = 3.0f;
             GameObject newMoveSquare = Instantiate(targetMoveSquare, newMoveSquarePosition, Quaternion.identity);
             targetMoveAndAimSquares.Add(newMoveSquare);
         }
@@ -108,6 +108,7 @@ public class Pawn : ChessPiece
                 if (Utilities.chessBoard[CurrentX + dirX, aimLookY].isWhite != isWhite)
                 {
                     Vector3 newAimSquarePosition = Utilities.getTileCenter(CurrentX + dirX, aimLookY);
+                    newAimSquarePosition.z = 3.0f;
                     GameObject newAimSquare = Instantiate(targetAimSquare, newAimSquarePosition, Quaternion.identity);
                     targetMoveAndAimSquares.Add(newAimSquare);
                 }

@@ -67,7 +67,7 @@ public class King : ChessPiece
                 if (Utilities.chessBoard[x, y] == null)
                 {
                     Vector3 newMoveSquarePosition = Utilities.getTileCenter(x, y);
-                    newMoveSquarePosition.z = -5.0f;
+                    newMoveSquarePosition.z = 3.0f;
                     GameObject newMoveSquare = Instantiate(targetMoveSquare, newMoveSquarePosition, Quaternion.identity);
                     targetMoveAndAimSquares.Add(newMoveSquare);
                 }
@@ -76,7 +76,7 @@ public class King : ChessPiece
                     if (Utilities.chessBoard[x, y].isWhite != isWhite)
                     {
                         Vector3 newMoveSquarePosition = Utilities.getTileCenter(x, y);
-                        //newMoveSquarePosition.z = -5.0f;
+                        newMoveSquarePosition.z = 3.0f;
                         GameObject newAimSquare = Instantiate(targetAimSquare, newMoveSquarePosition, Quaternion.identity);
                         targetMoveAndAimSquares.Add(newAimSquare);
                     }

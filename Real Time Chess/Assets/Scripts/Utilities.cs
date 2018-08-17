@@ -16,7 +16,7 @@ public static class Utilities
     /// </summary>
     public static Vector3 getTileCenter(int x, int y)
     {
-        return new Vector3(tileWidth * x + tileOffset, tileWidth * y + tileOffset, -5.0f);
+        return new Vector3(tileWidth * x + tileOffset, tileWidth * y + tileOffset, 0.0f);
     }
 
     public static Vector2 getBoardCoordinates(float x, float y)
