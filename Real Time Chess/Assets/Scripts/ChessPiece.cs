@@ -126,8 +126,12 @@ public abstract class ChessPiece : MonoBehaviour
                 // Place the piece in the chessboard array so it knows the piece is there
                 Utilities.chessBoard[(int)targetPosition.x, (int)targetPosition.y] = this;
 
-                canMove = false;
-                nextMove = moveDelay;
+                if (moveDelay != 0)
+                {
+                    canMove = false;
+                    nextMove = moveDelay;
+                }
+                
             }
             else
             {

@@ -24,6 +24,9 @@ public class BoardManager : MonoBehaviour
     [Tooltip("Prefabs for the pulsing 'Check!' text")]
     public Text redCheckText, greenCheckText;
 
+    [Tooltip("Prefab for the starting text")]
+    public Text startText;
+
     [Header("References")]
     [Tooltip("Reference to the firing sound")]
     public AudioClip hitClip;
@@ -68,6 +71,9 @@ public class BoardManager : MonoBehaviour
         // Set first red selection to king
         Utilities.chessBoard[4, 6].glow.enabled = true;
         redSelection = new Vector2Int(4, 6);
+
+        // Enable start text
+        startText.enabled = true;
     }
 
     /// <summary>
@@ -75,6 +81,15 @@ public class BoardManager : MonoBehaviour
     /// </summary>
     void Update ()
     {
+        if (startText.enabled == true)
+        {
+            startText.color = new Color(startText.color.r, startText.color.g, startText.color.b, startText.color.a - 0.005f);
+            if (startText.color.a <= 0)
+            {
+                startText.enabled = false;
+            }
+        }
+
         if (!gameOver)
         {
             DrawChessBoard();
