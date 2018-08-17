@@ -24,9 +24,9 @@ public class Queen : ChessPiece
         {
             for (int yDir = -1; yDir <= 1; yDir += 1)
             {
-                for (int x = CurrentX + xDir, y = CurrentY + yDir; x <= 7; x += xDir, y += yDir)
+                for (int x = CurrentX + xDir, y = CurrentY + yDir; x <= 7 && y <= 7; x += xDir, y += yDir)
                 {
-                    if (x < 0 || x > 7 || y < 0 || y > 7)
+                    if (x < 0 || x > 7 || y < 0 || y > 7 || (xDir == 0 && yDir == 0) )
                     {
                         break;
                     }
