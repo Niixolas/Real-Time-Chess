@@ -138,17 +138,20 @@ public class InputController : MonoBehaviour
                 p1Move = Vector2.zero;
             }
 
-            p1MoveFloat = p1Move;
-            p1KnightMove = GetKnightAim(p1Move);
             p1Move = NormalizeMove(p1Move);
+            p1MoveFloat = p1Move;
+
+            p1KnightMove = GetKnightAim(p1Move);            
 
             p1Aim = new Vector2(gamepad1.rightStick.x.ReadValue(), gamepad1.rightStick.y.ReadValue());
             if (p1Aim.magnitude < deadZoneValue)
             {
                 p1Aim = Vector2.zero;
             }
-            p1KnightAim = GetKnightAim(p1Aim);
+
             p1Aim = NormalizeMove(p1Aim);
+
+            p1KnightAim = GetKnightAim(p1Aim);            
             
             p1Pressed = gamepad1.buttonSouth.wasJustPressed;
 
@@ -172,9 +175,10 @@ public class InputController : MonoBehaviour
                 p2Move = Vector2.zero;
             }
 
-            p2MoveFloat = p2Move;
-            p2KnightMove = GetKnightAim(p2Move);
             p2Move = NormalizeMove(p2Move);
+            p2MoveFloat = p2Move;
+
+            p2KnightMove = GetKnightAim(p2Move);
 
             p2Aim = new Vector2(gamepad2.rightStick.x.ReadValue(), gamepad2.rightStick.y.ReadValue());
             if (p2Aim.magnitude < deadZoneValue)
@@ -182,8 +186,9 @@ public class InputController : MonoBehaviour
                 p2Aim = Vector2.zero;
             }
 
-            p2KnightAim = GetKnightAim(p2Aim);
             p2Aim = NormalizeMove(p2Aim);
+
+            p2KnightAim = GetKnightAim(p2Aim);            
             
             p2Pressed = gamepad2.buttonSouth.wasJustPressed;
 
@@ -206,19 +211,58 @@ public class InputController : MonoBehaviour
     /// <returns></returns>
     private Vector2 NormalizeMove(Vector2 move)
     {
-        Vector2 newMove = Vector2.zero;
+        Vector2 movement = Vector2.zero;
 
-        if (Mathf.Abs(move.x) > 0)
+        // Convert the Vector2 to a rotational position
+        float rot = Mathf.Atan2(move.y, move.x) * Mathf.Rad2Deg;
+
+        // Set the movement vector based on the rotational position
+        if (rot > 0 && rot <= 22.5f)
         {
-            newMove.x = move.x < 0 ? -1 : 1;
+            movement = new Vector2(1, 0);
+        }
+        else if (rot > 22.5f && rot <= 67.5f)
+        {
+            movement = new Vector2(1, 1);
+        }
+        else if (rot > 67.5f && rot <= 112.5f)
+        {
+            movement = new Vector2(0, 1);
+        }
+        else if (rot > 112.5f && rot <= 157.5f)
+        {
+            movement = new Vector2(-1, 1);
+        }
+        else if (rot > 157.5 && rot <= 180)
+        {
+            movement = new Vector2(-1, 0);
+        }
+        else if (rot < 0 && rot > -22.5f)
+        {
+            movement = new Vector2(1, 0);
+        }
+        else if (rot <= -22.5f && rot > -67.5f)
+        {
+            movement = new Vector2(1, -1);
+        }
+        else if (rot <= -67.5f && rot > -112.5f)
+        {
+            movement = new Vector2(0, -1);
+        }
+        else if (rot <= -112.5f && rot > -157.5f)
+        {
+            movement = new Vector2(-1, -1);
+        }
+        else if (rot <= -157.5f && rot > -180.0f)
+        {
+            movement = new Vector2(-1, 0);
+        }
+        else
+        {
+            movement = new Vector2(0, 0);
         }
 
-        if (Mathf.Abs(move.y) > 0)
-        {
-            newMove.y = move.y < 0 ? -1 : 1;
-        }
-
-        return newMove;
+        return movement;
     }
 
     /// <summary>
