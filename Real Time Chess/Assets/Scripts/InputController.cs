@@ -138,10 +138,10 @@ public class InputController : MonoBehaviour
                 p1Move = Vector2.zero;
             }
 
+            p1KnightMove = GetKnightAim(p1Move);
+
             p1Move = NormalizeMove(p1Move);
             p1MoveFloat = p1Move;
-
-            p1KnightMove = GetKnightAim(p1Move);            
 
             p1Aim = new Vector2(gamepad1.rightStick.x.ReadValue(), gamepad1.rightStick.y.ReadValue());
             if (p1Aim.magnitude < deadZoneValue)
@@ -149,10 +149,10 @@ public class InputController : MonoBehaviour
                 p1Aim = Vector2.zero;
             }
 
+            p1KnightAim = GetKnightAim(p1Aim);
+
             p1Aim = NormalizeMove(p1Aim);
 
-            p1KnightAim = GetKnightAim(p1Aim);            
-            
             p1Pressed = gamepad1.buttonSouth.wasJustPressed;
 
             if (gamepad1.startButton.wasJustPressed)
@@ -175,10 +175,10 @@ public class InputController : MonoBehaviour
                 p2Move = Vector2.zero;
             }
 
-            p2Move = NormalizeMove(p2Move);
-            p2MoveFloat = p2Move;
-
             p2KnightMove = GetKnightAim(p2Move);
+
+            p2Move = NormalizeMove(p2Move);
+            p2MoveFloat = p2Move;            
 
             p2Aim = new Vector2(gamepad2.rightStick.x.ReadValue(), gamepad2.rightStick.y.ReadValue());
             if (p2Aim.magnitude < deadZoneValue)
@@ -186,10 +186,10 @@ public class InputController : MonoBehaviour
                 p2Aim = Vector2.zero;
             }
 
+            p2KnightAim = GetKnightAim(p2Aim);
+
             p2Aim = NormalizeMove(p2Aim);
 
-            p2KnightAim = GetKnightAim(p2Aim);            
-            
             p2Pressed = gamepad2.buttonSouth.wasJustPressed;
 
             if (gamepad2.startButton.wasJustPressed)
@@ -275,40 +275,58 @@ public class InputController : MonoBehaviour
         Vector2 movement = Vector2.zero;
 
         // Convert the Vector2 to a rotational position
-        float rot = Mathf.Atan2(aim.x, aim.y) * Mathf.Rad2Deg;
+        float rot = Mathf.Atan2(aim.y, aim.x) * Mathf.Rad2Deg;
+
+        //
+        //                   90 |
+        //         135          |           45
+        //              \       |       /     
+        //                \     |     /
+        //                  \   |   /
+        //     180            \ | /               0
+        //     -----------------|------------------
+        //    -180            / | \
+        //                  /   |   \
+        //                /     |     \
+        //              /       |       \
+        //                      |        
+        //        -135          |           -45
+        //                      |-90
+        //
+
 
         // Set the movement vector based on the rotational position
-        if (rot > 0 && rot < 45)
-        {
-            movement = new Vector2(1, 2);
-        }
-        else if (rot > 45 && rot < 90)
+        if (rot > 0 && rot <= 45)
         {
             movement = new Vector2(2, 1);
         }
-        else if (rot > 90 && rot < 135)
+        else if (rot > 45 && rot <= 90)
         {
-            movement = new Vector2(2, -1);
+            movement = new Vector2(1, 2);
+        }
+        else if (rot > 90 && rot <= 135)
+        {
+            movement = new Vector2(-1, 2);
         }
         else if (rot > 135 && rot <= 180)
         {
+            movement = new Vector2(-2, 1);
+        }
+        else if (rot < 0 && rot >= -45)
+        {
+            movement = new Vector2(2, -1);
+        }
+        else if (rot < -45 && rot >= -90)
+        {
             movement = new Vector2(1, -2);
         }
-        else if (rot < -135 && rot > -180)
+        else if (rot < -90 && rot >= -135)
         {
             movement = new Vector2(-1, -2);
         }
-        else if (rot < -90 && rot > -135)
+        else if (rot < -135 && rot > -180)
         {
             movement = new Vector2(-2, -1);
-        }
-        else if (rot < -45 && rot > -90)
-        {
-            movement = new Vector2(-2, 1);
-        }
-        else if (rot > -45 && rot < 0)
-        {
-            movement = new Vector2(-1, 2);
         }
         else
         {
