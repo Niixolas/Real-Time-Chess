@@ -89,7 +89,7 @@ public abstract class ChessPiece : MonoBehaviour
         hitSound.clip = hitClip;
         hitSound.loop = false;
         hitSound.playOnAwake = false;
-        hitSound.volume = 0.8f;
+        hitSound.volume = 0.5f;
     }
 
     protected virtual void Update()
