@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class Menu_Controller : MonoBehaviour 
 {
-    public InputController inputController;
     public Canvas pauseCanvas;
     public GameObject checkmatePanel;
 
@@ -21,22 +20,22 @@ public class Menu_Controller : MonoBehaviour
     {
         if (!gameOver)
         {
-            if (inputController.startPressed)
+            if (InputController.Instance.startPressed)
             {
                 Pause();
             }
-            if (inputController.selectPressed && pauseCanvas.isActiveAndEnabled == true)
+            if (InputController.Instance.selectPressed && pauseCanvas.isActiveAndEnabled == true)
             {
                 Quit();
             }
         }
         else
         {
-            if (inputController.startPressed)
+            if (InputController.Instance.startPressed)
             {
                 LoadScene("_Main");
             }
-            if (inputController.selectPressed)
+            if (InputController.Instance.selectPressed)
             {
                 Quit();
             }

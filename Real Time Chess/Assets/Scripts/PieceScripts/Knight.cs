@@ -20,7 +20,7 @@ public class Knight : ChessPiece
 
     public override void MovePiece()
     {
-        Vector2 movement = isWhite ? inputController.p1KnightMove : inputController.p2KnightMove;
+        Vector2 movement = isWhite ? InputController.Instance.p1KnightMove : InputController.Instance.p2KnightMove;
         targetSquare = Utilities.getBoardCoordinates(transform.position.x, transform.position.y);
         Vector2 destination = Utilities.getBoardCoordinates(transform.position.x + movement.x, transform.position.y + movement.y);
         if (destination.x <= 7 && destination.x >= 0 && destination.y <= 7 && destination.y >= 0)
@@ -53,7 +53,7 @@ public class Knight : ChessPiece
     {
         if (Time.time > nextFire && !isMoving)
         {
-            Vector2 aim = playerNumber == 1 ? inputController.p1KnightAim : inputController.p2KnightAim;
+            Vector2 aim = playerNumber == 1 ? InputController.Instance.p1KnightAim : InputController.Instance.p2KnightAim;
             if (aim != Vector2.zero)
             {
                 nextFire = Time.time + fireRate;

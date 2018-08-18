@@ -5,7 +5,6 @@ using UnityEngine;
 public abstract class ChessPiece : MonoBehaviour
 {
     protected BoardManager bm;
-    protected InputController inputController;
 
     public int CurrentX { set; get; }
     public int CurrentY { set; get; }
@@ -82,7 +81,7 @@ public abstract class ChessPiece : MonoBehaviour
 
         // Initialize references
         bm = FindObjectOfType<BoardManager>();
-        inputController = FindObjectOfType<InputController>();
+        InputController.Instance = FindObjectOfType<InputController>();
 
         // Create the audio source for the hit explosion
         hitSound = gameObject.AddComponent<AudioSource>();
@@ -152,7 +151,7 @@ public abstract class ChessPiece : MonoBehaviour
     {
         if (canMove)
         {
-            Vector2 movement = isWhite ? inputController.p1Move : inputController.p2Move;
+            Vector2 movement = isWhite ? InputController.Instance.p1Move : InputController.Instance.p2Move;
 
             targetSquare = Utilities.getBoardCoordinates(transform.position.x, transform.position.y);
 
@@ -237,7 +236,7 @@ public abstract class ChessPiece : MonoBehaviour
         {
             if (playerNumber == 1)
             {
-                if (IsAimPossible((int)inputController.p1Aim.x, (int)inputController.p1Aim.y))
+                if (IsAimPossible((int)InputController.Instance.p1Aim.x, (int)InputController.Instance.p1Aim.y))
                 {
                     nextFire = Time.time + fireRate;
                     GameObject thisShot = Instantiate(shot, this.transform.position, this.transform.rotation);
@@ -250,7 +249,7 @@ public abstract class ChessPiece : MonoBehaviour
             }
             else if (playerNumber == 2)
             {
-                if (IsAimPossible((int)inputController.p2Aim.x, (int)inputController.p2Aim.y))
+                if (IsAimPossible((int)InputController.Instance.p2Aim.x, (int)InputController.Instance.p2Aim.y))
                 {
                     nextFire = Time.time + fireRate;
                     GameObject thisShot = Instantiate(shot, this.transform.position, this.transform.rotation);

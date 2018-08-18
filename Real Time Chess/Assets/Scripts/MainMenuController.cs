@@ -10,20 +10,18 @@ public class MainMenuController : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine("pressStartTextFlash");
+        StartCoroutine("PressStartTextFlash");
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("StartButton"))
+        if (InputController.Instance.startPressed)
         {
+            StopAllCoroutines();
             SceneManager.LoadScene("_Main");
         }
-        //if (Input.GetButtonDown("SelectButton"))
-        //{
-        //    Quit();
-        //}
-        if (Input.GetButton("keyExit"))
+
+        if (InputController.Instance.selectPressed)
         {
             Quit();
         }
@@ -31,11 +29,11 @@ public class MainMenuController : MonoBehaviour
 
 	public void Quit()
 	{
+        StopAllCoroutines();
         Application.Quit();
 	}
 
-    // Flash the game over text
-    IEnumerator pressStartTextFlash()
+    IEnumerator PressStartTextFlash()
     {
         while (true)
         {

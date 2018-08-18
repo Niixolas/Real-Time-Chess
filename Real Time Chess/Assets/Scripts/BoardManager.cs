@@ -6,10 +6,6 @@ using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
-    [Header("Input")]
-    [Tooltip("A reference to the InputController")]
-    public InputController inputController;
-
     [Header("Game Prefabs")]
     [Tooltip("The prefab for the shots that are fired")]
     public GameObject shot;
@@ -166,10 +162,10 @@ public class BoardManager : MonoBehaviour
     private void CheckInputs()
     {
         // Check for player 1 moving glowing selection
-        if (inputController.p1Move != Vector2.zero && blueSelectedPiece == null && BlueSelectionMoveTime == 0.0f)
+        if (InputController.Instance.p1Move != Vector2.zero && blueSelectedPiece == null && BlueSelectionMoveTime == 0.0f)
         {
             Vector2 rayStart = Utilities.getTileCenter(blueSelection.x, blueSelection.y);
-            RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.2f, inputController.p1MoveFloat, 10.0f, LayerMask.GetMask("BluePieces"));
+            RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.2f, InputController.Instance.p1MoveFloat, 10.0f, LayerMask.GetMask("BluePieces"));
             
             if (hit.collider != null && hit.collider.GetComponent<ChessPiece>().isWhite && Utilities.chessBoard[blueSelection.x, blueSelection.y] != null)
             {
@@ -186,10 +182,10 @@ public class BoardManager : MonoBehaviour
         }
 
         // Check for player 2 moving glowing selection
-        if (inputController.p2Move != Vector2.zero && redSelectedPiece == null && RedSelectionMoveTime == 0.0f)
+        if (InputController.Instance.p2Move != Vector2.zero && redSelectedPiece == null && RedSelectionMoveTime == 0.0f)
         {
             Vector2 rayStart = Utilities.getTileCenter(redSelection.x, redSelection.y);
-            RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.2f, inputController.p2MoveFloat, 10.0f, LayerMask.GetMask("RedPieces"));
+            RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.2f, InputController.Instance.p2MoveFloat, 10.0f, LayerMask.GetMask("RedPieces"));
 
             if (hit.collider != null && !hit.collider.GetComponent<ChessPiece>().isWhite)
             {
@@ -206,7 +202,7 @@ public class BoardManager : MonoBehaviour
         }
 
         // Check if player 1 pressed action button
-        if (inputController.p1Pressed)
+        if (InputController.Instance.p1Pressed)
         {
             if (blueSelectedPiece == null)
             {
@@ -228,7 +224,7 @@ public class BoardManager : MonoBehaviour
         }
 
         // Check if player 2 pressed action button
-        if (inputController.p2Pressed)
+        if (InputController.Instance.p2Pressed)
         {
             if (redSelectedPiece == null)
             {
@@ -249,7 +245,7 @@ public class BoardManager : MonoBehaviour
         }
 
         // If player 1 is firing
-        if (inputController.p1Aim != Vector2.zero)
+        if (InputController.Instance.p1Aim != Vector2.zero)
         {
             if (blueSelectedPiece != null)
             {
@@ -258,7 +254,7 @@ public class BoardManager : MonoBehaviour
         }
 
         // If player 2 is firing
-        if (inputController.p2Aim != Vector2.zero)
+        if (InputController.Instance.p2Aim != Vector2.zero)
         {
             if (redSelectedPiece != null)
             {
@@ -267,7 +263,7 @@ public class BoardManager : MonoBehaviour
         }
 
         // If player 1 is moving a piece
-        if (inputController.p1Move != Vector2.zero)
+        if (InputController.Instance.p1Move != Vector2.zero)
         {
             if (blueSelectedPiece != null && !blueSelectedPiece.isMoving)
             {
@@ -276,7 +272,7 @@ public class BoardManager : MonoBehaviour
         }
 
         // If player 2 is moving a piece
-        if (inputController.p2Move != Vector2.zero)
+        if (InputController.Instance.p2Move != Vector2.zero)
         {
             if (redSelectedPiece != null && !redSelectedPiece.isMoving)
             {

@@ -32,7 +32,7 @@ public class King : ChessPiece
     {
         if (Time.time > nextFire && !isMoving)
         {
-            if ( ( (playerNumber == 1) ? inputController.p1Aim : inputController.p2Aim ) != Vector2.zero)
+            if ( ( (playerNumber == 1) ? InputController.Instance.p1Aim : InputController.Instance.p2Aim ) != Vector2.zero)
             {
                 nextFire = Time.time + fireRate;
                 GameObject thisShot = Instantiate(shot, this.transform.position, this.transform.rotation);
@@ -41,7 +41,7 @@ public class King : ChessPiece
                 thisShot.SendMessage("SetInstigator", this.gameObject);
                 thisShot.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
 
-                Vector2 aim = playerNumber == 1 ? inputController.p1Aim : inputController.p2Aim;
+                Vector2 aim = playerNumber == 1 ? InputController.Instance.p1Aim : InputController.Instance.p2Aim;
                 Vector2 targetSquare = new Vector2(CurrentX + aim.x, CurrentY + aim.y);
                 thisShot.SendMessage("SetPawnOrKing", targetSquare);
 

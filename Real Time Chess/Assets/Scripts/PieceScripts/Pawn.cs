@@ -42,7 +42,7 @@ public class Pawn : ChessPiece
         {
             if (playerNumber == 1)
             {
-                if (inputController.p1Aim != Vector2.zero && IsAimPossible((int)inputController.p1Aim.x, (int)inputController.p1Aim.y))
+                if (InputController.Instance.p1Aim != Vector2.zero && IsAimPossible((int)InputController.Instance.p1Aim.x, (int)InputController.Instance.p1Aim.y))
                 {
                     nextFire = Time.time + fireRate;
                     GameObject thisShot = Instantiate(shot, this.transform.position, this.transform.rotation);
@@ -51,7 +51,7 @@ public class Pawn : ChessPiece
                     thisShot.SendMessage("SetInstigator", this.gameObject);
                     thisShot.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
 
-                    Vector2 aim = inputController.p1Aim;
+                    Vector2 aim = InputController.Instance.p1Aim;
                     Vector2 targetSquare = new Vector2(CurrentX + aim.x, CurrentY + aim.y);
                     thisShot.SendMessage("SetPawnOrKing", targetSquare);
 
@@ -62,7 +62,7 @@ public class Pawn : ChessPiece
 
             if (playerNumber == 2)
             {
-                if (inputController.p2Aim != Vector2.zero && IsAimPossible((int)inputController.p2Aim.x, (int)inputController.p2Aim.y))
+                if (InputController.Instance.p2Aim != Vector2.zero && IsAimPossible((int)InputController.Instance.p2Aim.x, (int)InputController.Instance.p2Aim.y))
                 {
                     nextFire = Time.time + fireRate;
                     GameObject thisShot = Instantiate(shot, this.transform.position, this.transform.rotation);
@@ -71,7 +71,7 @@ public class Pawn : ChessPiece
                     thisShot.SendMessage("SetInstigator", this.gameObject);
                     thisShot.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
 
-                    Vector2 aim = inputController.p2Aim;
+                    Vector2 aim = InputController.Instance.p2Aim;
                     Vector2 targetSquare = new Vector2(CurrentX + aim.x, CurrentY + aim.y);
                     thisShot.SendMessage("SetPawnOrKing", targetSquare);
 

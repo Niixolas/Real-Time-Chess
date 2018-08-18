@@ -3,6 +3,8 @@ using UnityEngine.Experimental.Input;
 
 public class InputController : MonoBehaviour
 {
+    public static InputController Instance;
+
     //
     [Tooltip("Radial Deadzone value")]
     [SerializeField]
@@ -28,6 +30,17 @@ public class InputController : MonoBehaviour
     // Set the devices up
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if(Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+
+        DontDestroyOnLoad(this);
+
         // Initialize variables
         p1Move = Vector2.zero;
         p2Move = Vector2.zero;
