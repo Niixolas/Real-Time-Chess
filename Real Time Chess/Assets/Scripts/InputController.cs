@@ -3,6 +3,11 @@ using UnityEngine.Experimental.Input;
 
 public class InputController : MonoBehaviour
 {
+    //
+    [Tooltip("Radial Deadzone value")]
+    [SerializeField]
+    private float deadZoneValue = 0.3f;
+
     // Holds the gamepads for each player
     [HideInInspector]
     private Gamepad gamepad1, gamepad2;
@@ -128,11 +133,20 @@ public class InputController : MonoBehaviour
         if (gamepad1 != null)
         {
             p1Move = new Vector2(gamepad1.leftStick.x.ReadValue(), gamepad1.leftStick.y.ReadValue());
+            if (p1Move.magnitude < deadZoneValue)
+            {
+                p1Move = Vector2.zero;
+            }
+
             p1MoveFloat = p1Move;
             p1KnightMove = GetKnightAim(p1Move);
             p1Move = NormalizeMove(p1Move);
 
             p1Aim = new Vector2(gamepad1.rightStick.x.ReadValue(), gamepad1.rightStick.y.ReadValue());
+            if (p1Aim.magnitude < deadZoneValue)
+            {
+                p1Aim = Vector2.zero;
+            }
             p1KnightAim = GetKnightAim(p1Aim);
             p1Aim = NormalizeMove(p1Aim);
             
@@ -153,11 +167,21 @@ public class InputController : MonoBehaviour
         if (gamepad2 != null)
         {
             p2Move = new Vector2(gamepad2.leftStick.x.ReadValue(), gamepad2.leftStick.y.ReadValue());
+            if (p2Move.magnitude < deadZoneValue)
+            {
+                p2Move = Vector2.zero;
+            }
+
             p2MoveFloat = p2Move;
             p2KnightMove = GetKnightAim(p2Move);
             p2Move = NormalizeMove(p2Move);
 
             p2Aim = new Vector2(gamepad2.rightStick.x.ReadValue(), gamepad2.rightStick.y.ReadValue());
+            if (p2Aim.magnitude < deadZoneValue)
+            {
+                p2Aim = Vector2.zero;
+            }
+
             p2KnightAim = GetKnightAim(p2Aim);
             p2Aim = NormalizeMove(p2Aim);
             
@@ -184,25 +208,17 @@ public class InputController : MonoBehaviour
     {
         Vector2 newMove = Vector2.zero;
 
-        if (Mathf.Abs(move.x) - 0.3 > 0)
+        if (Mathf.Abs(move.x) > 0)
         {
-            move.x = move.x < 0 ? -1 : 1;
-        }
-        else
-        {
-            move.x = 0;
+            newMove.x = move.x < 0 ? -1 : 1;
         }
 
-        if (Mathf.Abs(move.y) - 0.3 > 0)
+        if (Mathf.Abs(move.y) > 0)
         {
-            move.y = move.y < 0 ? -1 : 1;
-        }
-        else
-        {
-            move.y = 0;
+            newMove.y = move.y < 0 ? -1 : 1;
         }
 
-        return move;
+        return newMove;
     }
 
     /// <summary>
