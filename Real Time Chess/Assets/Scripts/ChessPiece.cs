@@ -117,14 +117,14 @@ public abstract class ChessPiece : MonoBehaviour
                 isMoving = false;
                 transform.position = targetPosition;
 
+                // Place the piece in the chessboard array so it knows the piece is there
+                Utilities.chessBoard[(int)targetPosition.x, (int)targetPosition.y] = this;
+
                 // If the piece is a pawn, check if it reached the other side of the board
                 CheckPawnPromotion();
 
                 // Refresh move and aim boxes
-                bm.RefreshActions();                
-
-                // Place the piece in the chessboard array so it knows the piece is there
-                Utilities.chessBoard[(int)targetPosition.x, (int)targetPosition.y] = this;
+                bm.RefreshActions();  
 
                 if (moveDelay != 0)
                 {
@@ -145,33 +145,7 @@ public abstract class ChessPiece : MonoBehaviour
 
     private void CheckPawnPromotion()
     {
-        float thisHealth = healthBar.CurrentHealth;
-
-        if (isWhite && (int)targetPosition.y == 7 && this.GetComponent<Pawn>() != null)
-        {
-            HidePossibleActions();
-
-            bm.SpawnPiece(1, (int)targetPosition.x, 7, (int)thisHealth + 20);
-            bm.blueSelectedPiece = null;
-            bm.SelectPiece((int)targetPosition.x, (int)targetPosition.y, 1);
-
-            bm.blueSelectedPiece.ShowPossibleActions();
-            
-            Destroy(this.gameObject);
-        }
-
-        if (!isWhite && (int)targetPosition.y == 0 && this.GetComponent<Pawn>() != null)
-        {
-            HidePossibleActions();
-
-            bm.SpawnPiece(7, (int)targetPosition.x, 0, (int)thisHealth + 20);
-            bm.redSelectedPiece = null;
-            bm.SelectPiece((int)targetPosition.x, (int)targetPosition.y, 2);
-
-            bm.redSelectedPiece.ShowPossibleActions();
-            
-            Destroy(this.gameObject);
-        }
+        bm.CheckPawnPromotion(this.GetComponent<ChessPiece>(), targetPosition);
     }
 
     public virtual void MovePiece()

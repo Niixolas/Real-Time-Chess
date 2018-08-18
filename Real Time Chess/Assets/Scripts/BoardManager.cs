@@ -132,6 +132,36 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    public void CheckPawnPromotion(ChessPiece sendingPiece, Vector2 targetPosition)
+    {
+        float thisHealth = sendingPiece.healthBar.CurrentHealth;
+
+        if (sendingPiece.isWhite && (int)targetPosition.y == 7 && sendingPiece.GetComponent<Pawn>() != null)
+        {
+            sendingPiece.HidePossibleActions();
+            Utilities.chessBoard[(int)targetPosition.x, (int)targetPosition.y] = null;
+            Destroy(sendingPiece.gameObject);
+
+            SpawnPiece(1, (int)targetPosition.x, 7, (int)thisHealth + 20);
+            blueSelectedPiece = null;
+            SelectPiece((int)targetPosition.x, (int)targetPosition.y, 1);
+
+            blueSelectedPiece.ShowPossibleActions();
+        }
+
+        if (!sendingPiece.isWhite && (int)targetPosition.y == 0 && sendingPiece.GetComponent<Pawn>() != null)
+        {
+            sendingPiece.HidePossibleActions();
+            Destroy(sendingPiece.gameObject);
+
+            SpawnPiece(7, (int)targetPosition.x, 0, (int)thisHealth + 20);
+            redSelectedPiece = null;
+            SelectPiece((int)targetPosition.x, (int)targetPosition.y, 2);
+
+            redSelectedPiece.ShowPossibleActions();            
+        }
+    }
+
     // Check controller inputs
     private void CheckInputs()
     {
@@ -141,7 +171,7 @@ public class BoardManager : MonoBehaviour
             Vector2 rayStart = Utilities.getTileCenter(blueSelection.x, blueSelection.y);
             RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.2f, inputController.p1MoveFloat, 10.0f, LayerMask.GetMask("BluePieces"));
             
-            if (hit.collider != null && hit.collider.GetComponent<ChessPiece>().isWhite)
+            if (hit.collider != null && hit.collider.GetComponent<ChessPiece>().isWhite && Utilities.chessBoard[blueSelection.x, blueSelection.y] != null)
             {
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.enabled = false;
 
