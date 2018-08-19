@@ -18,7 +18,7 @@ public abstract class ChessPiece : MonoBehaviour
     [Tooltip("Delay between movements")]
     public float moveDelay = 0.2f;
 
-    [Tooltip("How fast the piece can fire")]
+    [Tooltip("Delay between shots")]
     public float fireRate = 0.5F;
 
     [Tooltip("How much damage the piece takes per shot")]
@@ -53,7 +53,9 @@ public abstract class ChessPiece : MonoBehaviour
     [HideInInspector]
     public GameObject shot;
 
+    [HideInInspector]
     public bool canMove;
+    [HideInInspector]
     public float nextMove;
 
     protected Vector2 targetSquare;
