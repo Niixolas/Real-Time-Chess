@@ -12,9 +12,20 @@ public class Menu_Controller : MonoBehaviour
     public GameObject greenWinnerText;
     public GameObject redWinnerText;
 
+    public Canvas selectButtonHint;
+    public Canvas leftStickHint;
+    public Text rightStickHint;
+
     public AudioSource backgroundMusic;
 
     bool gameOver = false;
+
+    bool showLeftStickHint = false;
+    bool showSelectHint = false;
+
+    float timeUntilShowLeftStickHint = 5.0f;
+    float timeUntilShowSelectHint = 10.0f;
+    
 
     private void Update()
     {
@@ -41,6 +52,64 @@ public class Menu_Controller : MonoBehaviour
             }
         }
 
+        DetermineHints();
+    }
+
+
+    private void DetermineHints()
+    {
+        // Countdown timer if player hasn't used the left stick
+        if (!InputController.Instance.playerHasUsedLeftStick)
+        {
+            timeUntilShowLeftStickHint -= Time.deltaTime;
+            if (timeUntilShowLeftStickHint <= 0.0f)
+            {
+                leftStickHint.enabled = true;
+                showLeftStickHint = true;
+                timeUntilShowLeftStickHint = 20.0f;
+            }
+        }
+
+        // Countdown timer if player hasn't selected a piece
+        if (InputController.Instance.playerHasUsedLeftStick && !InputController.Instance.playerHasSelectedPiece)
+        {
+            timeUntilShowSelectHint -= Time.deltaTime;
+            if (timeUntilShowSelectHint <= 0.0f)
+            {
+                selectButtonHint.enabled = true;
+                showSelectHint = true;
+                timeUntilShowSelectHint = 20.0f;
+            }
+        }
+
+        ShowAndFadeHint(ref showLeftStickHint, leftStickHint);
+        ShowAndFadeHint(ref showSelectHint, selectButtonHint);
+    }
+
+    private void ShowAndFadeHint(ref bool showHint, Canvas canvasHint)
+    {
+        // Show and fade hint
+        if (canvasHint.enabled == true)
+        {
+            if (!showHint)
+            {
+                float newAlpha = canvasHint.GetComponent<CanvasGroup>().alpha - 0.3f * Time.deltaTime;
+                canvasHint.GetComponent<CanvasGroup>().alpha = newAlpha;
+                if (newAlpha <= 0.0f)
+                {
+                    canvasHint.enabled = false;
+                }
+            }
+            else if (showHint && canvasHint.GetComponent<CanvasGroup>().alpha <= 1.0f)
+            {
+                float newAlpha = canvasHint.GetComponent<CanvasGroup>().alpha + 0.3f * Time.deltaTime;
+                canvasHint.GetComponent<CanvasGroup>().alpha = newAlpha;
+                if (newAlpha >= 1.0f)
+                {
+                    showHint = false;
+                }
+            }
+        }
     }
 
     public void setWinner(bool isWhite)

@@ -5,6 +5,11 @@ public class InputController : MonoBehaviour
 {
     public static InputController Instance;
 
+    public bool usingAI;
+
+    public bool playerHasUsedLeftStick = false;
+    public bool playerHasSelectedPiece = false;
+
     //
     [Tooltip("Radial Deadzone value")]
     [SerializeField]
@@ -151,6 +156,14 @@ public class InputController : MonoBehaviour
                 p1Move = Vector2.zero;
             }
 
+            if (!playerHasUsedLeftStick)
+            {
+                if (p1Move != Vector2.zero)
+                {
+                    playerHasUsedLeftStick = true;
+                }
+            }           
+
             p1KnightMove = GetKnightAim(p1Move);
 
             p1Move = NormalizeMove(p1Move);
@@ -168,6 +181,11 @@ public class InputController : MonoBehaviour
 
             p1Pressed = gamepad1.buttonSouth.wasJustPressed;
 
+            if (!playerHasSelectedPiece)
+            {
+                playerHasSelectedPiece = p1Pressed;
+            }
+
             if (gamepad1.startButton.wasJustPressed)
             {
                 startPressed = true;
@@ -179,13 +197,25 @@ public class InputController : MonoBehaviour
             }
         }
 
+        if (usingAI)
+        {
+
+        }
         // Update the input variables for gamepad2 if it is connected
-        if (gamepad2 != null)
+        else if (gamepad2 != null)
         {
             p2Move = new Vector2(gamepad2.leftStick.x.ReadValue(), gamepad2.leftStick.y.ReadValue());
             if (p2Move.magnitude < deadZoneValue)
             {
                 p2Move = Vector2.zero;
+            }
+
+            if (!playerHasUsedLeftStick)
+            {
+                if (p1Move != Vector2.zero)
+                {
+                    playerHasUsedLeftStick = true;
+                }
             }
 
             p2KnightMove = GetKnightAim(p2Move);
@@ -204,6 +234,11 @@ public class InputController : MonoBehaviour
             p2Aim = NormalizeMove(p2Aim);
 
             p2Pressed = gamepad2.buttonSouth.wasJustPressed;
+
+            if (!playerHasSelectedPiece)
+            {
+                playerHasSelectedPiece = p2Pressed;
+            }
 
             if (gamepad2.startButton.wasJustPressed)
             {
