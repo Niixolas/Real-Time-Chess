@@ -9,6 +9,7 @@ public class InputController : MonoBehaviour
 
     public bool playerHasUsedLeftStick = false;
     public bool playerHasSelectedPiece = false;
+    public bool playerHasUsedRightStick = false;
 
     //
     [Tooltip("Radial Deadzone value")]
@@ -175,6 +176,14 @@ public class InputController : MonoBehaviour
                 p1Aim = Vector2.zero;
             }
 
+            if (!playerHasUsedRightStick)
+            {
+                if (p1Aim != Vector2.zero)
+                {
+                    playerHasUsedRightStick = true;
+                }
+            }
+
             p1KnightAim = GetKnightAim(p1Aim);
 
             p1Aim = NormalizeMove(p1Aim);
@@ -227,6 +236,14 @@ public class InputController : MonoBehaviour
             if (p2Aim.magnitude < deadZoneValue)
             {
                 p2Aim = Vector2.zero;
+            }
+
+            if (!playerHasUsedRightStick)
+            {
+                if (p2Aim != Vector2.zero)
+                {
+                    playerHasUsedRightStick = true;
+                }
             }
 
             p2KnightAim = GetKnightAim(p2Aim);

@@ -14,7 +14,7 @@ public class Menu_Controller : MonoBehaviour
 
     public Canvas selectButtonHint;
     public Canvas leftStickHint;
-    public Text rightStickHint;
+    public Canvas rightStickHint;
 
     public AudioSource backgroundMusic;
 
@@ -22,11 +22,12 @@ public class Menu_Controller : MonoBehaviour
 
     bool showLeftStickHint = false;
     bool showSelectHint = false;
+    bool showRightStickHint = false;
 
-    float timeUntilShowLeftStickHint = 5.0f;
+    float timeUntilShowLeftStickHint = 5.0f;    
     float timeUntilShowSelectHint = 10.0f;
+    float timeUntilShowRightStickHint = 10.0f;
     
-
     private void Update()
     {
         if (!gameOver)
@@ -55,7 +56,6 @@ public class Menu_Controller : MonoBehaviour
         DetermineHints();
     }
 
-
     private void DetermineHints()
     {
         // Countdown timer if player hasn't used the left stick
@@ -82,8 +82,21 @@ public class Menu_Controller : MonoBehaviour
             }
         }
 
+        // Countdown timer if player hasn't selected a piece
+        if (InputController.Instance.playerHasSelectedPiece && !InputController.Instance.playerHasUsedRightStick)
+        {
+            timeUntilShowRightStickHint -= Time.deltaTime;
+            if (timeUntilShowRightStickHint <= 0.0f)
+            {
+                rightStickHint.enabled = true;
+                showRightStickHint = true;
+                timeUntilShowRightStickHint = 20.0f;
+            }
+        }
+
         ShowAndFadeHint(ref showLeftStickHint, leftStickHint);
         ShowAndFadeHint(ref showSelectHint, selectButtonHint);
+        ShowAndFadeHint(ref showRightStickHint, rightStickHint);
     }
 
     private void ShowAndFadeHint(ref bool showHint, Canvas canvasHint)
