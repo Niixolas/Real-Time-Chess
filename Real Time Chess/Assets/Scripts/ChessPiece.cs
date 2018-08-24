@@ -281,6 +281,7 @@ public abstract class ChessPiece : MonoBehaviour
                 hitSound.pitch = Random.Range(0.9f, 1.0f);
                 hitSound.Play();
                 GameObject newExplosion = Instantiate(explosion, this.transform);
+                newExplosion.transform.position = new Vector3(transform.position.x, transform.position.y, -3.0f);
                 Destroy(newExplosion, 0.2f);
                 healthBar.DealDamage(collision.gameObject.GetComponent<FireBullet>().damage);                
             }
