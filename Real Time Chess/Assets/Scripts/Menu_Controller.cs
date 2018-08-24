@@ -113,11 +113,11 @@ public class Menu_Controller : MonoBehaviour
                     canvasHint.enabled = false;
                 }
             }
-            else if (showHint && canvasHint.GetComponent<CanvasGroup>().alpha <= 1.0f)
+            else if (showHint && canvasHint.GetComponent<CanvasGroup>().alpha <= 0.8f)
             {
                 float newAlpha = canvasHint.GetComponent<CanvasGroup>().alpha + 0.3f * Time.deltaTime;
                 canvasHint.GetComponent<CanvasGroup>().alpha = newAlpha;
-                if (newAlpha >= 1.0f)
+                if (newAlpha >= 0.8f)
                 {
                     showHint = false;
                 }

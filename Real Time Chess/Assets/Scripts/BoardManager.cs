@@ -10,17 +10,19 @@ public class BoardManager : MonoBehaviour
     [Tooltip("The prefab for the shots that are fired")]
     public GameObject shot;
 
-    //[Tooltip("Prefab for the particle selector box")]
-    //public GameObject blueSelector, redSelector;
+    [Tooltip("Prefabs for the pawn promotion effects")]
+    public GameObject bluePromotion;
+    [Tooltip("Prefabs for the pawn promotion effects")]
+    public GameObject redPromotion;
 
     [Tooltip("Prefabs for all the chess pieces")]
     public List<GameObject> pieces;
 
     [Header("UI Prefabs")]
     [Tooltip("Prefabs for the pulsing 'Check!' text")]
-    public Text redCheckText;
+    public Text blueCheckText;
     [Tooltip("Prefabs for the pulsing 'Check!' text")]
-    public Text greenCheckText;
+    public Text redCheckText;    
 
     [Tooltip("Prefab for the starting text")]
     public Text startText;
@@ -139,27 +141,56 @@ public class BoardManager : MonoBehaviour
 
         if (sendingPiece.isWhite && (int)targetPosition.y == 7 && sendingPiece.GetComponent<Pawn>() != null)
         {
+            // Clear the piece from the board array
             sendingPiece.HidePossibleActions();
             Utilities.chessBoard[(int)targetPosition.x, (int)targetPosition.y] = null;
+
+            // Create pawn promotion effect
+            GameObject pawnPromotionEffect = Instantiate(bluePromotion, sendingPiece.transform.position, Quaternion.identity);
+            pawnPromotionEffect.transform.position = new Vector3(sendingPiece.transform.position.x,
+                                                                 sendingPiece.transform.position.y - 0.5f,
+                                                                 -3.0f);
+            Destroy(pawnPromotionEffect, 1.0f);
+
+            // Destroy the pawn
             Destroy(sendingPiece.gameObject);
 
+            // Spawn the Queen
             SpawnPiece(1, (int)targetPosition.x, 7, (int)thisHealth + 20);
+
+            // Select the new piece
             blueSelectedPiece = null;
             SelectPiece((int)targetPosition.x, (int)targetPosition.y, 1);
 
+            // Show squares for possible targets
             blueSelectedPiece.ShowPossibleActions();
         }
 
         if (!sendingPiece.isWhite && (int)targetPosition.y == 0 && sendingPiece.GetComponent<Pawn>() != null)
         {
+            // Clear the piece from the board array
             sendingPiece.HidePossibleActions();
+            Utilities.chessBoard[(int)targetPosition.x, (int)targetPosition.y] = null;
+
+            // Create pawn promotion effect
+            GameObject pawnPromotionEffect = Instantiate(redPromotion, sendingPiece.transform.position, Quaternion.identity);
+            pawnPromotionEffect.transform.position = new Vector3(sendingPiece.transform.position.x, 
+                                                                 sendingPiece.transform.position.y - 0.5f,
+                                                                 -3.0f);
+            Destroy(pawnPromotionEffect, 1.0f);
+
+            // Destroy the pawn
             Destroy(sendingPiece.gameObject);
 
+            // Spawn the Queen
             SpawnPiece(7, (int)targetPosition.x, 0, (int)thisHealth + 20);
+
+            // Select the new piece
             redSelectedPiece = null;
             SelectPiece((int)targetPosition.x, (int)targetPosition.y, 2);
 
-            redSelectedPiece.ShowPossibleActions();            
+            // Show squares for possible targets
+            redSelectedPiece.ShowPossibleActions();
         }
     }
 
@@ -406,7 +437,7 @@ public class BoardManager : MonoBehaviour
     {
         if (isWhite)
         {
-            greenCheckText.enabled = true;
+            blueCheckText.enabled = true;
         }
         else
         {

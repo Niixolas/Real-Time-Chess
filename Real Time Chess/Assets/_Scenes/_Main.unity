@@ -309,6 +309,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shot: {fileID: 1828008381664386, guid: 414cf5f248f7fa844ae3c9d0aa90bce6, type: 2}
+  bluePromotion: {fileID: 1634895379332152, guid: 08e213299eaaa0242bbb82e4eca92e7b,
+    type: 2}
+  redPromotion: {fileID: 1494571770860644, guid: 04aa72f2d489839479d3b68d838d4f9f,
+    type: 2}
   pieces:
   - {fileID: 1755203483520574, guid: 09ee845a6b40b824181101f479c2a977, type: 2}
   - {fileID: 1008259864901028, guid: f59fef7a52c038e4db9e7d45c8a269de, type: 2}
@@ -322,8 +326,8 @@ MonoBehaviour:
   - {fileID: 1385972136645470, guid: c2aae9959f1a65747843efc9983df0ab, type: 2}
   - {fileID: 1689481167771098, guid: d8139001bc7c7f84aa56bf4c9a1ee25f, type: 2}
   - {fileID: 1658998771559646, guid: 666385b46b9ec904e81c08e19f38b936, type: 2}
+  blueCheckText: {fileID: 789089328}
   redCheckText: {fileID: 56387654}
-  greenCheckText: {fileID: 789089328}
   startText: {fileID: 1649621592}
   moveClip: {fileID: 8300000, guid: 4bf7d2941725bba48999560c0c6cd026, type: 3}
   hitClip: {fileID: 8300000, guid: ada6f048599e0064e840e3fc29d28303, type: 3}
