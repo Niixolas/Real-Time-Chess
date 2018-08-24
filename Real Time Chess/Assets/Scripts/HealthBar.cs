@@ -89,6 +89,9 @@ public class HealthBar : MonoBehaviour
 
         GetComponentInParent<BoxCollider2D>().enabled = false;
 
+        GameObject deathEffect = Instantiate(GetComponentInParent<ChessPiece>().deathExplosion, transform.parent.gameObject.transform.position, Quaternion.identity);
+        Destroy(deathEffect, 1.0f);
+
         if (GetComponentInParent<ChessPiece>().isWhite)
         {
             if (bm.blueSelectedPiece == this.GetComponentInParent<ChessPiece>())
@@ -168,6 +171,8 @@ public class HealthBar : MonoBehaviour
         {
             FindObjectOfType<Menu_Controller>().setWinner(!transform.parent.gameObject.GetComponent<ChessPiece>().isWhite);
         }
+
+        
 
         Utilities.chessBoard[GetComponentInParent<ChessPiece>().CurrentX, GetComponentInParent<ChessPiece>().CurrentY] = null;
 

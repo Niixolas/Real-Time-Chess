@@ -9,7 +9,8 @@ public class Knight : ChessPiece
         if (target == null && canMove)
         {
             // Knight movement
-            if ( ( (Mathf.Abs(CurrentX - x) == 2) && (Mathf.Abs(CurrentY - y) == 1) ) || ( (Mathf.Abs(CurrentX - x) == 1) && (Mathf.Abs(CurrentY - y) == 2) ) )
+            if (   ( (Mathf.Abs(CurrentX - x) == 2) && (Mathf.Abs(CurrentY - y) == 1) )
+                || ( (Mathf.Abs(CurrentX - x) == 1) && (Mathf.Abs(CurrentY - y) == 2) ) )
             {
                 return true;
             }

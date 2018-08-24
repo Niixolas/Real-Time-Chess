@@ -309,10 +309,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shot: {fileID: 1828008381664386, guid: 414cf5f248f7fa844ae3c9d0aa90bce6, type: 2}
-  blueSelector: {fileID: 1528365407127862, guid: 59688abf6d923d04d912fac84e4b052d,
-    type: 2}
-  redSelector: {fileID: 1528365407127862, guid: b954c161ebaf178428aabee4b16aa5f9,
-    type: 2}
   pieces:
   - {fileID: 1755203483520574, guid: 09ee845a6b40b824181101f479c2a977, type: 2}
   - {fileID: 1008259864901028, guid: f59fef7a52c038e4db9e7d45c8a269de, type: 2}
@@ -329,6 +325,7 @@ MonoBehaviour:
   redCheckText: {fileID: 56387654}
   greenCheckText: {fileID: 789089328}
   startText: {fileID: 1649621592}
+  moveClip: {fileID: 8300000, guid: 4bf7d2941725bba48999560c0c6cd026, type: 3}
   hitClip: {fileID: 8300000, guid: ada6f048599e0064e840e3fc29d28303, type: 3}
   SelectionMoveDelay: 0.25
   gameOver: 0
@@ -386,7 +383,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4bf7d2941725bba48999560c0c6cd026, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5275,7 +5272,7 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1308648397}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 07961c5372d03d24192e61b10878c114, type: 3}

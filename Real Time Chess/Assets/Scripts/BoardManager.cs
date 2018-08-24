@@ -10,20 +10,25 @@ public class BoardManager : MonoBehaviour
     [Tooltip("The prefab for the shots that are fired")]
     public GameObject shot;
 
-    [Tooltip("Prefab for the particle selector box")]
-    public GameObject blueSelector, redSelector;
+    //[Tooltip("Prefab for the particle selector box")]
+    //public GameObject blueSelector, redSelector;
 
     [Tooltip("Prefabs for all the chess pieces")]
     public List<GameObject> pieces;
 
     [Header("UI Prefabs")]
     [Tooltip("Prefabs for the pulsing 'Check!' text")]
-    public Text redCheckText, greenCheckText;
+    public Text redCheckText;
+    [Tooltip("Prefabs for the pulsing 'Check!' text")]
+    public Text greenCheckText;
 
     [Tooltip("Prefab for the starting text")]
     public Text startText;
 
     [Header("References")]
+    [Tooltip("Reference to the moving sound")]
+    public AudioClip moveClip;
+
     [Tooltip("Reference to the firing sound")]
     public AudioClip hitClip;
 

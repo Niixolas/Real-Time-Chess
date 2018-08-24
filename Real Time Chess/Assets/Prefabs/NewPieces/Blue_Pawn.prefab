@@ -379,6 +379,8 @@ MonoBehaviour:
   targetAimSquare: {fileID: 1499190357445762, guid: 00e834e474542c14ba70506b18aabc0f,
     type: 2}
   explosion: {fileID: 1269972836079418, guid: 73fe1eb196fe1684eaf745caf7c19d44, type: 2}
+  deathExplosion: {fileID: 1676688992017934, guid: d8031ffe208dc8e4ab297977fb4c7d48,
+    type: 2}
   isMoving: 0
   shot: {fileID: 0}
   canMove: 0

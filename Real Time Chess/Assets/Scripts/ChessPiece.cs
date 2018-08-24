@@ -43,6 +43,9 @@ public abstract class ChessPiece : MonoBehaviour
     [Tooltip("Reference to the explosion prefab")]
     public GameObject explosion;
 
+    [Tooltip("Reference to death explosion prefab")]
+    public GameObject deathExplosion;
+
     //[Tooltip("Reference to the sound when hit")]
     private AudioClip hitClip;
 
@@ -91,7 +94,7 @@ public abstract class ChessPiece : MonoBehaviour
         hitSound.clip = hitClip;
         hitSound.loop = false;
         hitSound.playOnAwake = false;
-        hitSound.volume = 0.5f;
+        hitSound.volume = 0.1f;
     }
 
     protected virtual void Update()
