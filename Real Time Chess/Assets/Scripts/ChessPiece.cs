@@ -5,7 +5,6 @@ using UnityEngine;
 public abstract class ChessPiece : MonoBehaviour
 {
     protected BoardManager bm;
-
     public int CurrentX { set; get; }
     public int CurrentY { set; get; }
 

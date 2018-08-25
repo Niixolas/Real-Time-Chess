@@ -166,9 +166,9 @@ public class InputController : MonoBehaviour
             }           
 
             p1KnightMove = GetKnightAim(p1Move);
-
-            p1Move = NormalizeMove(p1Move);
             p1MoveFloat = p1Move;
+            p1Move = NormalizeMove(p1Move);
+            
 
             p1Aim = new Vector2(gamepad1.rightStick.x.ReadValue(), gamepad1.rightStick.y.ReadValue());
             if (p1Aim.magnitude < deadZoneValue)
@@ -228,9 +228,9 @@ public class InputController : MonoBehaviour
             }
 
             p2KnightMove = GetKnightAim(p2Move);
-
+            p2MoveFloat = p2Move;
             p2Move = NormalizeMove(p2Move);
-            p2MoveFloat = p2Move;            
+                      
 
             p2Aim = new Vector2(gamepad2.rightStick.x.ReadValue(), gamepad2.rightStick.y.ReadValue());
             if (p2Aim.magnitude < deadZoneValue)

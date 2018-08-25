@@ -201,8 +201,10 @@ public class BoardManager : MonoBehaviour
         if (InputController.Instance.p1Move != Vector2.zero && blueSelectedPiece == null && BlueSelectionMoveTime == 0.0f)
         {
             Vector2 rayStart = Utilities.getTileCenter(blueSelection.x, blueSelection.y);
-            RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.2f, InputController.Instance.p1MoveFloat, 10.0f, LayerMask.GetMask("BluePieces"));
-            
+            RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.3f, InputController.Instance.p1MoveFloat, Mathf.Infinity, LayerMask.GetMask("BluePieces"));
+
+            Debug.DrawLine(rayStart, rayStart + InputController.Instance.p1MoveFloat * 100.0f);
+
             if (hit.collider != null && hit.collider.GetComponent<ChessPiece>().isWhite && Utilities.chessBoard[blueSelection.x, blueSelection.y] != null)
             {
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.enabled = false;
