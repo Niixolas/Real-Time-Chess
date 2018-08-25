@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startText: {fileID: 1141753163}
+  menuPawn: {fileID: 1080039113}
 --- !u!4 &41260829
 Transform:
   m_ObjectHideFlags: 0
@@ -181,6 +182,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aee7d906ad092fb468f16369a5fe8481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usingAI: 0
+  playerHasUsedLeftStick: 0
+  playerHasSelectedPiece: 0
+  playerHasUsedRightStick: 0
   deadZoneValue: 0.3
   p1Aim: {x: 0, y: 0}
   p1Move: {x: 0, y: 0}
@@ -331,7 +336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.0068967342, b: 1, a: 1}
+  m_Color: {r: 0.047058824, g: 0.08627451, b: 0.84705883, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -614,7 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: c7deb9a10aa9d0647b511fbff2c74f9e, type: 2}
+  profile: {fileID: 11400000, guid: 4287194c64feabd40a03dfa88575a00d, type: 2}
 --- !u!20 &522245419
 Camera:
   m_ObjectHideFlags: 0
@@ -719,6 +724,26 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 114255806216254660, guid: 4175201cef68d684688f20869115b09c,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.02745098
+      objectReference: {fileID: 0}
+    - target: {fileID: 114255806216254660, guid: 4175201cef68d684688f20869115b09c,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.05490196
+      objectReference: {fileID: 0}
+    - target: {fileID: 114255806216254660, guid: 4175201cef68d684688f20869115b09c,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.5764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 96734527807142808, guid: 4175201cef68d684688f20869115b09c,
+        type: 2}
+      propertyPath: m_Time
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114747825082815302, guid: 4175201cef68d684688f20869115b09c, type: 2}
     - {fileID: 61279658569801084, guid: 4175201cef68d684688f20869115b09c, type: 2}
@@ -727,6 +752,11 @@ Prefab:
 --- !u!4 &1080039112 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4869948017291010, guid: 4175201cef68d684688f20869115b09c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1080039111}
+--- !u!1 &1080039113 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1658998771559646, guid: 4175201cef68d684688f20869115b09c,
     type: 2}
   m_PrefabInternal: {fileID: 1080039111}
 --- !u!1 &1141753161
@@ -851,7 +881,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.0068967342, b: 1, a: 1}
+  m_Color: {r: 0.047058824, g: 0.08627451, b: 0.84705883, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -926,7 +956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8773585, g: 0.8566661, b: 0.8566661, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1070,7 +1100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.0068967342, b: 1, a: 1}
+  m_Color: {r: 0.047058824, g: 0.08627451, b: 0.84705883, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
