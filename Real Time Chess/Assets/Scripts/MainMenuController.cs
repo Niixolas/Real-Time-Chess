@@ -14,7 +14,8 @@ public class MainMenuController : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine("PressStartTextFlash");
+        Cursor.visible = false;
+        //StartCoroutine("PressStartTextFlash");
     }
 
     private void SetMove()
@@ -58,21 +59,21 @@ public class MainMenuController : MonoBehaviour
         Application.Quit();
 	}
 
-    IEnumerator PressStartTextFlash()
-    {
-        while (true)
-        {
-            if (startText.enabled)
-            {
-                startText.enabled = false;
-            }
-            else
-            {
-                startText.enabled = true;
-            }
+    //IEnumerator PressStartTextFlash()
+    //{
+    //    while (true)
+    //    {
+    //        if (startText.enabled)
+    //        {
+    //            startText.enabled = false;
+    //        }
+    //        else
+    //        {
+    //            startText.enabled = true;
+    //        }
 
-            yield return new WaitForSeconds(0.75f);
-        }
-    }
+    //        yield return new WaitForSeconds(0.75f);
+    //    }
+    //}
 
 }
