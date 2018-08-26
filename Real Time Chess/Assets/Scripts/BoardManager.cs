@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
-//using InControl;
 
 public class BoardManager : MonoBehaviour
 {
@@ -61,6 +60,8 @@ public class BoardManager : MonoBehaviour
     private float BlueSelectionMoveTime = 0.0f;
     private float RedSelectionMoveTime = 0.0f;
 
+    private int idCounter = 0;
+
     // Use this for initialization
     void Start ()
     {
@@ -77,6 +78,12 @@ public class BoardManager : MonoBehaviour
 
         // Enable start text
         startText.enabled = true;
+
+        if (FindObjectOfType<StateController>() != null)
+        {
+            FindObjectOfType<StateController>().StartChessAI();
+        }
+        
     }
 
     /// <summary>
@@ -392,6 +399,9 @@ public class BoardManager : MonoBehaviour
         aPiece.SetShot(shot);
 
         activePieces.Add(chessPiece);
+
+        chessPiece.GetComponent<ChessPiece>().id = idCounter;
+        idCounter++;
     }
 
     /// <summary>

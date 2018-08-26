@@ -60,6 +60,9 @@ public abstract class ChessPiece : MonoBehaviour
     [HideInInspector]
     public float nextMove;
 
+    //[HideInInspector]
+    public int id;
+
     protected Vector2 targetSquare;
     protected Vector2 targetPosition;
     protected float nextFire;
