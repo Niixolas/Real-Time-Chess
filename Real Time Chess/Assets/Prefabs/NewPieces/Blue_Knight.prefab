@@ -325,6 +325,7 @@ MonoBehaviour:
   shot: {fileID: 0}
   canMove: 0
   nextMove: 0
+  id: 0
 --- !u!114 &114492450948225708
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -433,7 +434,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cd46aa972c4e3b84ebd54bcc3213d7f7, type: 3}
-  m_Color: {r: 0.047058824, g: 0.08627451, b: 0.84705883, a: 1}
+  m_Color: {r: 0.047058824, g: 0.15294118, b: 0.8392157, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -8,9 +8,11 @@ public class StateController : MonoBehaviour
     public ChessState currentState;
     public ChessState remainState;
 
-    [HideInInspector]
+    //[HideInInspector]
     public int pieceToControl;
-    [HideInInspector]
+    //[HideInInspector]
+    public int shortTermPieceToControl;
+    //[HideInInspector]
     public int pieceToTarget;
     //[HideInInspector]
     public int longTermTarget;
@@ -27,9 +29,49 @@ public class StateController : MonoBehaviour
         SetStartWeights();
         longTermTarget = PieceWithHighestWeight();
         FindShortTermTarget(longTermTarget);
+        FindDesiredPieceToControl();
     }
 
-    int FindShortTermTarget(int longTermTarget)
+    void FindDesiredPieceToControl()
+    {
+        int controlPiece = Random.Range(1, 16) + 16;
+
+        pieceToControl = controlPiece;
+        if (CanPieceMove(pieceToControl))
+        {
+            shortTermPieceToControl = pieceToControl;
+        }
+
+    }
+
+    bool CanPieceMove(int piece)
+    {
+        Vector2Int pieceLocation = FindTargetLocation(piece);
+
+        bool canMove = false;
+
+        for (int y = Mathf.Max(0, pieceLocation.y - 1); y <= Mathf.Min(7, pieceLocation.y + 1); y++)
+        {
+            for (int x = Mathf.Max(0, pieceLocation.x - 1); x <= Mathf.Min(7, pieceLocation.x + 1); x++)
+            {
+                if (!(x == 0 && y == 0))
+                {
+                    ChessPiece p = Utilities.chessBoard[pieceLocation.x, pieceLocation.y].GetComponent<ChessPiece>();
+                    int checkX = pieceLocation.x + x;
+                    int checkY = pieceLocation.y + y;
+                    if (p.IsMovePossible(checkX, checkY, Utilities.chessBoard[checkX, checkY]))
+                    {
+                        canMove = true;
+                    }
+                }
+            }
+        }
+
+        return canMove;
+    }
+
+
+    void FindShortTermTarget(int longTermTarget)
     {
         Vector2Int longTermTargetLocation = FindTargetLocation(longTermTarget);
         bool targetFound = false;
@@ -99,8 +141,6 @@ public class StateController : MonoBehaviour
         {
             shortTermTarget = longTermTarget;
         }
-
-        return shortTermTarget;
     }
 
     Vector2Int FindTargetLocation(int target)

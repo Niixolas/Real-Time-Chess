@@ -71,7 +71,6 @@ public class Knight : ChessPiece
                 Destroy(thisShot, 2);
                 healthBar.DealDamage(selfDamagePerShot);
             }
-
         }
     }
 

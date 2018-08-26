@@ -82,8 +82,7 @@ public class BoardManager : MonoBehaviour
         if (FindObjectOfType<StateController>() != null)
         {
             FindObjectOfType<StateController>().StartChessAI();
-        }
-        
+        }        
     }
 
     /// <summary>
