@@ -311,7 +311,7 @@ MonoBehaviour:
   shot: {fileID: 1828008381664386, guid: 414cf5f248f7fa844ae3c9d0aa90bce6, type: 2}
   bluePromotion: {fileID: 1634895379332152, guid: 08e213299eaaa0242bbb82e4eca92e7b,
     type: 2}
-  redPromotion: {fileID: 1494571770860644, guid: 04aa72f2d489839479d3b68d838d4f9f,
+  redPromotion: {fileID: 1634895379332152, guid: 89572564a83bb9f48a01a893a5db88ef,
     type: 2}
   pieces:
   - {fileID: 1755203483520574, guid: 09ee845a6b40b824181101f479c2a977, type: 2}
