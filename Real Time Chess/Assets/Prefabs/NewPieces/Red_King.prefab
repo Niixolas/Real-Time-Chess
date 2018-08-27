@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5372549, g: 0.011764706, b: 0, a: 1}
+  m_Color: {r: 0.654902, g: 0, b: 0.047058824, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -434,7 +434,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0b4bf8c76d7b1404d8ca25446309ffd2, type: 3}
-  m_Color: {r: 1, g: 0.4117647, b: 0.39607844, a: 0.6666667}
+  m_Color: {r: 1, g: 0.9372549, b: 0, a: 0.78431374}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -480,7 +480,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cb95c0765a26aa449b6061efb9ca4700, type: 3}
-  m_Color: {r: 0.827451, g: 0.019607844, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.07450981, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
