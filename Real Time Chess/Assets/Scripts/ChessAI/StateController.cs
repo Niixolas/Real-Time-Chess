@@ -3,13 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public class Checker
+{
+    public Vector2Int location;
+    public int distance;
+}
+
 public class StateController : MonoBehaviour
 {
+    public BoardManager bm;
+
     public ChessState currentState;
     public ChessState remainState;
 
     //[HideInInspector]
     public int pieceToControl;
+    //[HideInInspector]
+    public Vector2 squareToMoveControlPiece;
     //[HideInInspector]
     public int shortTermPieceToControl;
     //[HideInInspector]
@@ -34,38 +44,98 @@ public class StateController : MonoBehaviour
 
     void FindDesiredPieceToControl()
     {
-        int controlPiece = Random.Range(1, 16) + 16;
-
-        pieceToControl = controlPiece;
-        if (CanPieceMove(pieceToControl))
+        do
         {
-            shortTermPieceToControl = pieceToControl;
-        }
+            int controlPiece = Random.Range(1, 16) + 16;
+
+            pieceToControl = controlPiece;
+
+            //if (CanPieceMove(pieceToControl))
+            //{
+                shortTermPieceToControl = pieceToControl;
+            //}
+
+        } while (!CanPieceMove(shortTermPieceToControl));
+        
+
+        squareToMoveControlPiece = FindDesiredMovement(AIUtilities.FindTargetLocation(shortTermPieceToControl), AIUtilities.FindTargetLocation(shortTermTarget));
 
     }
 
-    bool CanPieceMove(int piece)
+
+
+    public Vector2Int FindDesiredMovement(Vector2Int mySquare, Vector2Int targetSquare)
     {
-        Vector2Int pieceLocation = FindTargetLocation(piece);
+        List<Checker> possibleSquares = new List<Checker>();
 
-        bool canMove = false;
-
-        for (int y = Mathf.Max(0, pieceLocation.y - 1); y <= Mathf.Min(7, pieceLocation.y + 1); y++)
+        for (int y = Mathf.Max(0, mySquare.y - 1); y <= Mathf.Min(7, mySquare.y + 1); y++)
         {
-            for (int x = Mathf.Max(0, pieceLocation.x - 1); x <= Mathf.Min(7, pieceLocation.x + 1); x++)
+            for (int x = Mathf.Max(0, mySquare.x - 1); x <= Mathf.Min(7, mySquare.x + 1); x++)
             {
                 if (!(x == 0 && y == 0))
                 {
-                    ChessPiece p = Utilities.chessBoard[pieceLocation.x, pieceLocation.y].GetComponent<ChessPiece>();
-                    int checkX = pieceLocation.x + x;
-                    int checkY = pieceLocation.y + y;
+                    ChessPiece p = Utilities.chessBoard[mySquare.x, mySquare.y].GetComponent<ChessPiece>();
+                    int checkX = x;
+                    int checkY = y;
                     if (p.IsMovePossible(checkX, checkY, Utilities.chessBoard[checkX, checkY]))
                     {
-                        canMove = true;
+                        Checker c = new Checker
+                        {
+                            location = new Vector2Int(checkX, checkY),
+                            distance = Mathf.Abs(checkX - targetSquare.x) + Mathf.Abs(checkY - targetSquare.y)
+                        };
+                        possibleSquares.Add(c);
                     }
                 }
             }
         }
+
+
+        Checker bestMove = possibleSquares.Count == 0 ? null : possibleSquares[0];
+        if (bestMove != null)
+        {
+            foreach (Checker c in possibleSquares)
+            {
+                if (c.distance <= bestMove.distance)
+                {
+                    bestMove = c;
+                }
+            }
+        }       
+
+        return bestMove == null ? new Vector2Int(-1, -1) : bestMove.location;
+    }
+
+
+    bool CanPieceMove(int piece)
+    {
+        Vector2Int pieceLocation = AIUtilities.FindTargetLocation(piece);
+
+        bool canMove = false;
+
+        if (piece == 20 || piece == 21)
+        {
+            return true;
+        }
+        else
+        {
+            for (int y = Mathf.Max(0, pieceLocation.y - 1); y <= Mathf.Min(7, pieceLocation.y + 1); y++)
+            {
+                for (int x = Mathf.Max(0, pieceLocation.x - 1); x <= Mathf.Min(7, pieceLocation.x + 1); x++)
+                {
+                    if (!(x == pieceLocation.x && y == pieceLocation.y))
+                    {
+                        ChessPiece p = Utilities.chessBoard[pieceLocation.x, pieceLocation.y].GetComponent<ChessPiece>();
+                        int checkX = x - pieceLocation.x;
+                        int checkY = y - pieceLocation.y;
+                        if (p.IsMovePossible(x, y, Utilities.chessBoard[x, y]))
+                        {
+                            canMove = true;
+                        }
+                    }
+                }
+            }
+        }        
 
         return canMove;
     }
@@ -73,7 +143,7 @@ public class StateController : MonoBehaviour
 
     void FindShortTermTarget(int longTermTarget)
     {
-        Vector2Int longTermTargetLocation = FindTargetLocation(longTermTarget);
+        Vector2Int longTermTargetLocation = AIUtilities.FindTargetLocation(longTermTarget);
         bool targetFound = false;
 
         if (longTermTargetLocation.x < 0 || longTermTargetLocation.y < 0)
@@ -143,24 +213,7 @@ public class StateController : MonoBehaviour
         }
     }
 
-    Vector2Int FindTargetLocation(int target)
-    {
-        Vector2Int targetLocation = new Vector2Int(-1, -1);
 
-        for (int i = 0; i < 8; i++)
-        {
-            for (int j = 0; j < 8; j++)
-            {
-                if (Utilities.chessBoard[i,j] != null && Utilities.chessBoard[i, j].GetComponent<ChessPiece>().id == target)
-                {
-                    targetLocation.x = Utilities.chessBoard[i, j].GetComponent<ChessPiece>().CurrentX;
-                    targetLocation.y = Utilities.chessBoard[i, j].GetComponent<ChessPiece>().CurrentY;
-                }
-            }
-        }
-
-        return targetLocation;
-    }
 
     int PieceWithHighestWeight()
     {
@@ -177,7 +230,12 @@ public class StateController : MonoBehaviour
 
     void Update()
     {
-        currentState.UpdateState(this);
+        //AIUtilities.AIPressed = false;
+        if (bm.gameStarted)
+        {
+            currentState.UpdateState(this);
+        }
+        
     }
 
     void OnDrawGizmos()

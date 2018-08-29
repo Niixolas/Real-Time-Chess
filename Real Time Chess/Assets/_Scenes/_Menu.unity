@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aee7d906ad092fb468f16369a5fe8481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usingAI: 0
+  usingAI: 1
   playerHasUsedLeftStick: 0
   playerHasSelectedPiece: 0
   playerHasUsedRightStick: 0

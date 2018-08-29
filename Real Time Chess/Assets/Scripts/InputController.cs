@@ -208,7 +208,11 @@ public class InputController : MonoBehaviour
 
         if (usingAI)
         {
+            p2Move = AIUtilities.AIMove;
+            p2MoveFloat = p2Move;
+            p2Pressed = AIUtilities.AIPressed;
 
+            AIUtilities.AIPressed = false;
         }
         // Update the input variables for gamepad2 if it is connected
         else if (gamepad2 != null)

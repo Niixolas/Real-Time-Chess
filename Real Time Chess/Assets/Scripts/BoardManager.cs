@@ -42,6 +42,9 @@ public class BoardManager : MonoBehaviour
     [HideInInspector]
     public bool gameOver;
 
+    [HideInInspector]
+    public bool gameStarted;
+
     // Variables to hold the currently selected pieces
     [HideInInspector]
     public ChessPiece blueSelectedPiece, redSelectedPiece;
@@ -82,7 +85,14 @@ public class BoardManager : MonoBehaviour
         if (FindObjectOfType<StateController>() != null)
         {
             FindObjectOfType<StateController>().StartChessAI();
-        }        
+        }
+
+        Invoke("startGame", 1.5f);
+    }
+
+    private void startGame()
+    {
+        gameStarted = true;
     }
 
     /// <summary>
@@ -99,7 +109,7 @@ public class BoardManager : MonoBehaviour
             }
         }
 
-        if (!gameOver)
+        if (!gameOver && gameStarted)
         {
             DrawChessBoard();
             CheckInputs();
