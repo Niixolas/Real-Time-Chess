@@ -63,11 +63,17 @@ public class BoardManager : MonoBehaviour
     private float BlueSelectionMoveTime = 0.0f;
     private float RedSelectionMoveTime = 0.0f;
 
+    private Customizer customizer;
+
     private int idCounter = 0;
 
     // Use this for initialization
     void Start ()
     {
+
+        customizer = FindObjectOfType<Customizer>();
+
+
         gameOver = false;
         SpawnAllPieces();
 
@@ -86,6 +92,8 @@ public class BoardManager : MonoBehaviour
         {
             FindObjectOfType<StateController>().StartChessAI();
         }
+
+        
 
         Invoke("startGame", 1.5f);
     }
@@ -409,7 +417,18 @@ public class BoardManager : MonoBehaviour
 
         activePieces.Add(chessPiece);
 
-        chessPiece.GetComponent<ChessPiece>().id = idCounter;
+        if (aPiece.isWhite)
+        {
+            chessPiece.GetComponent<SpriteRenderer>().color = customizer.whitePiecesOutlineColor;
+            aPiece.healthBar.gameObject.GetComponent<Image>().color = customizer.whitePiecesFillColor;
+        }
+        else
+        {
+            aPiece.gameObject.GetComponent<SpriteRenderer>().color = customizer.blackPiecesOutlineColor;
+            aPiece.healthBar.gameObject.GetComponent<Image>().color = customizer.blackPiecesFillColor;
+        }
+
+        aPiece.id = idCounter;
         idCounter++;
     }
 
