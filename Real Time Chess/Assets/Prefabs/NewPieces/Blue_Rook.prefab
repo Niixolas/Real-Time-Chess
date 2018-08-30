@@ -412,9 +412,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWhite: 1
-  speed: 4
-  moveDelay: 0
-  fireRate: 0.1
+  speed: 3.5
+  moveDelay: 0.1
+  fireRate: 0.15
   selfDamagePerShot: 0.5
   healthBar: {fileID: 114261427913742304}
   glow: {fileID: 212475653811433596}
