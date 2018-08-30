@@ -331,6 +331,8 @@ MonoBehaviour:
   startText: {fileID: 1649621592}
   moveClip: {fileID: 8300000, guid: 4bf7d2941725bba48999560c0c6cd026, type: 3}
   hitClip: {fileID: 8300000, guid: ada6f048599e0064e840e3fc29d28303, type: 3}
+  blueSelectorClip: {fileID: 8300000, guid: 3a3e3cebd86414744a65bdae9d1e0fb9, type: 3}
+  redSelectorClip: {fileID: 8300000, guid: dc59201a0e975834f879b8ebcbc86693, type: 3}
   SelectionMoveDelay: 0.25
   gameOver: 0
   gameStarted: 0

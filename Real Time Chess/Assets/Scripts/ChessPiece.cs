@@ -45,6 +45,9 @@ public abstract class ChessPiece : MonoBehaviour
     [Tooltip("Reference to death explosion prefab")]
     public GameObject deathExplosion;
 
+    [Tooltip("Reference to selector movement audio source")]
+    public AudioSource selectorAudio;
+
     //[Tooltip("Reference to the sound when hit")]
     private AudioClip hitClip;
 

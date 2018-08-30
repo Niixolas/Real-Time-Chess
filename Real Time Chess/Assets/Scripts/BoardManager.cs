@@ -33,6 +33,12 @@ public class BoardManager : MonoBehaviour
     [Tooltip("Reference to the firing sound")]
     public AudioClip hitClip;
 
+    [Tooltip("Reference to the blue selector movement sound")]
+    public AudioClip blueSelectorClip;
+
+    [Tooltip("Reference to the red selector movement sound")]
+    public AudioClip redSelectorClip;
+
     [Header("Variables")]
     [Tooltip("Time between movement input checks")]
     [SerializeField]
@@ -239,6 +245,8 @@ public class BoardManager : MonoBehaviour
                 blueSelection = new Vector2Int(targetX, targetY);
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.enabled = true;
 
+                Utilities.chessBoard[blueSelection.x, blueSelection.y].selectorAudio.Play();
+
                 BlueSelectionMoveTime = SelectionMoveDelay;
             }
         }
@@ -258,6 +266,8 @@ public class BoardManager : MonoBehaviour
 
                 redSelection = new Vector2Int(targetX, targetY);
                 Utilities.chessBoard[redSelection.x, redSelection.y].glow.enabled = true;
+
+                Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.Play();
 
                 RedSelectionMoveTime = SelectionMoveDelay;
             }
@@ -421,11 +431,17 @@ public class BoardManager : MonoBehaviour
         {
             chessPiece.GetComponent<SpriteRenderer>().color = customizer.whitePiecesOutlineColor;
             aPiece.healthBar.gameObject.GetComponent<Image>().color = customizer.whitePiecesFillColor;
+
+            aPiece.selectorAudio.clip = blueSelectorClip;
+            aPiece.selectorAudio.volume = 0.2f;
         }
         else
         {
             aPiece.gameObject.GetComponent<SpriteRenderer>().color = customizer.blackPiecesOutlineColor;
             aPiece.healthBar.gameObject.GetComponent<Image>().color = customizer.blackPiecesFillColor;
+
+            aPiece.selectorAudio.clip = redSelectorClip;
+            aPiece.selectorAudio.volume = 0.2f;
         }
 
         aPiece.id = idCounter;
