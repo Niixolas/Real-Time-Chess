@@ -14,8 +14,11 @@ public class BoardManager : MonoBehaviour
     [Tooltip("Prefabs for the pawn promotion effects")]
     public GameObject redPromotion;
 
+    [Tooltip("Prefab for the checkers")]
+    public GameObject checkers;
+
     [Tooltip("Prefabs for all the chess pieces")]
-    public List<GameObject> pieces;
+    public List<GameObject> pieces;    
 
     [Header("UI Prefabs")]
     [Tooltip("Prefabs for the pulsing 'Check!' text")]
@@ -79,6 +82,10 @@ public class BoardManager : MonoBehaviour
 
         customizer = FindObjectOfType<Customizer>();
 
+        foreach (Transform child in checkers.transform)
+        {
+            child.gameObject.GetComponent<SpriteRenderer>().color = customizer.checkerColor;
+        }
 
         gameOver = false;
         SpawnAllPieces();
