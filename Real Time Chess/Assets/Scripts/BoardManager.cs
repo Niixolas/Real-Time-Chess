@@ -69,7 +69,7 @@ public class BoardManager : MonoBehaviour
     private float BlueSelectionMoveTime = 0.0f;
     private float RedSelectionMoveTime = 0.0f;
 
-    private Customizer customizer;
+    public Customizer customizer;
 
     private int idCounter = 0;
 
@@ -431,6 +431,8 @@ public class BoardManager : MonoBehaviour
         {
             chessPiece.GetComponent<SpriteRenderer>().color = customizer.whitePiecesOutlineColor;
             aPiece.healthBar.gameObject.GetComponent<Image>().color = customizer.whitePiecesFillColor;
+            aPiece.GetComponent<TrailRenderer>().colorGradient = customizer.whitePieceGradient;
+            aPiece.targetAimSquare.GetComponent<SpriteRenderer>().color = customizer.whitePiecesOutlineColor;
 
             aPiece.selectorAudio.clip = blueSelectorClip;
             aPiece.selectorAudio.volume = 0.2f;
@@ -439,6 +441,8 @@ public class BoardManager : MonoBehaviour
         {
             aPiece.gameObject.GetComponent<SpriteRenderer>().color = customizer.blackPiecesOutlineColor;
             aPiece.healthBar.gameObject.GetComponent<Image>().color = customizer.blackPiecesFillColor;
+            aPiece.GetComponent<TrailRenderer>().colorGradient = customizer.blackPieceGradient;
+            aPiece.targetAimSquare.GetComponent<SpriteRenderer>().color = customizer.blackPiecesOutlineColor;
 
             aPiece.selectorAudio.clip = redSelectorClip;
             aPiece.selectorAudio.volume = 0.2f;

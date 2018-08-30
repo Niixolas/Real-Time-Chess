@@ -10,9 +10,13 @@ public class Customizer : MonoBehaviour
     public Color whitePiecesOutlineColor;
     public Color32 whitePiecesFillColor;
 
+    public Gradient whitePieceGradient;
+
     [Header("Black Pieces")]
-    public Color32 blackPiecesOutlineColor;
+    public Color blackPiecesOutlineColor;
     public Color32 blackPiecesFillColor;
+
+    public Gradient blackPieceGradient;
 
     [Header("Game Board")]
     public Color32 checkerColor;

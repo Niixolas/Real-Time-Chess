@@ -89,7 +89,27 @@ public class HealthBar : MonoBehaviour
 
         GetComponentInParent<BoxCollider2D>().enabled = false;
 
+        ParticleSystem ps;
+        ParticleSystem.MainModule main;
+        ParticleSystem.TrailModule trails;
+
+        ps = GetComponentInParent<ChessPiece>().deathExplosion.GetComponent<ParticleSystem>();
+        main = ps.main;
+        trails = ps.trails;
+
+        if (GetComponentInParent<ChessPiece>().isWhite)
+        {
+            main.startColor = bm.customizer.whitePiecesOutlineColor;
+            trails.colorOverLifetime = bm.customizer.whitePieceGradient;
+        }
+        else
+        {
+            main.startColor = bm.customizer.blackPiecesOutlineColor;
+            trails.colorOverLifetime = bm.customizer.blackPieceGradient;
+        }
+
         GameObject deathEffect = Instantiate(GetComponentInParent<ChessPiece>().deathExplosion, transform.parent.gameObject.transform.position, Quaternion.identity);
+
         Destroy(deathEffect, 1.0f);
 
         if (GetComponentInParent<ChessPiece>().isWhite)
