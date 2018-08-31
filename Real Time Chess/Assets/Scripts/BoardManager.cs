@@ -93,10 +93,12 @@ public class BoardManager : MonoBehaviour
         // Set first blue selection to king
         Utilities.chessBoard[4, 1].glow.enabled = true;
         blueSelection = new Vector2Int(4, 1);
+        SelectPiece(blueSelection.x, blueSelection.y, 1);
 
         // Set first red selection to king
         Utilities.chessBoard[4, 6].glow.enabled = true;
         redSelection = new Vector2Int(4, 6);
+        SelectPiece(redSelection.x, redSelection.y, 2);
 
         // Enable start text
         startText.enabled = true;
@@ -105,8 +107,6 @@ public class BoardManager : MonoBehaviour
         {
             FindObjectOfType<StateController>().StartChessAI();
         }
-
-        
 
         Invoke("startGame", 1.5f);
     }
@@ -234,8 +234,9 @@ public class BoardManager : MonoBehaviour
     // Check controller inputs
     private void CheckInputs()
     {
+
         // Check for player 1 moving glowing selection
-        if (InputController.Instance.p1Move != Vector2.zero && blueSelectedPiece == null && BlueSelectionMoveTime == 0.0f)
+        if (InputController.Instance.p1Move != Vector2.zero && InputController.Instance.p1Pressed && blueSelectedPiece == null && BlueSelectionMoveTime == 0.0f)
         {
             Vector2 rayStart = Utilities.getTileCenter(blueSelection.x, blueSelection.y);
             RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.3f, InputController.Instance.p1MoveFloat, Mathf.Infinity, LayerMask.GetMask("BluePieces"));
@@ -283,16 +284,18 @@ public class BoardManager : MonoBehaviour
         // Check if player 1 pressed action button
         if (InputController.Instance.p1Pressed)
         {
-            if (blueSelectedPiece == null)
-            {
-                // If blue player is not already selecting a piece, and the current selection is not null and is also a blue piece
-                if (Utilities.chessBoard[blueSelection.x, blueSelection.y] != null && Utilities.chessBoard[blueSelection.x, blueSelection.y].isWhite)
-                {
-                    SelectPiece(blueSelection.x, blueSelection.y, 1);
-                    Utilities.chessBoard[blueSelection.x, blueSelection.y].ShowPossibleActions();
-                }
-            }
-            else
+            //if (blueSelectedPiece == null)
+            //{
+            //    // If blue player is not already selecting a piece, and the current selection is not null and is also a blue piece
+            //    if (Utilities.chessBoard[blueSelection.x, blueSelection.y] != null && Utilities.chessBoard[blueSelection.x, blueSelection.y].isWhite)
+            //    {
+            //        SelectPiece(blueSelection.x, blueSelection.y, 1);
+            //        Utilities.chessBoard[blueSelection.x, blueSelection.y].ShowPossibleActions();
+            //    }
+            //}
+            //else
+            //{
+            if (blueSelectedPiece != null)
             {
                 // Player 1 unselects their piece
                 blueSelectedPiece.glow.enabled = true;
@@ -300,6 +303,19 @@ public class BoardManager : MonoBehaviour
                 blueSelectedPiece = null;
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].HidePossibleActions();
             }
+                
+            //}
+        }
+        else
+        {
+            if (blueSelectedPiece == null)
+            {
+                //blueSelectedPiece.glow.enabled = false;
+                //blueSelectedPiece.selectedOutline.enabled = true;
+                SelectPiece(blueSelection.x, blueSelection.y, 1);
+                Utilities.chessBoard[blueSelection.x, blueSelection.y].ShowPossibleActions();
+            }
+            
         }
 
         // Check if player 2 pressed action button
