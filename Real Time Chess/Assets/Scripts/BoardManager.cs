@@ -321,21 +321,30 @@ public class BoardManager : MonoBehaviour
         // Check if player 2 pressed action button
         if (InputController.Instance.p2Pressed)
         {
-            if (redSelectedPiece == null)
+            if (redSelectedPiece != null)
             {
-                if (Utilities.chessBoard[redSelection.x, redSelection.y] != null && !Utilities.chessBoard[redSelection.x, redSelection.y].isWhite)
-                {
-                    SelectPiece(redSelection.x, redSelection.y, 2);
-                    Utilities.chessBoard[redSelection.x, redSelection.y].ShowPossibleActions();
-                }
-            }
-            else
-            {
-                // Player 2 unselects their piece
                 redSelectedPiece.glow.enabled = true;
                 redSelectedPiece.selectedOutline.enabled = false;
                 redSelectedPiece = null;
                 Utilities.chessBoard[redSelection.x, redSelection.y].HidePossibleActions();
+                //if (Utilities.chessBoard[redSelection.x, redSelection.y] != null && !Utilities.chessBoard[redSelection.x, redSelection.y].isWhite)
+                //{
+                //    SelectPiece(redSelection.x, redSelection.y, 2);
+                //    Utilities.chessBoard[redSelection.x, redSelection.y].ShowPossibleActions();
+                //}
+            }
+            else
+            {
+                if (redSelectedPiece == null)
+                {
+                    SelectPiece(redSelection.x, redSelection.y, 2);
+                    Utilities.chessBoard[redSelection.x, redSelection.y].ShowPossibleActions();
+                }
+                // Player 2 unselects their piece
+                //redSelectedPiece.glow.enabled = true;
+                //redSelectedPiece.selectedOutline.enabled = false;
+                //redSelectedPiece = null;
+                
             }
         }
 

@@ -127,26 +127,27 @@ public class HealthBar : MonoBehaviour
                 } while (collider == null);
 
                 bm.blueSelection = new Vector2Int(collider.GetComponentInParent<ChessPiece>().CurrentX, collider.GetComponentInParent<ChessPiece>().CurrentY);
-                collider.GetComponentInParent<ChessPiece>().glow.enabled = true;
+                bm.SelectPiece(bm.blueSelection.x, bm.blueSelection.y, 1);
+                //collider.GetComponentInParent<ChessPiece>().glow.enabled = true;
 
-                bm.blueSelectedPiece = null;
+                //bm.blueSelectedPiece = null;
             }
 
-            if (GetComponentInParent<ChessPiece>().glow.enabled)
-            {
-                float x = 0.0f;
-                Collider2D collider = null;
-                LayerMask lm = LayerMask.GetMask("BluePieces");
+            //if (GetComponentInParent<ChessPiece>().glow.enabled)
+            //{
+            //    float x = 0.0f;
+            //    Collider2D collider = null;
+            //    LayerMask lm = LayerMask.GetMask("BluePieces");
 
-                do
-                {
-                    x += 0.5f;
-                    collider = Physics2D.OverlapCircle(GetComponentInParent<ChessPiece>().transform.position, x, lm);
-                } while (collider == null);
+            //    do
+            //    {
+            //        x += 0.5f;
+            //        collider = Physics2D.OverlapCircle(GetComponentInParent<ChessPiece>().transform.position, x, lm);
+            //    } while (collider == null);
 
-                bm.blueSelection = new Vector2Int(collider.GetComponentInParent<ChessPiece>().CurrentX, collider.GetComponentInParent<ChessPiece>().CurrentY);
-                collider.GetComponentInParent<ChessPiece>().glow.enabled = true;
-            }
+            //    bm.blueSelection = new Vector2Int(collider.GetComponentInParent<ChessPiece>().CurrentX, collider.GetComponentInParent<ChessPiece>().CurrentY);
+            //    collider.GetComponentInParent<ChessPiece>().glow.enabled = true;
+            //}
             
         }
         if (!GetComponentInParent<ChessPiece>().isWhite)
@@ -164,26 +165,27 @@ public class HealthBar : MonoBehaviour
                 } while (collider == null);
 
                 bm.redSelection = new Vector2Int(collider.GetComponentInParent<ChessPiece>().CurrentX, collider.GetComponentInParent<ChessPiece>().CurrentY);
-                collider.GetComponentInParent<ChessPiece>().glow.enabled = true;
+                bm.SelectPiece(bm.redSelection.x, bm.redSelection.y, 2);
+                //collider.GetComponentInParent<ChessPiece>().glow.enabled = true;
 
-                bm.redSelectedPiece = null;
+                //bm.redSelectedPiece = null;
             }
 
-            if (GetComponentInParent<ChessPiece>().glow.enabled)
-            {
-                float x = 0.0f;
-                Collider2D collider = null;
-                LayerMask lm = LayerMask.GetMask("RedPieces");
+            //if (GetComponentInParent<ChessPiece>().glow.enabled)
+            //{
+            //    float x = 0.0f;
+            //    Collider2D collider = null;
+            //    LayerMask lm = LayerMask.GetMask("RedPieces");
 
-                do
-                {
-                    x += 0.5f;
-                    collider = Physics2D.OverlapCircle(GetComponentInParent<ChessPiece>().transform.position, x, lm);
-                } while (collider == null);
+            //    do
+            //    {
+            //        x += 0.5f;
+            //        collider = Physics2D.OverlapCircle(GetComponentInParent<ChessPiece>().transform.position, x, lm);
+            //    } while (collider == null);
 
-                bm.redSelection = new Vector2Int(collider.GetComponentInParent<ChessPiece>().CurrentX, collider.GetComponentInParent<ChessPiece>().CurrentY);
-                collider.GetComponentInParent<ChessPiece>().glow.enabled = true;
-            }
+            //    bm.redSelection = new Vector2Int(collider.GetComponentInParent<ChessPiece>().CurrentX, collider.GetComponentInParent<ChessPiece>().CurrentY);
+            //    collider.GetComponentInParent<ChessPiece>().glow.enabled = true;
+            //}
             
         }
 

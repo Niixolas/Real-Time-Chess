@@ -254,7 +254,7 @@ public class InputController : MonoBehaviour
 
             p2Aim = NormalizeMove(p2Aim);
 
-            p2Pressed = gamepad2.buttonSouth.wasJustPressed;
+            p2Pressed = gamepad2.buttonSouth.isPressed;
 
             if (!playerHasSelectedPiece)
             {
