@@ -79,7 +79,6 @@ public class BoardManager : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-
         customizer = FindObjectOfType<Customizer>();
 
         foreach (Transform child in checkers.transform)
@@ -253,6 +252,7 @@ public class BoardManager : MonoBehaviour
                 blueSelection = new Vector2Int(targetX, targetY);
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.enabled = true;
 
+                Utilities.chessBoard[blueSelection.x, blueSelection.y].selectorAudio.pitch = 1.0f;
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].selectorAudio.Play();
 
                 BlueSelectionMoveTime = SelectionMoveDelay;
@@ -275,6 +275,7 @@ public class BoardManager : MonoBehaviour
                 redSelection = new Vector2Int(targetX, targetY);
                 Utilities.chessBoard[redSelection.x, redSelection.y].glow.enabled = true;
 
+                Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.pitch = 1.0f;
                 Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.Play();
 
                 RedSelectionMoveTime = SelectionMoveDelay;
@@ -302,6 +303,9 @@ public class BoardManager : MonoBehaviour
                 blueSelectedPiece.selectedOutline.enabled = false;
                 blueSelectedPiece = null;
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].HidePossibleActions();
+
+                Utilities.chessBoard[blueSelection.x, blueSelection.y].selectorAudio.pitch = 1.0f;
+                Utilities.chessBoard[blueSelection.x, blueSelection.y].selectorAudio.Play();
             }
                 
             //}
@@ -314,6 +318,10 @@ public class BoardManager : MonoBehaviour
                 //blueSelectedPiece.selectedOutline.enabled = true;
                 SelectPiece(blueSelection.x, blueSelection.y, 1);
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].ShowPossibleActions();
+
+                Utilities.chessBoard[blueSelection.x, blueSelection.y].selectorAudio.pitch = 0.7f;
+                Utilities.chessBoard[blueSelection.x, blueSelection.y].selectorAudio.Play();
+                //Utilities.chessBoard[blueSelection.x, blueSelection.y].selectorAudio.pitch = 1.0f;
             }
             
         }
@@ -327,6 +335,9 @@ public class BoardManager : MonoBehaviour
                 redSelectedPiece.selectedOutline.enabled = false;
                 redSelectedPiece = null;
                 Utilities.chessBoard[redSelection.x, redSelection.y].HidePossibleActions();
+
+                Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.pitch = 1.0f;
+                Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.Play();
                 //if (Utilities.chessBoard[redSelection.x, redSelection.y] != null && !Utilities.chessBoard[redSelection.x, redSelection.y].isWhite)
                 //{
                 //    SelectPiece(redSelection.x, redSelection.y, 2);
@@ -339,6 +350,10 @@ public class BoardManager : MonoBehaviour
                 {
                     SelectPiece(redSelection.x, redSelection.y, 2);
                     Utilities.chessBoard[redSelection.x, redSelection.y].ShowPossibleActions();
+
+                    Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.pitch = 0.7f;
+                    Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.Play();
+                    //Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.pitch = 1.0f;
                 }
                 // Player 2 unselects their piece
                 //redSelectedPiece.glow.enabled = true;
@@ -479,6 +494,8 @@ public class BoardManager : MonoBehaviour
             aPiece.selectorAudio.clip = redSelectorClip;
             aPiece.selectorAudio.volume = 0.2f;
         }
+
+        aPiece.GetComponent<AudioSource>().clip = moveClip;
 
         aPiece.id = idCounter;
         idCounter++;
