@@ -35,8 +35,8 @@ public class Knight : ChessPiece
                 CurrentY = (int)targetPosition.y;
                 Utilities.chessBoard[(int)transform.position.x, (int)transform.position.y] = null;
                 Utilities.chessBoard[(int)targetPosition.x, (int)targetPosition.y] = this;
-                bm.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
-                bm.GetComponent<AudioSource>().Play();
+                GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
+                GetComponent<AudioSource>().Play();
 
                 if (isWhite)
                 {
