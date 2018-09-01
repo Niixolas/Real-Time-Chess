@@ -344,23 +344,23 @@ public class BoardManager : MonoBehaviour
                 //    Utilities.chessBoard[redSelection.x, redSelection.y].ShowPossibleActions();
                 //}
             }
-            else
+        }
+        else
+        {
+            if (redSelectedPiece == null)
             {
-                if (redSelectedPiece == null)
-                {
-                    SelectPiece(redSelection.x, redSelection.y, 2);
-                    Utilities.chessBoard[redSelection.x, redSelection.y].ShowPossibleActions();
+                SelectPiece(redSelection.x, redSelection.y, 2);
+                Utilities.chessBoard[redSelection.x, redSelection.y].ShowPossibleActions();
 
-                    Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.pitch = 0.7f;
-                    Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.Play();
-                    //Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.pitch = 1.0f;
-                }
-                // Player 2 unselects their piece
-                //redSelectedPiece.glow.enabled = true;
-                //redSelectedPiece.selectedOutline.enabled = false;
-                //redSelectedPiece = null;
-                
+                Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.pitch = 0.7f;
+                Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.Play();
+                //Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.pitch = 1.0f;
             }
+            // Player 2 unselects their piece
+            //redSelectedPiece.glow.enabled = true;
+            //redSelectedPiece.selectedOutline.enabled = false;
+            //redSelectedPiece = null;
+
         }
 
         // If player 1 is firing
