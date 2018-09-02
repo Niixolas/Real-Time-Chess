@@ -79,14 +79,19 @@ public class BoardManager : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        // Initialize gameOver sentinel value
+        gameOver = false;
+
+        // Grab the color customizer
         customizer = FindObjectOfType<Customizer>();
 
+        // Set the board color
         foreach (Transform child in checkers.transform)
         {
             child.gameObject.GetComponent<SpriteRenderer>().color = customizer.checkerColor;
         }
 
-        gameOver = false;
+        // Spawn the chess pieces and customize their properties
         SpawnAllPieces();
 
         // Set first blue selection to king
@@ -102,15 +107,17 @@ public class BoardManager : MonoBehaviour
         // Enable start text
         startText.enabled = true;
 
+        // Start the AI if it exists
         if (FindObjectOfType<StateController>() != null)
         {
             FindObjectOfType<StateController>().StartChessAI();
         }
 
-        Invoke("startGame", 1.5f);
+        // Trigger the start game after a short delay
+        Invoke("StartGame", 1.5f);
     }
 
-    private void startGame()
+    private void StartGame()
     {
         gameStarted = true;
     }
@@ -150,12 +157,14 @@ public class BoardManager : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        // Destroy bullets when they leave the playfield
         if (collision.gameObject.GetComponent<FireBullet>())
         {
             Destroy(collision.gameObject);
         }
     }
 
+    // Refresh highlight squares
     public void RefreshActions()
     {
         if (blueSelectedPiece != null)
@@ -170,11 +179,17 @@ public class BoardManager : MonoBehaviour
             redSelectedPiece.ShowPossibleActions();
         }
     }
-
+    /// <summary>
+    /// Check if a piece is eligible for Pawn promotion to Queen
+    /// </summary>
+    /// <param name="sendingPiece">The piece to check if eligible for pawn promotion</param>
+    /// <param name="targetPosition">The square the piece has moved to</param>
     public void CheckPawnPromotion(ChessPiece sendingPiece, Vector2 targetPosition)
     {
+        // Grab the current piece health
         float thisHealth = sendingPiece.healthBar.CurrentHealth;
 
+        // If the piece is a white piece, it is at the end of the board, and it is a pawn
         if (sendingPiece.isWhite && (int)targetPosition.y == 7 && sendingPiece.GetComponent<Pawn>() != null)
         {
             // Clear the piece from the board array
@@ -202,6 +217,7 @@ public class BoardManager : MonoBehaviour
             blueSelectedPiece.ShowPossibleActions();
         }
 
+        // If the piece is a black piece, it is at the end of the board, and it is a pawn
         if (!sendingPiece.isWhite && (int)targetPosition.y == 0 && sendingPiece.GetComponent<Pawn>() != null)
         {
             // Clear the piece from the board array
