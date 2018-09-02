@@ -22,10 +22,10 @@ public class InputController : MonoBehaviour
 
     // The variables used for game inputs
     [HideInInspector]
-    public Vector2 p1Aim, p1Move, p1MoveFloat, p1KnightAim, p1KnightMove;
+    public Vector2 p1Aim, p1Move, p1MoveFloat, p1KnightAim, p1KnightMove, p1DPad;
 
     [HideInInspector]
-    public Vector2 p2Aim, p2Move, p2MoveFloat, p2KnightAim, p2KnightMove;
+    public Vector2 p2Aim, p2Move, p2MoveFloat, p2KnightAim, p2KnightMove, p2DPad;
 
     [HideInInspector]
     public bool startPressed, selectPressed;
@@ -52,6 +52,8 @@ public class InputController : MonoBehaviour
         p2Move = Vector2.zero;
         p1Aim = Vector2.zero;
         p2Aim = Vector2.zero;
+        p1DPad = Vector2.zero;
+        p2DPad = Vector2.zero;
         p1Pressed = false;
         p2Pressed = false;
         startPressed = false;
@@ -163,12 +165,12 @@ public class InputController : MonoBehaviour
                 {
                     playerHasUsedLeftStick = true;
                 }
-            }           
-
+            }
             p1KnightMove = GetKnightAim(p1Move);
             p1MoveFloat = p1Move;
             p1Move = NormalizeMove(p1Move);
-            
+
+            p1DPad = gamepad1.dpad.ReadValue();
 
             p1Aim = new Vector2(gamepad1.rightStick.x.ReadValue(), gamepad1.rightStick.y.ReadValue());
             if (p1Aim.magnitude < deadZoneValue)
@@ -234,7 +236,8 @@ public class InputController : MonoBehaviour
             p2KnightMove = GetKnightAim(p2Move);
             p2MoveFloat = p2Move;
             p2Move = NormalizeMove(p2Move);
-                      
+
+            p2DPad = gamepad2.dpad.ReadValue();
 
             p2Aim = new Vector2(gamepad2.rightStick.x.ReadValue(), gamepad2.rightStick.y.ReadValue());
             if (p2Aim.magnitude < deadZoneValue)

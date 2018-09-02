@@ -259,6 +259,33 @@ public class BoardManager : MonoBehaviour
             }
         }
 
+        if (InputController.Instance.p1DPad != Vector2.zero && BlueSelectionMoveTime == 0.0f)
+        {
+            Vector2 rayStart = Utilities.getTileCenter(blueSelection.x, blueSelection.y);
+            RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.3f, InputController.Instance.p1DPad, Mathf.Infinity, LayerMask.GetMask("BluePieces"));
+
+            if (hit.collider != null && hit.collider.GetComponent<ChessPiece>().isWhite && Utilities.chessBoard[blueSelection.x, blueSelection.y] != null)
+            {
+                Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.enabled = false;
+                blueSelectedPiece.selectedOutline.enabled = false;
+                blueSelectedPiece = null;
+
+                int targetX = hit.collider.GetComponent<ChessPiece>().CurrentX;
+                int targetY = hit.collider.GetComponent<ChessPiece>().CurrentY;
+
+                blueSelection = new Vector2Int(targetX, targetY);
+                Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.enabled = true;
+
+                Utilities.chessBoard[blueSelection.x, blueSelection.y].selectorAudio.pitch = 1.0f;
+                Utilities.chessBoard[blueSelection.x, blueSelection.y].selectorAudio.Play();
+
+                SelectPiece(blueSelection.x, blueSelection.y, 1);
+                Utilities.chessBoard[blueSelection.x, blueSelection.y].ShowPossibleActions();
+
+                BlueSelectionMoveTime = SelectionMoveDelay;
+            }
+        }
+
         // Check for player 2 moving glowing selection
         if (InputController.Instance.p2Move != Vector2.zero && redSelectedPiece == null && RedSelectionMoveTime == 0.0f)
         {
@@ -277,6 +304,33 @@ public class BoardManager : MonoBehaviour
 
                 Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.pitch = 1.0f;
                 Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.Play();
+
+                RedSelectionMoveTime = SelectionMoveDelay;
+            }
+        }
+
+        if (InputController.Instance.p2DPad != Vector2.zero && RedSelectionMoveTime == 0.0f)
+        {
+            Vector2 rayStart = Utilities.getTileCenter(redSelection.x, redSelection.y);
+            RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.3f, InputController.Instance.p2DPad, Mathf.Infinity, LayerMask.GetMask("RedPieces"));
+
+            if (hit.collider != null && hit.collider.GetComponent<ChessPiece>().isWhite && Utilities.chessBoard[redSelection.x, redSelection.y] != null)
+            {
+                Utilities.chessBoard[redSelection.x, redSelection.y].glow.enabled = false;
+                redSelectedPiece.selectedOutline.enabled = false;
+                redSelectedPiece = null;
+
+                int targetX = hit.collider.GetComponent<ChessPiece>().CurrentX;
+                int targetY = hit.collider.GetComponent<ChessPiece>().CurrentY;
+
+                redSelection = new Vector2Int(targetX, targetY);
+                Utilities.chessBoard[redSelection.x, redSelection.y].glow.enabled = true;
+
+                Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.pitch = 1.0f;
+                Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.Play();
+
+                SelectPiece(redSelection.x, redSelection.y, 1);
+                Utilities.chessBoard[redSelection.x, redSelection.y].ShowPossibleActions();
 
                 RedSelectionMoveTime = SelectionMoveDelay;
             }
