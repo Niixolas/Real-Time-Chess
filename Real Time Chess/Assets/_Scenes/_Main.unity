@@ -332,7 +332,7 @@ MonoBehaviour:
   startText: {fileID: 1649621592}
   fadeIn: {fileID: 1216941538}
   moveClip: {fileID: 8300000, guid: 3b0c45319b40e5d4d86785a34ad46f92, type: 3}
-  hitClip: {fileID: 8300000, guid: ada6f048599e0064e840e3fc29d28303, type: 3}
+  hitClip: {fileID: 8300000, guid: 644b5a734312596409857b5da6f2c660, type: 3}
   blueSelectorClip: {fileID: 8300000, guid: d9c9fd132e2378f4284c4f737770d0b2, type: 3}
   redSelectorClip: {fileID: 8300000, guid: ac955150dc133bb449d74c58b4837615, type: 3}
   SelectionMoveDelay: 0.25
