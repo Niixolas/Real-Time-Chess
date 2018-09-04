@@ -19,7 +19,6 @@ public class MainMenuController : MonoBehaviour
     private void Start()
     {
         Cursor.visible = false;
-        //StartCoroutine("PressStartTextFlash");
     }
 
     private void SetMove()
@@ -52,6 +51,9 @@ public class MainMenuController : MonoBehaviour
                 GameObject shot = Instantiate(shotObject, menuPawn.transform);
                 shot.GetComponent<Rigidbody2D>().velocity = new Vector2(5.0f, 0.0f);
                 canMove = false;
+
+                fadePanel.SetTrigger("fade");
+
                 Invoke("Quit", 1.5f);
             }
             
@@ -78,22 +80,5 @@ public class MainMenuController : MonoBehaviour
         StopAllCoroutines();
         Application.Quit();
 	}
-
-    //IEnumerator PressStartTextFlash()
-    //{
-    //    while (true)
-    //    {
-    //        if (startText.enabled)
-    //        {
-    //            startText.enabled = false;
-    //        }
-    //        else
-    //        {
-    //            startText.enabled = true;
-    //        }
-
-    //        yield return new WaitForSeconds(0.75f);
-    //    }
-    //}
 
 }
