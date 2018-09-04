@@ -544,27 +544,32 @@ public class BoardManager : MonoBehaviour
 
         activePieces.Add(chessPiece);
 
+        Color outlineColor;
+        Color fillColor;
+        Gradient pieceGradient;
         if (aPiece.isWhite)
         {
-            chessPiece.GetComponent<SpriteRenderer>().color = customizer.whitePiecesOutlineColor;
-            aPiece.healthBar.gameObject.GetComponent<Image>().color = customizer.whitePiecesFillColor;
-            aPiece.GetComponent<TrailRenderer>().colorGradient = customizer.whitePieceGradient;
-            aPiece.targetAimSquare.GetComponent<SpriteRenderer>().color = customizer.whitePiecesOutlineColor;
+            outlineColor = customizer.whitePiecesOutlineColor;
+            fillColor = customizer.whitePiecesFillColor;
+            pieceGradient = customizer.whitePieceGradient;
 
             aPiece.selectorAudio.clip = blueSelectorClip;
-            aPiece.selectorAudio.volume = 0.2f;
         }
         else
         {
-            aPiece.gameObject.GetComponent<SpriteRenderer>().color = customizer.blackPiecesOutlineColor;
-            aPiece.healthBar.gameObject.GetComponent<Image>().color = customizer.blackPiecesFillColor;
-            aPiece.GetComponent<TrailRenderer>().colorGradient = customizer.blackPieceGradient;
-            aPiece.targetAimSquare.GetComponent<SpriteRenderer>().color = customizer.blackPiecesOutlineColor;
+            outlineColor = customizer.blackPiecesOutlineColor;
+            fillColor = customizer.blackPiecesFillColor;
+            pieceGradient = customizer.blackPieceGradient;
 
-            aPiece.selectorAudio.clip = redSelectorClip;
-            aPiece.selectorAudio.volume = 0.2f;
+            aPiece.selectorAudio.clip = redSelectorClip;            
         }
 
+        chessPiece.GetComponent<SpriteRenderer>().color = outlineColor;
+        aPiece.healthBar.gameObject.GetComponent<Image>().color = fillColor;
+        aPiece.GetComponent<TrailRenderer>().colorGradient = pieceGradient;
+        aPiece.targetAimSquare.GetComponent<SpriteRenderer>().color = outlineColor;
+
+        aPiece.selectorAudio.volume = 0.2f;
         aPiece.GetComponent<AudioSource>().clip = moveClip;
 
         aPiece.id = idCounter;

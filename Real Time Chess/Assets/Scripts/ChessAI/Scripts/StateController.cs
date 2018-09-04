@@ -58,7 +58,7 @@ public class StateController : MonoBehaviour
         } while (!CanPieceMove(shortTermPieceToControl));
         
 
-        squareToMoveControlPiece = FindDesiredMovement(AIUtilities.FindTargetLocation(shortTermPieceToControl), AIUtilities.FindTargetLocation(shortTermTarget));
+        //squareToMoveControlPiece = FindDesiredMovement(AIUtilities.FindTargetLocation(shortTermPieceToControl), AIUtilities.FindTargetLocation(shortTermTarget));
 
     }
 
@@ -126,8 +126,7 @@ public class StateController : MonoBehaviour
                     if (!(x == pieceLocation.x && y == pieceLocation.y))
                     {
                         ChessPiece p = Utilities.chessBoard[pieceLocation.x, pieceLocation.y].GetComponent<ChessPiece>();
-                        int checkX = x - pieceLocation.x;
-                        int checkY = y - pieceLocation.y;
+
                         if (p.IsMovePossible(x, y, Utilities.chessBoard[x, y]))
                         {
                             canMove = true;

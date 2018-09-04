@@ -39,14 +39,15 @@ public class Bishop : ChessPiece
                         break;
                     }
 
-                    if (Utilities.chessBoard[x, y] == null)
-                    {
-                        Vector3 newMoveSquarePosition = Utilities.getTileCenter(x, y);
-                        newMoveSquarePosition.z = 3.0f;
-                        GameObject newMoveSquare = Instantiate(targetMoveSquare, newMoveSquarePosition, Quaternion.identity);
-                        targetMoveAndAimSquares.Add(newMoveSquare);
-                    }
-                    else
+                    //if (Utilities.chessBoard[x, y] == null)
+                    //{
+                    //    Vector3 newMoveSquarePosition = Utilities.getTileCenter(x, y);
+                    //    newMoveSquarePosition.z = 3.0f;
+                    //    GameObject newMoveSquare = Instantiate(targetMoveSquare, newMoveSquarePosition, Quaternion.identity);
+                    //    targetMoveAndAimSquares.Add(newMoveSquare);
+                    //}
+                    //else
+                    if (Utilities.chessBoard[x, y] != null)
                     {
                         if (Utilities.chessBoard[x, y].isWhite != isWhite)
                         {

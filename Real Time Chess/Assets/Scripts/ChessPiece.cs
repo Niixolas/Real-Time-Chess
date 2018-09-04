@@ -221,6 +221,11 @@ public abstract class ChessPiece : MonoBehaviour
         return;
     }
 
+    public virtual List<Vector2Int> PossibleMoves()
+    {
+        return null;
+    }
+
     public void HidePossibleActions()
     {
         foreach(GameObject g in targetMoveAndAimSquares)

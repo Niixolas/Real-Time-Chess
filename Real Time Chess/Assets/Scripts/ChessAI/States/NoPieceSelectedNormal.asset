@@ -9,7 +9,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72b5817c86881ea4697afae0612be2bc, type: 3}
-  m_Name: Remain
+  m_Name: NoPieceSelectedNormal
   m_EditorClassIdentifier: 
-  actions: []
-  transitions: []
+  actions:
+  - {fileID: 11400000, guid: 76984707cd637784da5e3e1e3ad69315, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: 9d02289d8df412741b40f4891c6229b2, type: 2}
+    trueState: {fileID: 11400000, guid: 21c5ace2210c73649914aa07c56514d3, type: 2}
+    falseState: {fileID: 0}

@@ -14,6 +14,7 @@ public class MoveSelectorAction : ChessAction
         Vector2 move = targetLocation - controller.bm.redSelection;
         move.Normalize();
 
+        AIUtilities.AIPressed = true;
         AIUtilities.AIMove = move;
 
         //if (controller.bm.redSelection != targetLocation)

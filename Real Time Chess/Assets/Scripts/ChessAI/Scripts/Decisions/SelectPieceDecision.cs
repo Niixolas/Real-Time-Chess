@@ -10,7 +10,7 @@ public class SelectPieceDecision : ChessDecision
         Vector2Int targetLocation = AIUtilities.FindTargetLocation(controller.shortTermPieceToControl);
         if (targetLocation == controller.bm.redSelection)
         {
-            AIUtilities.AIPressed = true;
+            AIUtilities.AIPressed = false;
             return true;
         }
 

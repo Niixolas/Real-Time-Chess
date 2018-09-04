@@ -82,18 +82,33 @@ public class Pawn : ChessPiece
         }
     }
 
+    public override List<Vector2Int> PossibleMoves()
+    {
+        List<Vector2Int> moves = new List<Vector2Int>();
+
+        int moveX = CurrentX;
+        int moveY = isWhite ? CurrentY + 1 : CurrentY - 1;
+
+        if (Utilities.chessBoard[moveX, moveY] == null)
+        {
+            moves.Add(new Vector2Int(moveX, moveY));
+        }
+
+        return moves;
+    }
+
     public override void ShowPossibleActions()
     {
-        int moveLookX = CurrentX;
-        int moveLookY = isWhite ? CurrentY + 1 : CurrentY - 1;
+        //int moveLookX = CurrentX;
+        //int moveLookY = isWhite ? CurrentY + 1 : CurrentY - 1;
 
-        if (Utilities.chessBoard[moveLookX, moveLookY] == null)
-        {
-            Vector3 newMoveSquarePosition = Utilities.getTileCenter(moveLookX, moveLookY);
-            newMoveSquarePosition.z = 3.0f;
-            GameObject newMoveSquare = Instantiate(targetMoveSquare, newMoveSquarePosition, Quaternion.identity);
-            targetMoveAndAimSquares.Add(newMoveSquare);
-        }
+        //if (Utilities.chessBoard[moveLookX, moveLookY] == null)
+        //{
+        //    Vector3 newMoveSquarePosition = Utilities.getTileCenter(moveLookX, moveLookY);
+        //    newMoveSquarePosition.z = 3.0f;
+        //    GameObject newMoveSquare = Instantiate(targetMoveSquare, newMoveSquarePosition, Quaternion.identity);
+        //    targetMoveAndAimSquares.Add(newMoveSquare);
+        //}
 
         int aimLookY = isWhite ? CurrentY + 1 : CurrentY - 1;
 
