@@ -98,12 +98,12 @@ public class BoardManager : MonoBehaviour
         SpawnAllPieces();
 
         // Set first blue selection to king
-        Utilities.chessBoard[4, 1].glow.enabled = true;
+        Utilities.chessBoard[4, 1].handSelector.enabled = true;
         blueSelection = new Vector2Int(4, 1);
         SelectPiece(blueSelection.x, blueSelection.y, 1);
 
         // Set first red selection to king
-        Utilities.chessBoard[4, 6].glow.enabled = true;
+        Utilities.chessBoard[4, 6].handSelector.enabled = true;
         redSelection = new Vector2Int(4, 6);
         SelectPiece(redSelection.x, redSelection.y, 2);
 
@@ -256,13 +256,24 @@ public class BoardManager : MonoBehaviour
 
             if (hit.collider != null && hit.collider.GetComponent<ChessPiece>().isWhite && Utilities.chessBoard[blueSelection.x, blueSelection.y] != null)
             {
-                Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.enabled = false;
+                //Color chessColor = Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.GetComponent<SpriteRenderer>().color;
+                //chessColor = new Color(chessColor.r, chessColor.g, chessColor.b, 0.0f);
+
+                Utilities.chessBoard[blueSelection.x, blueSelection.y].handSelector.GetComponent<Animator>().SetTrigger("fade");
+                //Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.GetComponent<SpriteRenderer>().color = chessColor;
+                //Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.enabled = false;
 
                 int targetX = hit.collider.GetComponent<ChessPiece>().CurrentX;
                 int targetY = hit.collider.GetComponent<ChessPiece>().CurrentY;
 
                 blueSelection = new Vector2Int(targetX, targetY);
-                Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.enabled = true;
+                //Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.enabled = true;
+
+                //Color chessColor = Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.GetComponent<SpriteRenderer>().color;
+                //chessColor = new Color(chessColor.r, chessColor.g, chessColor.b, 1.0f);
+
+                //Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.GetComponent<SpriteRenderer>().color = chessColor;
+                Utilities.chessBoard[blueSelection.x, blueSelection.y].handSelector.GetComponent<Animator>().SetTrigger("appear");
 
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].selectorAudio.pitch = 1.0f;
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].selectorAudio.Play();
@@ -278,7 +289,7 @@ public class BoardManager : MonoBehaviour
 
             if (hit.collider != null && hit.collider.GetComponent<ChessPiece>().isWhite && Utilities.chessBoard[blueSelection.x, blueSelection.y] != null)
             {
-                Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.enabled = false;
+                //Utilities.chessBoard[blueSelection.x, blueSelection.y].handSelector.enabled = false;
                 blueSelectedPiece.selectedOutline.enabled = false;
                 blueSelectedPiece = null;
 
@@ -286,7 +297,7 @@ public class BoardManager : MonoBehaviour
                 int targetY = hit.collider.GetComponent<ChessPiece>().CurrentY;
 
                 blueSelection = new Vector2Int(targetX, targetY);
-                Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.enabled = true;
+                Utilities.chessBoard[blueSelection.x, blueSelection.y].handSelector.enabled = true;
 
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].selectorAudio.pitch = 1.0f;
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].selectorAudio.Play();
@@ -306,13 +317,13 @@ public class BoardManager : MonoBehaviour
 
             if (hit.collider != null && !hit.collider.GetComponent<ChessPiece>().isWhite)
             {
-                Utilities.chessBoard[redSelection.x, redSelection.y].glow.enabled = false;
+                Utilities.chessBoard[redSelection.x, redSelection.y].handSelector.enabled = false;
 
                 int targetX = hit.collider.GetComponent<ChessPiece>().CurrentX;
                 int targetY = hit.collider.GetComponent<ChessPiece>().CurrentY;
 
                 redSelection = new Vector2Int(targetX, targetY);
-                Utilities.chessBoard[redSelection.x, redSelection.y].glow.enabled = true;
+                Utilities.chessBoard[redSelection.x, redSelection.y].handSelector.enabled = true;
 
                 Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.pitch = 1.0f;
                 Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.Play();
@@ -328,7 +339,7 @@ public class BoardManager : MonoBehaviour
 
             if (hit.collider != null && hit.collider.GetComponent<ChessPiece>().isWhite && Utilities.chessBoard[redSelection.x, redSelection.y] != null)
             {
-                Utilities.chessBoard[redSelection.x, redSelection.y].glow.enabled = false;
+                Utilities.chessBoard[redSelection.x, redSelection.y].handSelector.enabled = false;
                 redSelectedPiece.selectedOutline.enabled = false;
                 redSelectedPiece = null;
 
@@ -336,7 +347,7 @@ public class BoardManager : MonoBehaviour
                 int targetY = hit.collider.GetComponent<ChessPiece>().CurrentY;
 
                 redSelection = new Vector2Int(targetX, targetY);
-                Utilities.chessBoard[redSelection.x, redSelection.y].glow.enabled = true;
+                Utilities.chessBoard[redSelection.x, redSelection.y].handSelector.enabled = true;
 
                 Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.pitch = 1.0f;
                 Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.Play();
@@ -365,7 +376,8 @@ public class BoardManager : MonoBehaviour
             if (blueSelectedPiece != null)
             {
                 // Player 1 unselects their piece
-                blueSelectedPiece.glow.enabled = true;
+                blueSelectedPiece.handSelector.GetComponent<Animator>().SetTrigger("openHand");
+                //blueSelectedPiece.handSelector.enabled = true;
                 blueSelectedPiece.selectedOutline.enabled = false;
                 blueSelectedPiece = null;
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].HidePossibleActions();
@@ -380,9 +392,13 @@ public class BoardManager : MonoBehaviour
         {
             if (blueSelectedPiece == null)
             {
+                Utilities.chessBoard[blueSelection.x, blueSelection.y].handSelector.GetComponent<Animator>().SetTrigger("closeHand");
                 //blueSelectedPiece.glow.enabled = false;
-                //blueSelectedPiece.selectedOutline.enabled = true;
+                
                 SelectPiece(blueSelection.x, blueSelection.y, 1);
+
+                blueSelectedPiece.selectedOutline.enabled = true;
+
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].ShowPossibleActions();
 
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].selectorAudio.pitch = 0.7f;
@@ -397,7 +413,7 @@ public class BoardManager : MonoBehaviour
         {
             if (redSelectedPiece != null)
             {
-                redSelectedPiece.glow.enabled = true;
+                redSelectedPiece.handSelector.enabled = true;
                 redSelectedPiece.selectedOutline.enabled = false;
                 redSelectedPiece = null;
                 Utilities.chessBoard[redSelection.x, redSelection.y].HidePossibleActions();
@@ -480,13 +496,13 @@ public class BoardManager : MonoBehaviour
         if (player == 1 && Utilities.chessBoard[x, y].isWhite)
         {
             blueSelectedPiece = Utilities.chessBoard[x, y];
-            blueSelectedPiece.glow.enabled = false;
+            //blueSelectedPiece.glow.enabled = false;
             blueSelectedPiece.selectedOutline.enabled = true;
         }
         if (player == 2 && !Utilities.chessBoard[x, y].isWhite)
         {
             redSelectedPiece = Utilities.chessBoard[x, y];
-            redSelectedPiece.glow.enabled = false;
+            //redSelectedPiece.glow.enabled = false;
             redSelectedPiece.selectedOutline.enabled = true;
         }        
     }

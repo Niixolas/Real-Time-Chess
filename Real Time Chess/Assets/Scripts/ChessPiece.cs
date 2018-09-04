@@ -27,8 +27,8 @@ public abstract class ChessPiece : MonoBehaviour
     [Tooltip("Reference to filling healthbar")]
     public HealthBar healthBar;
 
-    [Tooltip("Reference to the pieces glow selection sprite")]
-    public SpriteRenderer glow;
+    [Tooltip("Reference to the pieces hand selection sprite")]
+    public SpriteRenderer handSelector;
 
     [Tooltip("Reference to the pieces selected outline sprite")]
     public SpriteRenderer selectedOutline;

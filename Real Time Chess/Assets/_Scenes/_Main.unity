@@ -5192,7 +5192,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1216941537
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8131,7 +8131,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You can select a piece using the <color=#00E400>A</color> button.
+  m_Text: Hold the <color=#00E400>A</color> button and use the left stick to change
+    pieces.
 --- !u!222 &1813053688
 CanvasRenderer:
   m_ObjectHideFlags: 0
