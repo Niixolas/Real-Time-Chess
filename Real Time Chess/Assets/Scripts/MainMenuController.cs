@@ -12,6 +12,8 @@ public class MainMenuController : MonoBehaviour
 
     public GameObject shotObject;
 
+    public Animator fadePanel;
+
     private bool canMove = true;
 
     private void Start()
@@ -40,7 +42,10 @@ public class MainMenuController : MonoBehaviour
                 GameObject shot = Instantiate(shotObject, menuPawn.transform);
                 shot.GetComponent<Rigidbody2D>().velocity = new Vector2(5.0f, 0.0f);
                 canMove = false;
-                Invoke("LoadGame", 1.5f);                
+
+                fadePanel.SetTrigger("fade");
+
+                Invoke("LoadGame", 2.0f);                
             }
             else if (menuPawn.transform.localPosition.y == -155.0f)
             {

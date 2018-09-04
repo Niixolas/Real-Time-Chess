@@ -29,6 +29,9 @@ public class BoardManager : MonoBehaviour
     [Tooltip("Prefab for the starting text")]
     public Text startText;
 
+    [Tooltip("The fade animation")]
+    public Animator fadeIn;
+
     [Header("References")]
     [Tooltip("Reference to the moving sound")]
     public AudioClip moveClip;
@@ -112,6 +115,8 @@ public class BoardManager : MonoBehaviour
         {
             FindObjectOfType<StateController>().StartChessAI();
         }
+
+        fadeIn.SetTrigger("fadeIn");
 
         // Trigger the start game after a short delay
         Invoke("StartGame", 1.5f);
