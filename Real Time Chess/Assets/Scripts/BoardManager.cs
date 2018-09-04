@@ -132,14 +132,14 @@ public class BoardManager : MonoBehaviour
     /// </summary>
     void Update ()
     {
-        if (startText.enabled == true)
-        {
-            startText.color = new Color(startText.color.r, startText.color.g, startText.color.b, startText.color.a - 0.3f * Time.deltaTime);
-            if (startText.color.a <= 0)
-            {
-                startText.enabled = false;
-            }
-        }
+        //if (startText.enabled == true)
+        //{
+        //    startText.color = new Color(startText.color.r, startText.color.g, startText.color.b, startText.color.a - 0.3f * Time.deltaTime);
+        //    if (startText.color.a <= 0)
+        //    {
+        //        startText.enabled = false;
+        //    }
+        //}
 
         if (!gameOver && gameStarted)
         {
