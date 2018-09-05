@@ -256,23 +256,13 @@ public class BoardManager : MonoBehaviour
 
             if (hit.collider != null && hit.collider.GetComponent<ChessPiece>().isWhite && Utilities.chessBoard[blueSelection.x, blueSelection.y] != null)
             {
-                //Color chessColor = Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.GetComponent<SpriteRenderer>().color;
-                //chessColor = new Color(chessColor.r, chessColor.g, chessColor.b, 0.0f);
-
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].handSelector.GetComponent<Animator>().SetTrigger("fade");
-                //Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.GetComponent<SpriteRenderer>().color = chessColor;
-                //Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.enabled = false;
 
                 int targetX = hit.collider.GetComponent<ChessPiece>().CurrentX;
                 int targetY = hit.collider.GetComponent<ChessPiece>().CurrentY;
 
                 blueSelection = new Vector2Int(targetX, targetY);
-                //Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.enabled = true;
 
-                //Color chessColor = Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.GetComponent<SpriteRenderer>().color;
-                //chessColor = new Color(chessColor.r, chessColor.g, chessColor.b, 1.0f);
-
-                //Utilities.chessBoard[blueSelection.x, blueSelection.y].glow.GetComponent<SpriteRenderer>().color = chessColor;
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].handSelector.GetComponent<Animator>().SetTrigger("appear");
 
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].selectorAudio.pitch = 1.0f;
@@ -289,7 +279,6 @@ public class BoardManager : MonoBehaviour
 
             if (hit.collider != null && hit.collider.GetComponent<ChessPiece>().isWhite && Utilities.chessBoard[blueSelection.x, blueSelection.y] != null)
             {
-                //Utilities.chessBoard[blueSelection.x, blueSelection.y].handSelector.enabled = false;
                 blueSelectedPiece.selectedOutline.enabled = false;
                 blueSelectedPiece = null;
 
@@ -317,13 +306,14 @@ public class BoardManager : MonoBehaviour
 
             if (hit.collider != null && !hit.collider.GetComponent<ChessPiece>().isWhite)
             {
-                Utilities.chessBoard[redSelection.x, redSelection.y].handSelector.enabled = false;
+                Utilities.chessBoard[redSelection.x, redSelection.y].handSelector.GetComponent<Animator>().SetTrigger("fade");
 
                 int targetX = hit.collider.GetComponent<ChessPiece>().CurrentX;
                 int targetY = hit.collider.GetComponent<ChessPiece>().CurrentY;
 
                 redSelection = new Vector2Int(targetX, targetY);
-                Utilities.chessBoard[redSelection.x, redSelection.y].handSelector.enabled = true;
+
+                Utilities.chessBoard[redSelection.x, redSelection.y].handSelector.GetComponent<Animator>().SetTrigger("appear");
 
                 Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.pitch = 1.0f;
                 Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.Play();
@@ -339,7 +329,6 @@ public class BoardManager : MonoBehaviour
 
             if (hit.collider != null && hit.collider.GetComponent<ChessPiece>().isWhite && Utilities.chessBoard[redSelection.x, redSelection.y] != null)
             {
-                Utilities.chessBoard[redSelection.x, redSelection.y].handSelector.enabled = false;
                 redSelectedPiece.selectedOutline.enabled = false;
                 redSelectedPiece = null;
 
@@ -362,38 +351,25 @@ public class BoardManager : MonoBehaviour
         // Check if player 1 pressed action button
         if (InputController.Instance.p1Pressed)
         {
-            //if (blueSelectedPiece == null)
-            //{
-            //    // If blue player is not already selecting a piece, and the current selection is not null and is also a blue piece
-            //    if (Utilities.chessBoard[blueSelection.x, blueSelection.y] != null && Utilities.chessBoard[blueSelection.x, blueSelection.y].isWhite)
-            //    {
-            //        SelectPiece(blueSelection.x, blueSelection.y, 1);
-            //        Utilities.chessBoard[blueSelection.x, blueSelection.y].ShowPossibleActions();
-            //    }
-            //}
-            //else
-            //{
             if (blueSelectedPiece != null)
             {
                 // Player 1 unselects their piece
                 blueSelectedPiece.handSelector.GetComponent<Animator>().SetTrigger("openHand");
-                //blueSelectedPiece.handSelector.enabled = true;
+
                 blueSelectedPiece.selectedOutline.enabled = false;
                 blueSelectedPiece = null;
+
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].HidePossibleActions();
 
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].selectorAudio.pitch = 1.0f;
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].selectorAudio.Play();
             }
-                
-            //}
         }
         else
         {
             if (blueSelectedPiece == null)
             {
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].handSelector.GetComponent<Animator>().SetTrigger("closeHand");
-                //blueSelectedPiece.glow.enabled = false;
                 
                 SelectPiece(blueSelection.x, blueSelection.y, 1);
 
@@ -403,9 +379,7 @@ public class BoardManager : MonoBehaviour
 
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].selectorAudio.pitch = 0.7f;
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].selectorAudio.Play();
-                //Utilities.chessBoard[blueSelection.x, blueSelection.y].selectorAudio.pitch = 1.0f;
             }
-            
         }
 
         // Check if player 2 pressed action button
@@ -413,36 +387,30 @@ public class BoardManager : MonoBehaviour
         {
             if (redSelectedPiece != null)
             {
-                redSelectedPiece.handSelector.enabled = true;
+                // Player 2 unselects their piece
+                redSelectedPiece.handSelector.GetComponent<Animator>().SetTrigger("openHand");
+
                 redSelectedPiece.selectedOutline.enabled = false;
                 redSelectedPiece = null;
+
                 Utilities.chessBoard[redSelection.x, redSelection.y].HidePossibleActions();
 
                 Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.pitch = 1.0f;
                 Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.Play();
-                //if (Utilities.chessBoard[redSelection.x, redSelection.y] != null && !Utilities.chessBoard[redSelection.x, redSelection.y].isWhite)
-                //{
-                //    SelectPiece(redSelection.x, redSelection.y, 2);
-                //    Utilities.chessBoard[redSelection.x, redSelection.y].ShowPossibleActions();
-                //}
             }
         }
         else
         {
             if (redSelectedPiece == null)
             {
+                Utilities.chessBoard[redSelection.x, redSelection.y].handSelector.GetComponent<Animator>().SetTrigger("closeHand");
+
                 SelectPiece(redSelection.x, redSelection.y, 2);
                 Utilities.chessBoard[redSelection.x, redSelection.y].ShowPossibleActions();
 
                 Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.pitch = 0.7f;
                 Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.Play();
-                //Utilities.chessBoard[redSelection.x, redSelection.y].selectorAudio.pitch = 1.0f;
             }
-            // Player 2 unselects their piece
-            //redSelectedPiece.glow.enabled = true;
-            //redSelectedPiece.selectedOutline.enabled = false;
-            //redSelectedPiece = null;
-
         }
 
         // If player 1 is firing
