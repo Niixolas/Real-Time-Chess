@@ -48,7 +48,7 @@ public abstract class ChessPiece : MonoBehaviour
     [Tooltip("Reference to selector movement audio source")]
     public AudioSource selectorAudio;
 
-    //[Tooltip("Reference to the sound when hit")]
+    [Tooltip("Reference to the sound when hit")]
     private AudioClip hitClip;
 
     [HideInInspector]
