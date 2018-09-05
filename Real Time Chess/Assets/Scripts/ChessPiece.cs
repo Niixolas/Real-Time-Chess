@@ -247,7 +247,7 @@ public abstract class ChessPiece : MonoBehaviour
 
     public virtual void Fire(int playerNumber)
     {
-        if (Time.time > nextFire && !isMoving)
+        if (Time.time > nextFire)// && !isMoving)
         {
             if (playerNumber == 1)
             {
