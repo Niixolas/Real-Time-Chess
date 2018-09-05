@@ -331,8 +331,8 @@ MonoBehaviour:
   redCheckText: {fileID: 56387654}
   startText: {fileID: 1649621592}
   fadeIn: {fileID: 1216941538}
-  moveClip: {fileID: 8300000, guid: 3b0c45319b40e5d4d86785a34ad46f92, type: 3}
-  hitClip: {fileID: 8300000, guid: 644b5a734312596409857b5da6f2c660, type: 3}
+  moveClip: {fileID: 8300000, guid: d7534d7fa32b2ac40a72aac0bf4b55a7, type: 3}
+  hitClip: {fileID: 8300000, guid: eb667de13c7f6a74693be985b06d9ff8, type: 3}
   blueSelectorClip: {fileID: 8300000, guid: d9c9fd132e2378f4284c4f737770d0b2, type: 3}
   redSelectorClip: {fileID: 8300000, guid: ac955150dc133bb449d74c58b4837615, type: 3}
   SelectionMoveDelay: 0.25

@@ -182,7 +182,7 @@ public abstract class ChessPiece : MonoBehaviour
                     CurrentY = (int)targetPosition.y;
                     Utilities.chessBoard[(int)transform.position.x, (int)transform.position.y] = null;
                     Utilities.chessBoard[(int)targetPosition.x, (int)targetPosition.y] = this;
-                    GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
+                    //GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
                     GetComponent<AudioSource>().Play();
 
                     if (isWhite)
@@ -257,7 +257,9 @@ public abstract class ChessPiece : MonoBehaviour
                     GameObject thisShot = Instantiate(shot, this.transform.position, this.transform.rotation);
                     thisShot.SendMessage("NewStart", playerNumber);
                     thisShot.SendMessage("SetInstigator", this.gameObject);
-                    thisShot.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
+                    thisShot.GetComponent<AudioSource>().pitch = Random.Range(1.2f, 1.6f);
+                    thisShot.GetComponent<AudioSource>().volume = 0.2f;
+                    thisShot.GetComponent<AudioSource>().Play();
                     Destroy(thisShot, 2);
                     healthBar.DealDamage(selfDamagePerShot);
                 }
@@ -270,7 +272,9 @@ public abstract class ChessPiece : MonoBehaviour
                     GameObject thisShot = Instantiate(shot, this.transform.position, this.transform.rotation);
                     thisShot.SendMessage("NewStart", playerNumber);
                     thisShot.SendMessage("SetInstigator", this.gameObject);
-                    thisShot.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
+                    thisShot.GetComponent<AudioSource>().pitch = Random.Range(0.6f, 1.0f);
+                    thisShot.GetComponent<AudioSource>().volume = 0.2f;
+                    thisShot.GetComponent<AudioSource>().Play();
                     Destroy(thisShot, 2);
                     healthBar.DealDamage(selfDamagePerShot);
                 }

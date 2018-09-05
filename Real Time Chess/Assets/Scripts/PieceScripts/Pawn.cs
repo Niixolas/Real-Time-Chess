@@ -49,7 +49,9 @@ public class Pawn : ChessPiece
 
                     thisShot.SendMessage("NewStart", playerNumber);
                     thisShot.SendMessage("SetInstigator", this.gameObject);
-                    thisShot.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
+                    thisShot.GetComponent<AudioSource>().pitch = Random.Range(1.2f, 1.6f);
+                    thisShot.GetComponent<AudioSource>().volume = 0.2f;
+                    thisShot.GetComponent<AudioSource>().Play();
 
                     Vector2 aim = InputController.Instance.p1Aim;
                     Vector2 targetSquare = new Vector2(CurrentX + aim.x, CurrentY + aim.y);
@@ -69,7 +71,9 @@ public class Pawn : ChessPiece
 
                     thisShot.SendMessage("NewStart", playerNumber);
                     thisShot.SendMessage("SetInstigator", this.gameObject);
-                    thisShot.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
+                    thisShot.GetComponent<AudioSource>().pitch = Random.Range(0.6f, 1.0f);
+                    thisShot.GetComponent<AudioSource>().volume = 0.2f;
+                    thisShot.GetComponent<AudioSource>().Play();
 
                     Vector2 aim = InputController.Instance.p2Aim;
                     Vector2 targetSquare = new Vector2(CurrentX + aim.x, CurrentY + aim.y);

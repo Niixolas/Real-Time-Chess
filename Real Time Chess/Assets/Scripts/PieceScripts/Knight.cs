@@ -62,7 +62,9 @@ public class Knight : ChessPiece
 
                 thisShot.SendMessage("NewStart", playerNumber);
                 thisShot.SendMessage("SetInstigator", this.gameObject);
-                thisShot.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
+                thisShot.GetComponent<AudioSource>().pitch = playerNumber == 1 ? Random.Range(1.2f, 1.6f) : Random.Range(0.6f, 1.0f);
+                thisShot.GetComponent<AudioSource>().volume = 0.2f;
+                thisShot.GetComponent<AudioSource>().Play();
 
                 Vector2 targetSquare = new Vector2(CurrentX + aim.x, CurrentY + aim.y);
                 thisShot.SendMessage("SetKnight", targetSquare);

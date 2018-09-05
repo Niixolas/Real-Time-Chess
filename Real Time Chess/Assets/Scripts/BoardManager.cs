@@ -551,6 +551,8 @@ public class BoardManager : MonoBehaviour
 
         aPiece.selectorAudio.volume = 0.2f;
         aPiece.GetComponent<AudioSource>().clip = moveClip;
+        aPiece.GetComponent<AudioSource>().pitch = aPiece.isWhite ? 1.1f : 0.8f;
+        aPiece.GetComponent<AudioSource>().volume = 0.5f;
 
         aPiece.id = idCounter;
         idCounter++;
