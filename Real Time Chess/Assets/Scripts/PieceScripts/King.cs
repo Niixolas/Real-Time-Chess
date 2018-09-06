@@ -22,7 +22,7 @@ public class King : ChessPiece
     {
         base.Update();
 
-        if (healthBar.CurrentHealth <= 10)
+        if (healthBar.CurrentHealth <= 20)
         {
             FindObjectOfType<BoardManager>().SetCheck(isWhite);
         }
