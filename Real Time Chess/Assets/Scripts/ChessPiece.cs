@@ -175,7 +175,6 @@ public abstract class ChessPiece : MonoBehaviour
                     bm.RefreshActions();
                     HidePossibleActions();
 
-
                     targetSquare = destination;
                     targetPosition = Utilities.getTileCenter((int)targetSquare.x, (int)targetSquare.y);
                     CurrentX = (int)targetPosition.x;
@@ -287,8 +286,6 @@ public abstract class ChessPiece : MonoBehaviour
     {
         if (collision.tag == "bullet" && collision.gameObject.layer != LayerMask.NameToLayer("Knight"))
         {
-            
-
             if (collision.gameObject.GetComponent<FireBullet>().playerNum == 1 && !isWhite ||
                 collision.gameObject.GetComponent<FireBullet>().playerNum == 2 && isWhite)
             {
@@ -303,7 +300,6 @@ public abstract class ChessPiece : MonoBehaviour
             {
                 Destroy(collision.gameObject);
             }
-            
         }
     }
 }

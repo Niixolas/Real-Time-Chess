@@ -7,6 +7,8 @@ public class MovePieceAction : ChessAction
 {
     public override void Act(StateController controller)
     {
+        AIUtilities.AIMove = Vector2.zero;
+
         List<Vector2Int> possibleMoves = controller.bm.redSelectedPiece.PossibleMoves();
 
         if (possibleMoves.Count == 0)

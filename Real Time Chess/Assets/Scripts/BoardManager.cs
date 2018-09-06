@@ -32,8 +32,8 @@ public class BoardManager : MonoBehaviour
     [Tooltip("The fade animation")]
     public Animator fadeIn;
 
-    [Header("References")]
-    [Tooltip("Reference to the moving sound")]
+    [Header("Sound Effects")]
+    [Tooltip("Reference to the piece moving sound")]
     public AudioClip moveClip;
 
     [Tooltip("Reference to the firing sound")]
@@ -552,7 +552,7 @@ public class BoardManager : MonoBehaviour
         aPiece.selectorAudio.volume = 0.2f;
         aPiece.GetComponent<AudioSource>().clip = moveClip;
         aPiece.GetComponent<AudioSource>().pitch = aPiece.isWhite ? 1.1f : 0.8f;
-        aPiece.GetComponent<AudioSource>().volume = 0.5f;
+        aPiece.GetComponent<AudioSource>().volume = 0.7f;
 
         aPiece.id = idCounter;
         idCounter++;

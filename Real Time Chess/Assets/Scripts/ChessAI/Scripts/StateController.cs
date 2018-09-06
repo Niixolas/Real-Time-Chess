@@ -34,6 +34,9 @@ public class StateController : MonoBehaviour
     public Vector2Int openingTarget;
 
 
+    public float decisionTime = 1.0f;
+    public float decisionTimer = 1.0f;
+
     public void StartChessAI()
     {
         SetStartWeights();
@@ -62,6 +65,24 @@ public class StateController : MonoBehaviour
 
     }
 
+
+    public void ChooseNewPiece()
+    {
+        shortTermPieceToControl = Random.Range(1, 16) + 16;
+    }
+
+    public bool CanPieceReachTarget(Vector2Int mySquare, Vector2Int targetSquare)
+    {
+        if (bm.redSelectedPiece is Pawn)
+        {
+            if (mySquare.x != targetSquare.x)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
 
     public Vector2Int FindDesiredMovement(Vector2Int mySquare, Vector2Int targetSquare)
@@ -232,6 +253,8 @@ public class StateController : MonoBehaviour
         //AIUtilities.AIPressed = false;
         if (bm.gameStarted)
         {
+            decisionTimer -= Time.deltaTime;
+
             currentState.UpdateState(this);
         }
         
