@@ -33,9 +33,12 @@ public class InputController : MonoBehaviour
     [HideInInspector]
     public bool p1Pressed, p2Pressed;
 
+    private BoardManager bm;
+
     // Set the devices up
     private void Awake()
     {
+
         if (Instance == null)
         {
             Instance = this;
@@ -62,6 +65,7 @@ public class InputController : MonoBehaviour
 
         // Check for and assign gamepads
         var allGamepads = Gamepad.all;
+
         if (allGamepads.Count > 0)
         {
             gamepad1 = allGamepads[0];
@@ -159,7 +163,7 @@ public class InputController : MonoBehaviour
                 p1Move = Vector2.zero;
             }
 
-            if (!playerHasUsedLeftStick)
+            if (!playerHasUsedLeftStick && bm != null && bm.gameStarted)
             {
                 if (p1Move != Vector2.zero)
                 {
@@ -178,7 +182,7 @@ public class InputController : MonoBehaviour
                 p1Aim = Vector2.zero;
             }
 
-            if (!playerHasUsedRightStick)
+            if (!playerHasUsedRightStick && bm != null && bm.gameStarted)
             {
                 if (p1Aim != Vector2.zero)
                 {
@@ -192,7 +196,7 @@ public class InputController : MonoBehaviour
 
             p1Pressed = gamepad1.buttonSouth.isPressed;
 
-            if (!playerHasSelectedPiece)
+            if (!playerHasSelectedPiece && bm != null && bm.gameStarted)
             {
                 playerHasSelectedPiece = p1Pressed;
             }
@@ -225,7 +229,7 @@ public class InputController : MonoBehaviour
                 p2Move = Vector2.zero;
             }
 
-            if (!playerHasUsedLeftStick)
+            if (!playerHasUsedLeftStick && bm != null && bm.gameStarted)
             {
                 if (p1Move != Vector2.zero)
                 {
@@ -245,7 +249,7 @@ public class InputController : MonoBehaviour
                 p2Aim = Vector2.zero;
             }
 
-            if (!playerHasUsedRightStick)
+            if (!playerHasUsedRightStick && bm != null && bm.gameStarted)
             {
                 if (p2Aim != Vector2.zero)
                 {
@@ -259,7 +263,7 @@ public class InputController : MonoBehaviour
 
             p2Pressed = gamepad2.buttonSouth.isPressed;
 
-            if (!playerHasSelectedPiece)
+            if (!playerHasSelectedPiece && bm != null && bm.gameStarted)
             {
                 playerHasSelectedPiece = p2Pressed;
             }
@@ -406,6 +410,11 @@ public class InputController : MonoBehaviour
         }
 
         return movement;
+    }
+
+    public void AssignBoardManager()
+    {
+        bm = FindObjectOfType<BoardManager>();
     }
 
 }

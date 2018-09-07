@@ -120,6 +120,7 @@ public class BoardManager : MonoBehaviour
 
         // Trigger the start game after a short delay
         Invoke("StartGame", 1.5f);
+        InputController.Instance.AssignBoardManager();
     }
 
     private void StartGame()
