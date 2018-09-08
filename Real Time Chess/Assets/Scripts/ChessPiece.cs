@@ -59,7 +59,7 @@ public abstract class ChessPiece : MonoBehaviour
     public GameObject shot;
 
     [HideInInspector]
-    public bool canMove;
+    public bool canMove, canMoveAfterSelecting;
     [HideInInspector]
     public float nextMove;
 
@@ -159,7 +159,7 @@ public abstract class ChessPiece : MonoBehaviour
 
     public virtual void MovePiece()
     {
-        if (canMove)
+        if (canMove && canMoveAfterSelecting)
         {
             Vector2 movement = isWhite ? InputController.Instance.p1Move : InputController.Instance.p2Move;
 

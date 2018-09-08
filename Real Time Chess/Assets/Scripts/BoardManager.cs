@@ -444,7 +444,7 @@ public class BoardManager : MonoBehaviour
             if (blueSelectedPiece == null)
             {
                 Utilities.chessBoard[blueSelection.x, blueSelection.y].handSelector.GetComponent<Animator>().SetTrigger("closeHand");
-                
+
                 SelectPiece(blueSelection.x, blueSelection.y, 1);
 
                 blueSelectedPiece.selectedOutline.enabled = true;
@@ -540,13 +540,33 @@ public class BoardManager : MonoBehaviour
             blueSelectedPiece = Utilities.chessBoard[x, y];
             //blueSelectedPiece.glow.enabled = false;
             blueSelectedPiece.selectedOutline.enabled = true;
+            blueSelectedPiece.canMoveAfterSelecting = false;
+            Invoke("TurnOffBlueCanMove", 0.2f);
         }
         if (player == 2 && !Utilities.chessBoard[x, y].isWhite)
         {
             redSelectedPiece = Utilities.chessBoard[x, y];
             //redSelectedPiece.glow.enabled = false;
             redSelectedPiece.selectedOutline.enabled = true;
+            redSelectedPiece.canMoveAfterSelecting = false;
+            Invoke("TurnOffRedCanMove", 0.2f);
         }        
+    }
+
+    private void TurnOffBlueCanMove()
+    {
+        if (blueSelectedPiece != null)
+        {
+            blueSelectedPiece.canMoveAfterSelecting = true;
+        }
+    }
+
+    private void TurnOffRedCanMove()
+    {
+        if (redSelectedPiece != null)
+        {
+            redSelectedPiece.canMoveAfterSelecting = true;
+        }
     }
 
     /// <summary>
