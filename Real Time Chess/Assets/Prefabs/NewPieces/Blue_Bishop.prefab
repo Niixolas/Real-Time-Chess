@@ -197,7 +197,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
 --- !u!82 &82085556437297138
 AudioSource:
@@ -556,6 +556,7 @@ MonoBehaviour:
   isMoving: 0
   shot: {fileID: 0}
   canMove: 0
+  canMoveAfterSelecting: 0
   nextMove: 0
   id: 0
 --- !u!114 &114399973138353806
