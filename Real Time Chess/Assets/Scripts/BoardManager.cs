@@ -349,7 +349,7 @@ public class BoardManager : MonoBehaviour
         if (InputController.Instance.p1DPad != Vector2.zero && BlueSelectionMoveTime == 0.0f)
         {
             Vector2 rayStart = Utilities.getTileCenter(blueSelection.x, blueSelection.y);
-            RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.7f, InputController.Instance.p1DPad, Mathf.Infinity, LayerMask.GetMask("BluePieces"));
+            RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.5f, InputController.Instance.p1DPad, Mathf.Infinity, LayerMask.GetMask("BluePieces"));
 
             if (hit.collider == null)
             {
@@ -404,7 +404,7 @@ public class BoardManager : MonoBehaviour
         if (InputController.Instance.p2DPad != Vector2.zero && RedSelectionMoveTime == 0.0f)
         {
             Vector2 rayStart = Utilities.getTileCenter(redSelection.x, redSelection.y);
-            RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.7f, InputController.Instance.p2DPad, Mathf.Infinity, LayerMask.GetMask("RedPieces"));
+            RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.5f, InputController.Instance.p2DPad, Mathf.Infinity, LayerMask.GetMask("RedPieces"));
 
             if (hit.collider == null)
             {
