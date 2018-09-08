@@ -79,6 +79,25 @@ public class BoardManager : MonoBehaviour
 
     private int idCounter = 0;
 
+    private bool hasShownBlueTargets, hasShownRedTargets;
+    private float timeUntilShowingBlueTargets, timeUntilShowingRedTargets;
+    private float delayUntilShowingTargets = 0.5f;
+    private float timeUntilNoLongerShowTargets = 60.0f;
+
+    public void ResetShowTargets(bool isWhite)
+    {
+        if (isWhite)
+        {
+            hasShownBlueTargets = false;
+            timeUntilShowingBlueTargets = delayUntilShowingTargets;
+        }
+        else
+        {
+            hasShownRedTargets = false;
+            timeUntilShowingRedTargets = delayUntilShowingTargets;
+        }
+    }
+
     // Use this for initialization
     void Start ()
     {
@@ -149,6 +168,50 @@ public class BoardManager : MonoBehaviour
         {
             RedSelectionMoveTime -= Time.deltaTime;
             RedSelectionMoveTime = RedSelectionMoveTime < 0 ? 0 : RedSelectionMoveTime;
+        }      
+
+        // Set a delay for showing the target boxes, and disable them completely after a certain time
+        if (timeUntilNoLongerShowTargets > 0)
+        {
+            timeUntilNoLongerShowTargets -= Time.deltaTime;
+
+            if (timeUntilShowingBlueTargets > 0)
+            {
+                timeUntilShowingBlueTargets -= Time.deltaTime;
+            }
+            else
+            {
+                if (!hasShownBlueTargets)
+                {
+                    hasShownBlueTargets = true;
+                    if (blueSelectedPiece != null)
+                    {
+                        blueSelectedPiece.ShowPossibleActions();
+                    }
+                }
+                timeUntilShowingBlueTargets = 0;
+            }
+
+            if (timeUntilShowingRedTargets > 0)
+            {
+                timeUntilShowingRedTargets -= Time.deltaTime;
+            }
+            else
+            {
+                if (!hasShownRedTargets)
+                {
+                    hasShownRedTargets = true;
+                    if (redSelectedPiece != null)
+                    {
+                        redSelectedPiece.ShowPossibleActions();
+                    }
+                }
+                timeUntilShowingRedTargets = 0;
+            }            
+        }
+        else
+        {
+            timeUntilNoLongerShowTargets = 0;
         }
     }
 
@@ -276,7 +339,7 @@ public class BoardManager : MonoBehaviour
         if (InputController.Instance.p1DPad != Vector2.zero && BlueSelectionMoveTime == 0.0f)
         {
             Vector2 rayStart = Utilities.getTileCenter(blueSelection.x, blueSelection.y);
-            RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.3f, InputController.Instance.p1DPad, Mathf.Infinity, LayerMask.GetMask("BluePieces"));
+            RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.7f, InputController.Instance.p1DPad, Mathf.Infinity, LayerMask.GetMask("BluePieces"));
 
             if (hit.collider != null && hit.collider.GetComponent<ChessPiece>().isWhite && Utilities.chessBoard[blueSelection.x, blueSelection.y] != null)
             {
@@ -303,7 +366,7 @@ public class BoardManager : MonoBehaviour
         if (InputController.Instance.p2Move != Vector2.zero && redSelectedPiece == null && RedSelectionMoveTime == 0.0f)
         {
             Vector2 rayStart = Utilities.getTileCenter(redSelection.x, redSelection.y);
-            RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.2f, InputController.Instance.p2MoveFloat, 10.0f, LayerMask.GetMask("RedPieces"));
+            RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.3f, InputController.Instance.p2MoveFloat, 10.0f, LayerMask.GetMask("RedPieces"));
 
             if (hit.collider != null && !hit.collider.GetComponent<ChessPiece>().isWhite)
             {
@@ -326,7 +389,7 @@ public class BoardManager : MonoBehaviour
         if (InputController.Instance.p2DPad != Vector2.zero && RedSelectionMoveTime == 0.0f)
         {
             Vector2 rayStart = Utilities.getTileCenter(redSelection.x, redSelection.y);
-            RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.3f, InputController.Instance.p2DPad, Mathf.Infinity, LayerMask.GetMask("RedPieces"));
+            RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.7f, InputController.Instance.p2DPad, Mathf.Infinity, LayerMask.GetMask("RedPieces"));
 
             if (hit.collider != null && hit.collider.GetComponent<ChessPiece>().isWhite && Utilities.chessBoard[redSelection.x, redSelection.y] != null)
             {

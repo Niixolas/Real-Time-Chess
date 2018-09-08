@@ -133,7 +133,7 @@ public abstract class ChessPiece : MonoBehaviour
                 CheckPawnPromotion();
 
                 // Refresh move and aim boxes
-                bm.RefreshActions();  
+                //bm.RefreshActions();  
 
                 if (moveDelay != 0)
                 {
@@ -172,8 +172,9 @@ public abstract class ChessPiece : MonoBehaviour
                 if (IsMovePossible((int)destination.x, (int)destination.y, Utilities.chessBoard[(int)destination.x, (int)destination.y]))
                 {
                     isMoving = true;
-                    bm.RefreshActions();
+                    //bm.RefreshActions();
                     HidePossibleActions();
+                    bm.ResetShowTargets(isWhite);
 
                     targetSquare = destination;
                     targetPosition = Utilities.getTileCenter((int)targetSquare.x, (int)targetSquare.y);
