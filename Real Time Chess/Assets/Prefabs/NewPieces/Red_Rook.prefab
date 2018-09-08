@@ -58,7 +58,6 @@ GameObject:
   - component: {fileID: 61019441676495572}
   - component: {fileID: 96420962029979090}
   - component: {fileID: 82023023595718150}
-  - component: {fileID: 58331385515883986}
   m_Layer: 13
   m_Name: Red_Rook
   m_TagString: Untagged
@@ -94,7 +93,8 @@ GameObject:
   - component: {fileID: 114908081708849066}
   - component: {fileID: 223479351314414850}
   - component: {fileID: 114261427913742304}
-  m_Layer: 0
+  - component: {fileID: 58469115379026664}
+  m_Layer: 14
   m_Name: rookFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,12 +175,12 @@ Transform:
   m_Father: {fileID: 4013382411145288}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &58331385515883986
+--- !u!58 &58469115379026664
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1762855891818624}
+  m_GameObject: {fileID: 1964829573027294}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -196,10 +196,10 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1762855891818624}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -575,6 +575,7 @@ MonoBehaviour:
   canMoveAfterSelecting: 0
   nextMove: 0
   id: 0
+  hitSound: {fileID: 0}
 --- !u!114 &114261427913742304
 MonoBehaviour:
   m_ObjectHideFlags: 1

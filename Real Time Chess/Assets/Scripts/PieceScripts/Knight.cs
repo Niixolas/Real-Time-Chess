@@ -58,7 +58,8 @@ public class Knight : ChessPiece
             if (aim != Vector2.zero)
             {
                 nextFire = Time.time + fireRate;
-                GameObject thisShot = Instantiate(shot, this.transform.position, this.transform.rotation);
+
+                GameObject thisShot = Instantiate(shot, (Vector2)this.transform.position, this.transform.rotation);
 
                 thisShot.SendMessage("NewStart", playerNumber);
                 thisShot.SendMessage("SetInstigator", this.gameObject);

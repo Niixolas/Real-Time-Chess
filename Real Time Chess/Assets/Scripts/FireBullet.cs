@@ -38,6 +38,7 @@ public class FireBullet : MonoBehaviour
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         Vector2 dir = Utilities.getTileCenter((int)targetSquare.x, (int)targetSquare.y) - Utilities.getTileCenter((int)gameObject.transform.position.x, (int)gameObject.transform.position.y);
         rb.velocity = dir * speed;
+        //rb.transform.position += playerNum == 1 ? (Vector3)InputController.Instance.p1KnightAim * 0.3f : (Vector3)InputController.Instance.p2KnightAim * 0.3f;
         GetComponent<Animator>().enabled = true;
     }
 
@@ -48,6 +49,7 @@ public class FireBullet : MonoBehaviour
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         Vector2 dir = Utilities.getTileCenter((int)targetSquare.x, (int)targetSquare.y) - Utilities.getTileCenter((int)gameObject.transform.position.x, (int)gameObject.transform.position.y);
         rb.velocity = dir * speed;
+        //rb.transform.position += playerNum == 1 ? (Vector3)InputController.Instance.p1Aim * 0.5f : (Vector3)InputController.Instance.p2Aim * 0.5f;
     }
 
     private void Update()
@@ -57,11 +59,11 @@ public class FireBullet : MonoBehaviour
             Vector2 currentTile = Utilities.getBoardCoordinates(gameObject.transform.position.x, gameObject.transform.position.y);
             if (currentTile == Utilities.getBoardCoordinates(targetSquare.x, targetSquare.y))
             {
-                gameObject.layer = LayerMask.NameToLayer("Default");
+                gameObject.layer = LayerMask.NameToLayer("Bullets");
             }
 
             Vector2 targetPosition = Utilities.getTileCenter((int)targetSquare.x, (int)targetSquare.y);
-            if (Mathf.Abs(gameObject.transform.position.x - targetPosition.x) <= 0.2 && Mathf.Abs(gameObject.transform.position.y - targetPosition.y) <= 0.2)
+            if (Mathf.Abs(gameObject.transform.position.x - targetPosition.x) <= 0.1f && Mathf.Abs(gameObject.transform.position.y - targetPosition.y) <= 0.1f)
             {
                 Destroy(gameObject);
             }

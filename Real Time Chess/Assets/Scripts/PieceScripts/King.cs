@@ -35,7 +35,7 @@ public class King : ChessPiece
             if ( ( (playerNumber == 1) ? InputController.Instance.p1Aim : InputController.Instance.p2Aim ) != Vector2.zero)
             {
                 nextFire = Time.time + fireRate;
-                GameObject thisShot = Instantiate(shot, this.transform.position, this.transform.rotation);
+                GameObject thisShot = Instantiate(shot, (Vector2)this.transform.position, this.transform.rotation);
 
                 thisShot.SendMessage("NewStart", playerNumber);
                 thisShot.SendMessage("SetInstigator", this.gameObject);

@@ -23,7 +23,8 @@ GameObject:
   - component: {fileID: 114399973138353806}
   - component: {fileID: 223519399787277218}
   - component: {fileID: 114795067542008894}
-  m_Layer: 0
+  - component: {fileID: 58599444341416014}
+  m_Layer: 14
   m_Name: bishopFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +96,6 @@ GameObject:
   - component: {fileID: 61563485837590376}
   - component: {fileID: 96329693778852862}
   - component: {fileID: 82085556437297138}
-  - component: {fileID: 58371560217710146}
   m_Layer: 12
   m_Name: Blue_Bishop
   m_TagString: Untagged
@@ -175,12 +175,12 @@ Transform:
   m_Father: {fileID: 4646569522665430}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &58371560217710146
+--- !u!58 &58599444341416014
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1689481167771098}
+  m_GameObject: {fileID: 1153814288489568}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -196,10 +196,10 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1689481167771098}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -575,6 +575,7 @@ MonoBehaviour:
   canMoveAfterSelecting: 0
   nextMove: 0
   id: 0
+  hitSound: {fileID: 0}
 --- !u!114 &114399973138353806
 MonoBehaviour:
   m_ObjectHideFlags: 1

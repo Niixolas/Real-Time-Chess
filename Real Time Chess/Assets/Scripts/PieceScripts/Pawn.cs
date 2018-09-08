@@ -67,7 +67,7 @@ public class Pawn : ChessPiece
                 if (InputController.Instance.p2Aim != Vector2.zero && IsAimPossible((int)InputController.Instance.p2Aim.x, (int)InputController.Instance.p2Aim.y))
                 {
                     nextFire = Time.time + fireRate;
-                    GameObject thisShot = Instantiate(shot, this.transform.position, this.transform.rotation);
+                    GameObject thisShot = Instantiate(shot, (Vector2)this.transform.position, this.transform.rotation);
 
                     thisShot.SendMessage("NewStart", playerNumber);
                     thisShot.SendMessage("SetInstigator", this.gameObject);

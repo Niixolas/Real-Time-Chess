@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 61628367522849862}
   - component: {fileID: 96068608003336054}
   - component: {fileID: 82053677651650698}
-  - component: {fileID: 58803280826215842}
   m_Layer: 12
   m_Name: Blue_Queen
   m_TagString: Untagged
@@ -94,7 +93,8 @@ GameObject:
   - component: {fileID: 114652769982094732}
   - component: {fileID: 223940700759638352}
   - component: {fileID: 114318577644459324}
-  m_Layer: 0
+  - component: {fileID: 58949639781553536}
+  m_Layer: 14
   m_Name: queenFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,12 +175,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &58803280826215842
+--- !u!58 &58949639781553536
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1008259864901028}
+  m_GameObject: {fileID: 1476583649666554}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -196,10 +196,10 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1008259864901028}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -586,6 +586,7 @@ MonoBehaviour:
   canMoveAfterSelecting: 0
   nextMove: 0
   id: 0
+  hitSound: {fileID: 0}
 --- !u!114 &114652769982094732
 MonoBehaviour:
   m_ObjectHideFlags: 1

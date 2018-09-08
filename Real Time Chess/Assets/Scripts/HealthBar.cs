@@ -138,4 +138,30 @@ public class HealthBar : MonoBehaviour
             Destroy(transform.parent.gameObject);
         }
     }
+
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+
+    //}
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "bullet" && collision.gameObject.layer != LayerMask.NameToLayer("Knight"))
+        {
+            if (collision.gameObject.GetComponent<FireBullet>().playerNum == 1 && !transform.parent.gameObject.GetComponent<ChessPiece>().isWhite ||
+                collision.gameObject.GetComponent<FireBullet>().playerNum == 2 && transform.parent.gameObject.GetComponent<ChessPiece>().isWhite)
+            {
+                transform.parent.gameObject.GetComponent<ChessPiece>().hitSound.pitch = Random.Range(0.9f, 1.0f);
+                transform.parent.gameObject.GetComponent<ChessPiece>().hitSound.Play();
+                GameObject newExplosion = Instantiate(transform.parent.gameObject.GetComponent<ChessPiece>().explosion, this.transform);
+                newExplosion.transform.position = new Vector3(transform.position.x, transform.position.y, -3.0f);
+                Destroy(newExplosion, 0.2f);
+                DealDamage(collision.gameObject.GetComponent<FireBullet>().damage);
+            }
+            if (this.gameObject.transform.parent.gameObject != collision.GetComponent<FireBullet>().instigator)
+            {
+                Destroy(collision.gameObject);
+            }
+        }
+    }
 }

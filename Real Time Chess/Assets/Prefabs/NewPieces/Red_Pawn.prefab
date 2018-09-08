@@ -23,7 +23,8 @@ GameObject:
   - component: {fileID: 114255806216254660}
   - component: {fileID: 223058909789298684}
   - component: {fileID: 114777371385677236}
-  m_Layer: 0
+  - component: {fileID: 58761735888892562}
+  m_Layer: 14
   m_Name: pawnFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +94,6 @@ GameObject:
   - component: {fileID: 61279658569801084}
   - component: {fileID: 96148274408159216}
   - component: {fileID: 82420431916709026}
-  - component: {fileID: 58017437063824586}
   m_Layer: 13
   m_Name: Red_Pawn
   m_TagString: Untagged
@@ -175,12 +175,12 @@ Transform:
   m_Father: {fileID: 4869948017291010}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &58017437063824586
+--- !u!58 &58761735888892562
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1658998771559646}
+  m_GameObject: {fileID: 1304511897642412}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -196,10 +196,10 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1658998771559646}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -635,6 +635,7 @@ MonoBehaviour:
   canMoveAfterSelecting: 0
   nextMove: 0
   id: 0
+  hitSound: {fileID: 0}
 --- !u!114 &114777371385677236
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -56,7 +56,6 @@ GameObject:
   - component: {fileID: 61865470991036708}
   - component: {fileID: 96794755479060030}
   - component: {fileID: 82518829986934558}
-  - component: {fileID: 58679617390547920}
   m_Layer: 12
   m_Name: Blue_Knight
   m_TagString: Untagged
@@ -76,7 +75,8 @@ GameObject:
   - component: {fileID: 114718082454741082}
   - component: {fileID: 223295240198480562}
   - component: {fileID: 114492450948225708}
-  m_Layer: 0
+  - component: {fileID: 58981431005700618}
+  m_Layer: 14
   m_Name: knightFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,12 +175,12 @@ Transform:
   m_Father: {fileID: 4369661104931434}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &58679617390547920
+--- !u!58 &58981431005700618
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1385972136645470}
+  m_GameObject: {fileID: 1474781234287796}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -196,10 +196,10 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1385972136645470}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -575,6 +575,7 @@ MonoBehaviour:
   canMoveAfterSelecting: 0
   nextMove: 0
   id: 0
+  hitSound: {fileID: 0}
 --- !u!114 &114492450948225708
 MonoBehaviour:
   m_ObjectHideFlags: 1

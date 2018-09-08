@@ -72,7 +72,8 @@ public abstract class ChessPiece : MonoBehaviour
 
     protected List<GameObject> targetMoveAndAimSquares;
 
-    private AudioSource hitSound;
+    [HideInInspector]
+    public AudioSource hitSound;
 
     private void Awake()
     {
@@ -254,7 +255,7 @@ public abstract class ChessPiece : MonoBehaviour
                 if (IsAimPossible((int)InputController.Instance.p1Aim.x, (int)InputController.Instance.p1Aim.y))
                 {
                     nextFire = Time.time + fireRate;
-                    GameObject thisShot = Instantiate(shot, this.transform.position, this.transform.rotation);
+                    GameObject thisShot = Instantiate(shot, (Vector2)this.transform.position, this.transform.rotation);
                     thisShot.SendMessage("NewStart", playerNumber);
                     thisShot.SendMessage("SetInstigator", this.gameObject);
                     thisShot.GetComponent<AudioSource>().pitch = Random.Range(1.2f, 1.6f);
@@ -269,7 +270,7 @@ public abstract class ChessPiece : MonoBehaviour
                 if (IsAimPossible((int)InputController.Instance.p2Aim.x, (int)InputController.Instance.p2Aim.y))
                 {
                     nextFire = Time.time + fireRate;
-                    GameObject thisShot = Instantiate(shot, this.transform.position, this.transform.rotation);
+                    GameObject thisShot = Instantiate(shot, (Vector2)this.transform.position, this.transform.rotation);
                     thisShot.SendMessage("NewStart", playerNumber);
                     thisShot.SendMessage("SetInstigator", this.gameObject);
                     thisShot.GetComponent<AudioSource>().pitch = Random.Range(0.6f, 1.0f);
@@ -283,24 +284,5 @@ public abstract class ChessPiece : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "bullet" && collision.gameObject.layer != LayerMask.NameToLayer("Knight"))
-        {
-            if (collision.gameObject.GetComponent<FireBullet>().playerNum == 1 && !isWhite ||
-                collision.gameObject.GetComponent<FireBullet>().playerNum == 2 && isWhite)
-            {
-                hitSound.pitch = Random.Range(0.9f, 1.0f);
-                hitSound.Play();
-                GameObject newExplosion = Instantiate(explosion, this.transform);
-                newExplosion.transform.position = new Vector3(transform.position.x, transform.position.y, -3.0f);
-                Destroy(newExplosion, 0.2f);
-                healthBar.DealDamage(collision.gameObject.GetComponent<FireBullet>().damage);                
-            }
-            if (this.gameObject != collision.GetComponent<FireBullet>().instigator)
-            {
-                Destroy(collision.gameObject);
-            }
-        }
-    }
+    
 }

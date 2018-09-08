@@ -25,10 +25,10 @@ TagManager:
   - Board
   - Knight
   - 
-  - 
+  - Bullets
   - BluePieces
   - RedPieces
-  - 
+  - Healthbar
   - 
   - 
   - 
