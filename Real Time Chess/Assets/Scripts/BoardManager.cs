@@ -154,22 +154,17 @@ public class BoardManager : MonoBehaviour
     {
         if (!gameOver && gameStarted)
         {
-            DrawChessBoard();
+            //DrawChessBoard();
             CheckInputs();
+
+            CheckSelectionMoveTime();
+            CheckTargetBoxes();
         }
 
-        if (BlueSelectionMoveTime > 0)
-        {
-            BlueSelectionMoveTime -= Time.deltaTime;
-            BlueSelectionMoveTime = BlueSelectionMoveTime < 0 ? 0 : BlueSelectionMoveTime;
-        }
+    }
 
-        if (RedSelectionMoveTime > 0)
-        {
-            RedSelectionMoveTime -= Time.deltaTime;
-            RedSelectionMoveTime = RedSelectionMoveTime < 0 ? 0 : RedSelectionMoveTime;
-        }      
-
+    private void CheckTargetBoxes()
+    {
         // Set a delay for showing the target boxes, and disable them completely after a certain time
         if (timeUntilNoLongerShowTargets > 0)
         {
@@ -207,11 +202,26 @@ public class BoardManager : MonoBehaviour
                     }
                 }
                 timeUntilShowingRedTargets = 0;
-            }            
+            }
         }
         else
         {
             timeUntilNoLongerShowTargets = 0;
+        }
+    }
+
+    private void CheckSelectionMoveTime()
+    {
+        if (BlueSelectionMoveTime > 0)
+        {
+            BlueSelectionMoveTime -= Time.deltaTime;
+            BlueSelectionMoveTime = BlueSelectionMoveTime < 0 ? 0 : BlueSelectionMoveTime;
+        }
+
+        if (RedSelectionMoveTime > 0)
+        {
+            RedSelectionMoveTime -= Time.deltaTime;
+            RedSelectionMoveTime = RedSelectionMoveTime < 0 ? 0 : RedSelectionMoveTime;
         }
     }
 
@@ -401,7 +411,7 @@ public class BoardManager : MonoBehaviour
                 hit = Physics2D.CircleCast(rayStart, 1.2f, InputController.Instance.p2DPad, Mathf.Infinity, LayerMask.GetMask("RedPieces"));
             }
 
-            if (hit.collider != null && hit.collider.GetComponent<ChessPiece>().isWhite && Utilities.chessBoard[redSelection.x, redSelection.y] != null)
+            if (hit.collider != null && !hit.collider.GetComponent<ChessPiece>().isWhite && Utilities.chessBoard[redSelection.x, redSelection.y] != null)
             {
                 redSelectedPiece.selectedOutline.enabled = false;
                 redSelectedPiece = null;
