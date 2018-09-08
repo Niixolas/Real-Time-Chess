@@ -341,6 +341,11 @@ public class BoardManager : MonoBehaviour
             Vector2 rayStart = Utilities.getTileCenter(blueSelection.x, blueSelection.y);
             RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.7f, InputController.Instance.p1DPad, Mathf.Infinity, LayerMask.GetMask("BluePieces"));
 
+            if (hit.collider == null)
+            {
+                hit = Physics2D.CircleCast(rayStart, 1.2f, InputController.Instance.p1DPad, Mathf.Infinity, LayerMask.GetMask("BluePieces"));
+            }
+
             if (hit.collider != null && hit.collider.GetComponent<ChessPiece>().isWhite && Utilities.chessBoard[blueSelection.x, blueSelection.y] != null)
             {
                 blueSelectedPiece.selectedOutline.enabled = false;
@@ -390,6 +395,11 @@ public class BoardManager : MonoBehaviour
         {
             Vector2 rayStart = Utilities.getTileCenter(redSelection.x, redSelection.y);
             RaycastHit2D hit = Physics2D.CircleCast(rayStart, 0.7f, InputController.Instance.p2DPad, Mathf.Infinity, LayerMask.GetMask("RedPieces"));
+
+            if (hit.collider == null)
+            {
+                hit = Physics2D.CircleCast(rayStart, 1.2f, InputController.Instance.p2DPad, Mathf.Infinity, LayerMask.GetMask("RedPieces"));
+            }
 
             if (hit.collider != null && hit.collider.GetComponent<ChessPiece>().isWhite && Utilities.chessBoard[redSelection.x, redSelection.y] != null)
             {
